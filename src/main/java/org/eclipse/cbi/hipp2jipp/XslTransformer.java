@@ -7,6 +7,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -24,9 +26,18 @@ import org.xml.sax.SAXException;
 
 public class XslTransformer {
 
-    private String XSL_DIR = "xsl";
-    public static String DEFAULT_TRANSFORMED_FILE_EXTENSION = ".transformed.xml";
+    private static final String GENERAL_CONFIG_XSL = "config.main.xsl";
+    private static final String JOB_CONFIG_XSL = "config.job.xsl";
+    private static final String BUILD_XSL = "build.xsl";
 
+    private static final String GENERAL_CONFIG_XML = "config.xml";
+    private static final String JOB_CONFIG_XML = "config.xml";
+    private static final String BUILD_XML = "build.xml";
+    private static final String DEFAULT_BACKUP_FILE_EXTENSION = ".bak";
+    private static final String XSL_DIR = "xsl";
+    public static final String DEFAULT_TRANSFORMED_FILE_EXTENSION = ".transformed.xml";
+
+    private static XslTransformer xslTransformer = new XslTransformer();
     private TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
     public void transform(File inputFile, File outputFile) {
@@ -63,6 +74,22 @@ public class XslTransformer {
         }
     }
 
+    public void transform(File inputFile) {
+        try {
+            File tempFile = File.createTempFile(inputFile.getName(), "tmp", inputFile.getAbsoluteFile().getParentFile());
+            transform(inputFile, tempFile);
+            if (!tempFile.exists() || tempFile.length() == 0) {
+                System.err.println("Error during creation of temp file.");
+                return;
+            }
+            inputFile.delete();
+            Files.copy(tempFile.toPath(), inputFile.toPath());
+            tempFile.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static String getXslFileName(File inputFile) {
         String rootNodeName = getXmlRootNodeName(inputFile);
         if (rootNodeName == null) {
@@ -70,11 +97,11 @@ public class XslTransformer {
         }
         String xslFileName = "";
         if ("build".equalsIgnoreCase(rootNodeName)) {
-            xslFileName = "build.xsl";
+            xslFileName = BUILD_XSL;
         } else if ("project".equalsIgnoreCase(rootNodeName)) {
-            xslFileName = "config.job.xsl";
+            xslFileName = JOB_CONFIG_XSL;
         } else if ("hudson".equalsIgnoreCase(rootNodeName)) {
-            xslFileName = "config.main.xsl";
+            xslFileName = GENERAL_CONFIG_XSL;
         } else {
             System.err.println("Unknown rootNodeName: " + rootNodeName);
             return null;
@@ -96,34 +123,10 @@ public class XslTransformer {
             return null;
         }
     }
-    
-//    public InputStream importConfigXml(InputStream is) {
-//        InputStream returnStream = null;
-//        OutputStream os = null;
-//        transform(is, os, "config.xsl");
 
-        // FIXME
-
-        // // take the copy of the stream and re-write it to an InputStream
-        // PipedInputStream in = new PipedInputStream();
-        // final PipedOutputStream out = new PipedOutputStream(in);
-        // new Thread(new Runnable() {
-        // public void run () {
-        // try {
-        // // write the original OutputStream to the PipedOutputStream
-        // os.writeTo(out);
-        // } catch (IOException e) {
-        // // logging and exception handling should go here
-        // }
-        // }
-        // }).start();
-        //
-//        return returnStream;
-//    }
-    
     public static void main(String[] args) {
-        XslTransformer xslTransformer = new XslTransformer();
-        
+        xslTransformer = new XslTransformer();
+
         if (args.length < 1) {
             showUsage();
             return;
@@ -131,35 +134,111 @@ public class XslTransformer {
 
         String inputFilePath = args[0];
 
-        // check if file exists
         File inputFile = new File(inputFilePath);
         if (!inputFile.exists()) {
-            System.err.println("Input file " + inputFilePath + " does not exist.");
-            return;
-        }
-        if (!inputFile.isFile()) {
-            System.err.println("Input file " + inputFilePath + " is not a file.");
+            System.err.println("Input file " + inputFile.getAbsolutePath() + " does not exist.");
             return;
         }
 
-        // TODO: create backup of original file
-        
-        File outputFile;
-        if (args.length == 2) {
-            outputFile = new File(args[1]);
+        if (inputFile.isFile()) {
+            // single XML file
+            File outputFile;
+            if (args.length == 2) {
+                outputFile = new File(args[1]);
+            } else {
+                String nameWithoutExtension = inputFile.getName().substring(0, inputFile.getName().lastIndexOf("."));
+                outputFile = new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_TRANSFORMED_FILE_EXTENSION);
+            }
+            
+            xslTransformer.transform(inputFile, outputFile);
+            System.out.println("Done. File written: " + outputFile.getName());
         } else {
-            String nameWithoutExtension = inputFile.getName().substring(0, inputFile.getName().lastIndexOf("."));
-            outputFile = new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_TRANSFORMED_FILE_EXTENSION);
+            // assume Hudson root dir
+            File hudsonRootDir = inputFile;
+            File jobsDir = new File(hudsonRootDir, "jobs");
+            if (!jobsDir.exists()) {
+                System.err.println("Jobs dir " + jobsDir.getAbsolutePath() + " does not exist.");
+                return;
+            }
+
+            // check if config files exists
+            File generalConfigFile = new File(hudsonRootDir, GENERAL_CONFIG_XML);
+            if (!generalConfigFile.exists()) {
+                System.err.println("Main config file " + generalConfigFile.getAbsolutePath() + " does not exist.");
+                return;
+            }
+
+            // converting general config.xml
+            createBackupFile(generalConfigFile);
+            System.out.print("Converting config.xml in Hudson root dir " + hudsonRootDir.getAbsolutePath() + "...");
+            xslTransformer.transform(generalConfigFile);
+            System.out.println(" Done.");
+
+            File[] jobDirList = jobsDir.listFiles();
+            Arrays.sort(jobDirList);
+            for (File jobDir : jobDirList) {
+                if (jobDir.isDirectory()) {
+                    File jobConfigFile = new File(jobDir, JOB_CONFIG_XML);
+                    if (!jobConfigFile.exists()) {
+                        System.err.println("Job dir " + jobDir.getName() + " does not contain a config.xml file. Skipping directory...");
+                        continue;
+                    }
+                    // creating backup of config.xml
+                    createBackupFile(jobConfigFile);
+
+                    // converting job config.xml
+                    System.out.print("Converting config.xml in " + jobDir.getName() + "...");
+                    xslTransformer.transform(jobConfigFile);
+                    System.out.println(" Done.");
+                    
+                    convertBuildXmls(jobDir);
+                }
+                System.out.println();
+            }
         }
-        
-        xslTransformer.transform(inputFile, outputFile);
-        System.out.println("Done. File written: " + outputFile.getName());
     }
-    
+
+    private static void convertBuildXmls(File jobDir) {
+        File buildsDir = new File(jobDir, "builds");
+        if (!buildsDir.exists()) {
+            System.err.println("Builds dir " + buildsDir.getName() + " does not exist in " + jobDir.getAbsolutePath() + ". Skipping directory...");
+            return;
+        }
+        File[] buildDirList = buildsDir.listFiles();
+        Arrays.sort(buildDirList);
+        for (File buildDir : buildDirList) {
+            if (buildDir.isDirectory() && !Files.isSymbolicLink(buildDir.toPath())) {
+                File buildFile = new File(buildDir, BUILD_XML);
+                if (!buildFile.exists()) {
+                    System.err.println("Build dir " + jobDir.getAbsolutePath() + " does not contain a build.xml file. Skipping directory...");
+                    continue;
+                }
+                // creating backup of config.xml
+                createBackupFile(buildFile);
+
+                // converting job config.xml
+                System.out.print("Converting " + buildFile.getName() + " in " + buildDir.getName() + "...");
+                xslTransformer.transform(buildFile);
+                System.out.println(" Done.");
+            }
+        }
+    }
+
+    private static void createBackupFile(File file) {
+        // creating backup of config.xml
+        String nameWithoutExtension = file.getName().substring(0, file.getName().lastIndexOf("."));
+        File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_BACKUP_FILE_EXTENSION);
+        try {
+            Files.copy(file.toPath(),backupFile.toPath());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // System.out.println("Created backup for " + file.getName() +".");
+    }
+
     private static void showUsage() {
         System.out.println("Usage:");
-        System.out.println("XslTransformer [inputFile] (outputFile)");
-        System.out.println("outputFile is optional");
+        System.out.println("XslTransformer [hudson root directory/single XML file] [outputFile]");
         System.out.println();
     }
 }

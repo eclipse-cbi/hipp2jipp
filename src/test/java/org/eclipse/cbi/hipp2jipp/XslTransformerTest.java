@@ -35,20 +35,20 @@ public class XslTransformerTest {
 
     @Test
     public void XslTransformerMain_build_Test() {
-        XslTransformerMainTest("xml/build.hudson.xml", "build");
+        xslTransformerMainTest_SingleFile("xml/build.hudson.xml", "build");
     }
 
     @Test
     public void XslTransformerMain_configJob_Test() {
-        XslTransformerMainTest("xml/config.job.hudson-kapua.xml", "project");
+        xslTransformerMainTest_SingleFile("xml/config.job.hudson-kapua.xml", "project");
     }
     
     @Test
     public void XslTransformerMain_configMain_Test() {
-        XslTransformerMainTest("xml/config.main.hudson.xml", "hudson");
+        xslTransformerMainTest_SingleFile("xml/config.main.hudson.xml", "hudson");
     }
 
-    private void XslTransformerMainTest(String inputFileName, String expectedXmlRootNodeName) {
+    private void xslTransformerMainTest_SingleFile(String inputFileName, String expectedXmlRootNodeName) {
         String nameWithoutExtension = inputFileName.substring(0, inputFileName.lastIndexOf("."));
         File transformedFile = new File(nameWithoutExtension + XslTransformer.DEFAULT_TRANSFORMED_FILE_EXTENSION);
         if (transformedFile.exists()) {
@@ -61,5 +61,13 @@ public class XslTransformerTest {
         String xmlRootNodeName = XslTransformer.getXmlRootNodeName(transformedFile);
         assertEquals(expectedXmlRootNodeName, xmlRootNodeName);
     }
-    
+
+    @Test
+    public void xslTransformerMainTest_HudsonDir() {
+        System.out.println();
+        XslTransformer.main(new String[]{"test/hudson"});
+        
+        // TODO: assertions
+    }
+
 }

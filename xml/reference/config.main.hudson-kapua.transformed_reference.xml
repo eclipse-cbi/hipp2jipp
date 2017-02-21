@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><hudson>
+<version>3.3.3</version>
+<numExecutors>2</numExecutors>
+<mode>NORMAL</mode>
+<systemMessage>&lt;a href="http://wiki.eclipse.org/Hudson" style="font-weight:bold"&gt;Hudson at eclipse&lt;/a&gt;</systemMessage>
+<jdks>
+    <jdk>
+      <name>jdk1.8.0-latest</name>
+      <home>/shared/common/jdk1.8.0_x64-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.7.0-latest</name>
+      <home>/shared/common/jdk1.7.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.6.0-latest</name>
+      <home>/shared/common/jdk1.6.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.5.0-latest</name>
+      <home>/shared/common/jdk1.5.0-latest</home>
+      <properties/>
+    </jdk>
+  </jdks>
+<viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+<myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+<slaves/>
+<quietPeriod>5</quietPeriod>
+<scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+<views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+    </hudson.model.AllView>
+  </views>
+<label/>
+<nodeProperties/>
+<globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>4</int>
+          <string>ANT_ARGS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR -Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*eclipse.org"</string>
+          <string>ANT_OPTS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR -Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*eclipse.org"</string>
+          <string>JAVA_ARGS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR -Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*eclipse.org"</string>
+          <string>JVM_OPTS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR -Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*eclipse.org"</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+</hudson>

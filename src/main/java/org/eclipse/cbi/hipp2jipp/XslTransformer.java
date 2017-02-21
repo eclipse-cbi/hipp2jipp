@@ -151,7 +151,7 @@ public class XslTransformer {
             }
             
             xslTransformer.transform(inputFile, outputFile);
-            System.out.println("Done. File written: " + outputFile.getName());
+            System.out.println("Done. File written: " + outputFile.getAbsolutePath());
         } else {
             // assume Hudson root dir
             File hudsonRootDir = inputFile;

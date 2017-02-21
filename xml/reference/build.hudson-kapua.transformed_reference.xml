@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?><build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+<entry>
+<hudson.triggers.SCMTrigger_-SCMTriggerCause/>
+</entry>
+</causeBag>
+    </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction>
+      <build class="build" reference="../../.."/>
+    </hudson.triggers.SCMTrigger_-BuildAction>
+    <hudson.plugins.git.util.BuildData>
+      <buildsByBranchName>
+        <entry>
+          <string>origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked>
+<sha1>01769b0073ce161cc5cdde587c6aabfdfc3a00d4</sha1>
+<branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+</marked>
+<revision reference="../marked"/>
+            <hudsonBuildNumber>4</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>origin/develop</string>
+          <hudson.plugins.git.util.Build>
+            <marked>
+<sha1>276d78ef501f01be0301927d0c7b496ea83e9928</sha1>
+<branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/develop</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+</marked>
+<revision reference="../marked"/>
+            <hudsonBuildNumber>48</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry[2]/hudson.plugins.git.util.Build"/>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.scm.SCMRevisionState_-None/>
+    <maven-build-record>
+      <id>62a3f9fd-6e42-4f7d-b9d1-d57bc1f6a0a3</id>
+      <build class="build" reference="../../.."/>
+      <state>
+        <outer-class reference="../.."/>
+      </state>
+    </maven-build-record>
+    <maven-build-action>
+      <build class="build" reference="../../.."/>
+    </maven-build-action>
+    <hudson.tasks.junit.TestResultAction>
+      <owner class="build" reference="../../.."/>
+      <descriptions class="concurrent-hash-map"/>
+      <failCount>0</failCount>
+      <skipCount>15</skipCount>
+      <totalCount>290</totalCount>
+      <testData/>
+    </hudson.tasks.junit.TestResultAction>
+    <hudson.plugins.jacoco.JacocoBuildAction>
+      <clazz>
+        <missed>1061</missed>
+        <covered>190</covered>
+        <initialized>true</initialized>
+      </clazz>
+      <method>
+        <missed>6154</missed>
+        <covered>889</covered>
+        <initialized>true</initialized>
+      </method>
+      <line>
+        <missed>26349</missed>
+        <covered>2589</covered>
+        <initialized>true</initialized>
+      </line>
+      <complexity>
+        <missed>9491</missed>
+        <covered>964</covered>
+        <initialized>true</initialized>
+      </complexity>
+      <instruction>
+        <missed>117460</missed>
+        <covered>10578</covered>
+        <initialized>true</initialized>
+      </instruction>
+      <branch>
+        <missed>6243</missed>
+        <covered>348</covered>
+        <initialized>true</initialized>
+      </branch>
+      <maxClazz>1</maxClazz>
+      <maxMethod>1</maxMethod>
+      <maxLine>1</maxLine>
+      <maxComplexity>1</maxComplexity>
+      <maxInstruction>1</maxInstruction>
+      <maxBranch>1</maxBranch>
+      <failed>false</failed>
+      <owner class="build" reference="../../.."/>
+      <inclusions>
+        <string/>
+      </inclusions>
+      <exclusions>
+        <string/>
+      </exclusions>
+      <thresholds>
+        <minClass>0</minClass>
+        <maxClass>0</maxClass>
+        <minMethod>0</minMethod>
+        <maxMethod>0</maxMethod>
+        <minLine>0</minLine>
+        <maxLine>0</maxLine>
+        <minBranch>0</minBranch>
+        <maxBranch>0</maxBranch>
+        <minInstruction>0</minInstruction>
+        <maxInstruction>0</maxInstruction>
+        <minComplexity>0</minComplexity>
+        <maxComplexity>0</maxComplexity>
+      </thresholds>
+    </hudson.plugins.jacoco.JacocoBuildAction>
+    <hudson.plugins.sonar.BuildSonarAction/>
+    <hudson.plugins.disk__usage.BuildDiskUsageAction>
+      <diskUsage>
+        <buildUsage>15705669</buildUsage>
+        <wsUsage>0</wsUsage>
+      </diskUsage>
+      <build class="build" reference="../../.."/>
+    </hudson.plugins.disk__usage.BuildDiskUsageAction>
+  </actions>
+  <number>48</number>
+  <result>SUCCESS</result>
+  <duration>408103</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn/>
+  <workspace>/home/hudson/genie.kapua/.hudson/jobs/Develop/workspace</workspace>
+  <hudsonVersion>3.3.3</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits>
+    <string>Andrej Nussdorfer</string>
+  </culprits>
+</build>

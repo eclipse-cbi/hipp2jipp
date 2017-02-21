@@ -1,0 +1,216 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <maven-builder>
+            <disabled>false</disabled>
+            <description></description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>clean install</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>true</privateTmpdir>
+              <pomFile>pom.xml</pomFile>
+              <properties>
+                <entries/>
+              </properties>
+              <errors>true</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>htmlpublisher-HtmlPublisher</string>
+      <external-property>
+        <originalValue class="htmlpublisher.HtmlPublisher">
+          <reportTargets>
+            <htmlpublisher.HtmlPublisherTarget>
+              <reportName>Cucumber reports</reportName>
+              <reportDir>assembly/target/kapua-cucumber-report</reportDir>
+              <reportFiles>index.html</reportFiles>
+              <keepAll>false</keepAll>
+              <allowMissing>true</allowMissing>
+              <wrapperName>htmlpublisher-wrapper.html</wrapperName>
+            </htmlpublisher.HtmlPublisherTarget>
+          </reportTargets>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-sonar-SonarPublisher</string>
+      <external-property>
+        <originalValue class="hudson.plugins.sonar.SonarPublisher">
+          <jdk>(Inherit From Job)</jdk>
+          <branch></branch>
+          <language></language>
+          <mavenOpts></mavenOpts>
+          <jobAdditionalProperties></jobAdditionalProperties>
+          <mavenInstallationName>apache-maven-latest</mavenInstallationName>
+          <rootPom></rootPom>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>https</scheme>
+                  <path>/eclipse/kapua.git</path>
+                  <rawPath>/eclipse/kapua.git</rawPath>
+                  <port>-1</port>
+                  <host>github.com</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>develop</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>false</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-SCMTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.SCMTrigger">
+          <spec>* * * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">jdk1.8.0-latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-junit-JUnitResultArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.junit.JUnitResultArchiver">
+          <testResults>**/target/surefire-reports/*.xml</testResults>
+          <keepLongStdio>false</keepLongStdio>
+          <testDataPublishers/>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-jacoco-JacocoPublisher</string>
+      <external-property>
+        <originalValue class="hudson.plugins.jacoco.JacocoPublisher">
+          <execPattern>**/target/**.exec</execPattern>
+          <classPattern>**/target/classes</classPattern>
+          <sourcePattern>**/src/main/java</sourcePattern>
+          <inclusionPattern></inclusionPattern>
+          <exclusionPattern></exclusionPattern>
+          <minimumInstructionCoverage>0</minimumInstructionCoverage>
+          <minimumBranchCoverage>0</minimumBranchCoverage>
+          <minimumComplexityCoverage>0</minimumComplexityCoverage>
+          <minimumLineCoverage>0</minimumLineCoverage>
+          <minimumMethodCoverage>0</minimumMethodCoverage>
+          <minimumClassCoverage>0</minimumClassCoverage>
+          <maximumInstructionCoverage>0</maximumInstructionCoverage>
+          <maximumBranchCoverage>0</maximumBranchCoverage>
+          <maximumComplexityCoverage>0</maximumComplexityCoverage>
+          <maximumLineCoverage>0</maximumLineCoverage>
+          <maximumMethodCoverage>0</maximumMethodCoverage>
+          <maximumClassCoverage>0</maximumClassCoverage>
+          <changeBuildStatus>false</changeBuildStatus>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>hekonsek@gmail.com</createdBy>
+  <creationTime>1480535585718</creationTime>
+  <properties/>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

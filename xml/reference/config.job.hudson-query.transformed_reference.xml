@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+<actions/>
+<description>Builds for EMF Query for the Oxygen release</description>
+<logRotator class="hudson.tasks.LogRotator">
+<daysToKeep>-1</daysToKeep>
+<numToKeep>15</numToKeep>
+<artifactDaysToKeep>-1</artifactDaysToKeep>
+<artifactNumToKeep>-1</artifactNumToKeep>
+</logRotator>
+<keepDependencies>false</keepDependencies>
+<properties>
+<hudson.plugins.disk__usage.DiskUsageProperty/>
+<hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.ChoiceParameterDefinition>
+                <name>BUILD_TYPE</name>
+                <description>The build type which is one of integration (I), stable (S) or release (R)</description>
+                <choices class="java.util.Arrays$ArrayList">
+                  <a class="string-array">
+                    <string>I</string>
+                    <string>S</string>
+                    <string>R</string>
+                  </a>
+                </choices>
+              </hudson.model.ChoiceParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>BUILD_LABEL</name>
+                <description>An optional label for a stable build, e.g. M5 or RC1</description>
+                <defaultValue>NONE</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+</properties>
+<scm class="hudson.plugins.git.GitSCM">
+<userRemoteConfigs>
+<hudson.plugins.git.UserRemoteConfig>
+<name>origin</name>
+<refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+<url>http://git.eclipse.org/gitroot/emf-query/org.eclipse.emf.query.git</url>
+</hudson.plugins.git.UserRemoteConfig>
+</userRemoteConfigs>
+<branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+<submoduleCfg class="list"/>
+</scm>
+<canRoam>false</canRoam>
+<disabled>false</disabled>
+<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+<jdk>JDK 1.8.0 Latest</jdk>
+<triggers>
+<hudson.triggers.SCMTrigger>
+<spec>*/10 * * * *</spec>
+</hudson.triggers.SCMTrigger>
+<hudson.triggers.TimerTrigger>
+<spec>34 12 * * *</spec>
+</hudson.triggers.TimerTrigger>
+</triggers>
+<concurrentBuild>false</concurrentBuild>
+<builders>
+<hudson.tasks.Maven>
+<targets>clean install</targets>
+<mavenName>(Bundled)</mavenName>
+<pom>org.eclipse.emf.query.releng/pom.xml</pom>
+<usePrivateRepository>true</usePrivateRepository>
+</hudson.tasks.Maven>
+</builders>
+<publishers>
+<hudson.tasks.Mailer>
+<recipients>anthonyh@ca.ibm.com</recipients>
+<dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+<sendToIndividuals>false</sendToIndividuals>
+</hudson.tasks.Mailer>
+<hudson.tasks.junit.JUnitResultArchiver>
+<testResults>**/target/surefire-reports/*.xml</testResults>
+<keepLongStdio>false</keepLongStdio>
+<testDataPublishers/>
+</hudson.tasks.junit.JUnitResultArchiver>
+<hudson.tasks.ArtifactArchiver>
+<artifacts>update-site/**</artifacts>
+<compressionType>GZIP</compressionType>
+<latestOnly>false</latestOnly>
+<autoValidateFileMask>false</autoValidateFileMask>
+</hudson.tasks.ArtifactArchiver>
+</publishers>
+<buildWrappers>
+<hudson.plugins.xvnc.Xvnc>
+<takeScreenshot>false</takeScreenshot>
+</hudson.plugins.xvnc.Xvnc>
+</buildWrappers>
+</project>

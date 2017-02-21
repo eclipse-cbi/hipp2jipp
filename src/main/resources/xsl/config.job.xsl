@@ -63,20 +63,13 @@
   <xsl:template match="creationTime | cascadingChildrenNames | cascading-job-properties | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | properties | cleanWorkspaceRequired | scm | concurrentBuild" />
   -->
 
+  <!-- TODO: how can the choose-when structure changed to template matches especially the catch-all otherwise part? -->
   <xsl:template match="/project/project-properties/entry">
     <xsl:choose>
       <xsl:when test="string = 'parametersDefinitionProperties'">
-      <!-- <xsl:when test="string = 'parametersDefinitionProperties' or string = 'builders'"> -->
+        <!-- <xsl:when test="string = 'parametersDefinitionProperties' or string = 'builders'"> -->
         <!-- TODO: hier weitermachen -> maven-builder umsetzen auf hudson.tasks.Maven -->
         <xsl:copy-of select="*/originalValue/*" />
-      </xsl:when>
-      <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger')">
-        <xsl:variable name="tagName">
-          <xsl:value-of select="*/originalValue/@class" />
-        </xsl:variable>
-        <xsl:element name="{$tagName}">
-          <xsl:copy-of select="*/originalValue/*" />
-        </xsl:element>
       </xsl:when>
       <xsl:when test="contains(string/text(), 'DiskUsageProperty')">
         <xsl:element name="hudson.plugins.disk__usage.DiskUsageProperty">
@@ -87,7 +80,7 @@
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
           <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']"/>
       </xsl:when>
-      <xsl:when test="*/originalValue [@class = 'string' or @class = 'int' or @class = 'boolean']">
+      <xsl:when test="*/originalValue [@class = 'string' or @class = 'int' or @class = 'boolean' or @class = '']">
         <xsl:variable name="tagName">
           <xsl:copy-of select="string/text()" />
         </xsl:variable>
@@ -95,16 +88,41 @@
           <xsl:copy-of select="*/originalValue/text()" />
         </xsl:element>
       </xsl:when>
-      <xsl:otherwise>
+      <xsl:when test="not(*/originalValue) and (*/propertyOverridden [text() = 'false'])">
+        <!-- DO NOTHING! -->
+      </xsl:when>
+      <xsl:when test="not(*/originalValue)">
         <xsl:variable name="tagName">
           <xsl:copy-of select="string/text()" />
         </xsl:variable>
         <xsl:element name="{$tagName}">
-          <xsl:attribute name="class">
-            <xsl:value-of select="*/originalValue/@class" />
-          </xsl:attribute>
-          <xsl:copy-of select="*/originalValue/*" />
+          <xsl:text>FOOBAR TEST FOOBAR</xsl:text>
         </xsl:element>
+      </xsl:when>
+      <xsl:otherwise>
+        <!-- TODO: improve this -->
+        <xsl:choose>
+          <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger')">
+            <xsl:variable name="tagName">
+              <xsl:value-of select="*/originalValue/@class" />
+            </xsl:variable>
+            <xsl:element name="{$tagName}">
+              <xsl:copy-of select="*/originalValue/*" />
+            </xsl:element>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:variable name="tagName">
+              <xsl:copy-of select="string/text()" />
+            </xsl:variable>
+            <xsl:element name="{$tagName}">
+              <xsl:attribute name="class">
+                <xsl:value-of select="*/originalValue/@class" />
+              </xsl:attribute>
+              <xsl:copy-of select="*/originalValue/*" />
+            </xsl:element>
+          </xsl:otherwise>
+        </xsl:choose>
+      
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>

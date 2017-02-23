@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>BUILD_TYPE</name>
+          <description>The build type which is one of integration (I), stable (S) or release (R)</description>
+          <value>I</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>BUILD_LABEL</name>
+          <description>An optional label for a stable build, e.g. M5 or RC1</description>
+          <value>NONE</value>
+        </hudson.model.StringParameterValue>
+      </parameters>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.triggers.TimerTrigger_-TimerTriggerCause/>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.plugins.git.util.BuildData>
+      <buildsByBranchName>
+        <entry>
+          <string>origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <marked>
+              <sha1>fc836049e9807be3d6c2e3f81a1c49585043eb79</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>1415</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+        <entry>
+          <string>origin/R1_7_maintenance</string>
+          <hudson.plugins.git.util.Build>
+            <marked>
+              <sha1>05b1504b42b7ccc7707bfad5f93418d660a32f3d</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/R1_7_maintenance</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </marked>
+            <revision reference="../marked"/>
+            <hudsonBuildNumber>343</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.scm.SCMRevisionState_-None/>
+    
+    
+    <hudson.tasks.junit.TestResultAction>
+      <owner class="build" reference="../../.."/>
+           <descriptions class="concurrent-hash-map"/>
+      <failCount>0</failCount>
+      <skipCount>0</skipCount>
+      <totalCount>25</totalCount>
+      <testData/>
+    </hudson.tasks.junit.TestResultAction>
+    
+  </actions>
+  <number>1415</number>
+  <result>SUCCESS</result>
+  <duration>750016</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn/>
+  <workspace>/home/hudson/genie.query/.hudson/jobs/emf-query-master/workspace</workspace>
+  <hudsonVersion>3.0.1-b2</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits/>
+</build>

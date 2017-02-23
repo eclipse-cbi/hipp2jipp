@@ -72,37 +72,6 @@
         <!-- TODO: hier weitermachen -> maven-builder umsetzen auf hudson.tasks.Maven -->
         <xsl:copy-of select="*/originalValue/*" />
       </xsl:when>
-      <xsl:when test="string [text() = 'logRotator']">
-        <jenkins.model.BuildDiscarderProperty>
-          <xsl:element name="strategy">
-            <xsl:attribute name="class">
-              <xsl:value-of select="*/originalValue/@class" />
-            </xsl:attribute>
-            <xsl:copy-of select="*/originalValue/*" />
-          </xsl:element>
-        </jenkins.model.BuildDiscarderProperty>
-      </xsl:when>
-      <xsl:when test="contains(string/text(), 'DiskUsageProperty')">
-        <xsl:element name="hudson.plugins.disk__usage.DiskUsageProperty">
-          <xsl:copy-of select="*/originalValue/*" />
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="string [text() = 'jdk']">
-        <jdk>
-          <xsl:if test="contains(*/originalValue/text(), '1.8')">
-            <xsl:text>jdk1.8.0-latest</xsl:text>
-          </xsl:if>
-          <xsl:if test="contains(*/originalValue/text(), '1.7')">
-            <xsl:text>jdk1.7.0-latest</xsl:text>
-          </xsl:if>
-          <xsl:if test="contains(*/originalValue/text(), '1.6')">
-            <xsl:text>jdk1.6.0-latest</xsl:text>
-          </xsl:if>
-          <xsl:if test="contains(*/originalValue/text(), '1.5')">
-            <xsl:text>jdk1.5.0-latest</xsl:text>
-          </xsl:if>
-        </jdk>
-      </xsl:when>
       <!-- TODO: can this be improved? -->
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
           <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']"/>
@@ -149,11 +118,11 @@
             </xsl:element>
           </xsl:otherwise>
         </xsl:choose>
-      
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-<!-- HIER WEITERMACHEN
+
+<!-- Continue here
   <xsl:template match="/project/project-properties/describable-list-property/originalValue/maven-builder">
     <xsl:element name="hudson.tasks.Maven">
       <targets>
@@ -171,6 +140,46 @@
     </xsl:element>
   </xsl:template>
 -->
+
+  <!-- LogRotator -->
+  <xsl:template match="/project/project-properties/entry [string/text() = 'logRotator']">
+    <xsl:element name="jenkins.model.BuildDiscarderProperty">
+      <xsl:element name="strategy">
+        <xsl:attribute name="class">
+              <xsl:value-of select="*/originalValue/@class" />
+            </xsl:attribute>
+        <xsl:copy-of select="*/originalValue/*" />
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- DiskUsage -->
+  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'DiskUsageProperty')]">
+    <xsl:element name="hudson.plugins.disk__usage.DiskUsageProperty">
+      <xsl:copy-of select="*/originalValue/*" />
+    </xsl:element>
+  </xsl:template>
+
+  <!-- JDK -->
+  <xsl:template match="/project/project-properties/entry [string/text() = 'jdk']">
+    <xsl:element name="jdk">
+      <xsl:if test="contains(*/originalValue/text(), '1.8')">
+        <xsl:text>jdk1.8.0-latest</xsl:text>
+      </xsl:if>
+      <xsl:if test="contains(*/originalValue/text(), '1.7')">
+        <xsl:text>jdk1.7.0-latest</xsl:text>
+      </xsl:if>
+      <xsl:if test="contains(*/originalValue/text(), '1.6')">
+        <xsl:text>jdk1.6.0-latest</xsl:text>
+      </xsl:if>
+      <xsl:if test="contains(*/originalValue/text(), '1.5')">
+        <xsl:text>jdk1.5.0-latest</xsl:text>
+      </xsl:if>
+    </xsl:element>
+  </xsl:template>
+
+
+
   <xsl:template match="/project/project-properties/entry [string = 'builders']/describable-list-property/originalValue">
     <xsl:copy-of select="*" />
   </xsl:template>
@@ -180,9 +189,9 @@
       <xsl:attribute name="class">
         <xsl:value-of select="@class" />
       </xsl:attribute>
-      <userRemoteConfigs>
+      <xsl:element name="userRemoteConfigs">
         <xsl:for-each select="remoteRepositories/RemoteConfig">
-          <hudson.plugins.git.UserRemoteConfig>
+          <xsl:element name="hudson.plugins.git.UserRemoteConfig">
             <name><xsl:value-of select="name/text()" /></name>
             <refspec>
               <xsl:text>+</xsl:text>
@@ -197,9 +206,9 @@
               <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/host/text()" />
               <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
             </url>
-          </hudson.plugins.git.UserRemoteConfig>
+          </xsl:element>
         </xsl:for-each>
-      </userRemoteConfigs>
+      </xsl:element>
       <xsl:copy-of select="branches" />
       <xsl:copy-of select="doGenerateSubmoduleConfigurations" />
       <xsl:copy-of select="submoduleCfg" />

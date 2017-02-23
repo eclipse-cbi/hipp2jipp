@@ -77,36 +77,17 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <builders class="hudson.util.DescribableList">
-      <maven-builder>
-            <config>
-              <installationId>(Bundled)</installationId>
-              <goals>clean install</goals>
-              <privateRepository>true</privateRepository>
-              <privateTmpdir>false</privateTmpdir>
-              <pomFile>org.eclipse.emf.query.releng/pom.xml</pomFile>
-              <properties>
-                <entries/>
-              </properties>
-              <errors>false</errors>
-              <verbosity>NORMAL</verbosity>
-              <offline>false</offline>
-              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
-              <profiles>
-                <string>hudson.eclipse.org</string>
-                <string>emf-query.target</string>
-              </profiles>
-              <recursive>true</recursive>
-              <checksumMode>NORMAL</checksumMode>
-              <failMode>NORMAL</failMode>
-              <makeMode>NONE</makeMode>
-              <mavenOpts>-Dorg.eclipse.update.jarprocessor.pack200="/shared/common/sun-jdk1.6.0_21_x64/jre/bin"</mavenOpts>
-              <settingsId>NONE</settingsId>
-              <globalSettingsId>NONE</globalSettingsId>
-              <toolChainsId>NONE</toolChainsId>
-            </config>
-          </maven-builder>
-      <hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>clean install</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Dorg.eclipse.update.jarprocessor.pack200="/shared/common/sun-jdk1.6.0_21_x64/jre/bin"</jvmOptions>
+      <pom>org.eclipse.emf.query.releng/pom.xml</pom>
+      <properties>asda=bla
+efefe=aaas
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
             <command>if [ -d "update-site" ]; then
   rm -fr update-site
 fi
@@ -114,7 +95,6 @@ mkdir update-site
 cp -R org.eclipse.emf.query.repository/target/repository/* update-site/
 /bin/sh org.eclipse.emf.query.repository/emf-query-hipp-publish.sh</command>
           </hudson.tasks.Shell>
-    </builders>
   </builders>
   <publishers>
     <hudson.tasks.Mailer>

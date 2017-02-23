@@ -269,7 +269,10 @@
               <privateTmpdir>false</privateTmpdir>
               <pomFile>org.eclipse.emf.query.releng/pom.xml</pomFile>
               <properties>
-                <entries/>
+                <entries>
+                  <entry name="asda" value="bla"/>
+                  <entry name="efefe" value="aaas"/>
+                </entries>
               </properties>
               <errors>false</errors>
               <verbosity>NORMAL</verbosity>

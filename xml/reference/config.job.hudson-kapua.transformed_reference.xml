@@ -34,33 +34,14 @@
   </triggers>
   <concurrentBuild>false</concurrentBuild>
   <builders>
-    <builders class="hudson.util.DescribableList">
-      <maven-builder>
-            <disabled>false</disabled>
-            <description/>
-            <config>
-              <installationId>apache-maven-latest</installationId>
-              <goals>clean install</goals>
-              <privateRepository>true</privateRepository>
-              <privateTmpdir>true</privateTmpdir>
-              <pomFile>pom.xml</pomFile>
-              <properties>
-                <entries/>
-              </properties>
-              <errors>true</errors>
-              <verbosity>NORMAL</verbosity>
-              <offline>false</offline>
-              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
-              <recursive>true</recursive>
-              <checksumMode>NORMAL</checksumMode>
-              <failMode>NORMAL</failMode>
-              <makeMode>NONE</makeMode>
-              <settingsId>NONE</settingsId>
-              <globalSettingsId>NONE</globalSettingsId>
-              <toolChainsId>NONE</toolChainsId>
-            </config>
-          </maven-builder>
-    </builders>
+    <hudson.tasks.Maven>
+      <targets>clean install</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
   </builders>
   <publishers>
     <htmlpublisher.HtmlPublisher>

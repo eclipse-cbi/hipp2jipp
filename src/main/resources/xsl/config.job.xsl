@@ -66,56 +66,37 @@
   -->
 
   <xsl:template match="/project/project-properties/entry">
+    <!-- TODO: can this be improved? -->
     <xsl:choose>
-      <!-- TODO: can this be improved? -->
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
-          <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']"/>
+        <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']" />
+      </xsl:when>
+      <xsl:when test="string = 'builders'">
+        <xsl:apply-templates select="describable-list-property/originalValue"/>
+      </xsl:when>
+      <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger')">
+        <xsl:variable name="tagName">
+          <xsl:value-of select="*/originalValue/@class" />
+        </xsl:variable>
+        <xsl:element name="{$tagName}">
+          <xsl:copy-of select="*/originalValue/*" />
+        </xsl:element>
       </xsl:when>
       <xsl:otherwise>
-        <!-- TODO: improve this -->
-        <xsl:choose>
-          <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger')">
-            <xsl:variable name="tagName">
-              <xsl:value-of select="*/originalValue/@class" />
-            </xsl:variable>
-            <xsl:element name="{$tagName}">
-              <xsl:copy-of select="*/originalValue/*" />
-            </xsl:element>
-          </xsl:when>
-          <xsl:otherwise>
-            <xsl:variable name="tagName">
-              <xsl:copy-of select="string/text()" />
-            </xsl:variable>
-            <xsl:element name="{$tagName}">
-              <xsl:attribute name="class">
-                <xsl:value-of select="*/originalValue/@class" />
-              </xsl:attribute>
-              <xsl:copy-of select="*/originalValue/*" />
-            </xsl:element>
-          </xsl:otherwise>
-        </xsl:choose>
+        <!-- 
+        <xsl:variable name="tagName">
+          <xsl:copy-of select="string/text()" />
+        </xsl:variable>
+        <xsl:element name="{$tagName}">
+          <xsl:attribute name="class">
+            <xsl:value-of select="*/originalValue/@class" />
+          </xsl:attribute>
+          <xsl:copy-of select="*/originalValue/*" />
+        </xsl:element>
+        -->
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-<!-- Continue here
-  <xsl:template match="/project/project-properties/describable-list-property/originalValue/maven-builder">
-    <xsl:element name="hudson.tasks.Maven">
-      <targets>
-        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/goals" />
-      </targets>
-      <mavenName>
-        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/installationId" />
-      </mavenName>
-      <pom>
-        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/pomFile" />
-      </pom>
-      <usePrivateRepository>
-        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/privateRepository" />
-      </usePrivateRepository>
-    </xsl:element>
-  </xsl:template>
--->
 
   <!-- Filter out tags that exist in the XML, but are not set, by just doing nothing-->
   <xsl:template match="/project/project-properties/entry [not(*/originalValue) and (*/propertyOverridden [text() = 'false'])]" />
@@ -240,9 +221,41 @@
     </xsl:element>
   </xsl:template>
 
+  <!-- builders catch-all -->
+  <xsl:template match="/project/project-properties/entry [string/text() = 'builders']/describable-list-property/originalValue">
+    <xsl:apply-templates select="maven-builder" />
+    <xsl:copy-of select="*[not(self::maven-builder)]" />
+  </xsl:template>
 
-  <xsl:template match="/project/project-properties/entry [string = 'builders']/describable-list-property/originalValue">
-    <xsl:copy-of select="*" />
+  <!-- maven-builder -->
+  <xsl:template match="maven-builder">
+    <xsl:element name="hudson.tasks.Maven">
+      <xsl:element name="targets">
+        <xsl:value-of select="config/goals" />
+      </xsl:element>
+      <xsl:element name="mavenName">
+        <!-- apache-maven-latest is the savest bet -->
+        <xsl:text>apache-maven-latest</xsl:text>
+        <!-- ><xsl:value-of select="config/installationId" /> -->
+      </xsl:element>
+      <xsl:element name="jvmOptions">
+        <xsl:value-of select="config/mavenOpts" />
+      </xsl:element>
+      <xsl:element name="pom">
+        <xsl:value-of select="config/pomFile" />
+      </xsl:element>
+      <xsl:element name="properties">
+        <xsl:for-each select="config/properties/entries/entry">
+          <xsl:value-of select="@name" />
+          <xsl:text>=</xsl:text>
+          <xsl:value-of select="@value" />
+          <xsl:text>&#10;</xsl:text>
+        </xsl:for-each>
+      </xsl:element>
+      <xsl:element name="usePrivateRepository">
+        <xsl:value-of select="config/privateRepository" />
+      </xsl:element>
+    </xsl:element>
   </xsl:template>
 
   <xsl:template match="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">

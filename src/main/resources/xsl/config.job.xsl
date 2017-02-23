@@ -41,6 +41,7 @@
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'SonarPublisher')]" />
       </publishers>
       <buildWrappers>
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Xvnc')]" />
       </buildWrappers>
     </project>
@@ -146,8 +147,8 @@
     <xsl:element name="jenkins.model.BuildDiscarderProperty">
       <xsl:element name="strategy">
         <xsl:attribute name="class">
-              <xsl:value-of select="*/originalValue/@class" />
-            </xsl:attribute>
+          <xsl:value-of select="*/originalValue/@class" />
+        </xsl:attribute>
         <xsl:copy-of select="*/originalValue/*" />
       </xsl:element>
     </xsl:element>
@@ -178,6 +179,73 @@
     </xsl:element>
   </xsl:template>
 
+  <!-- TODO: Externalize? -->
+  <!-- BuildTimeOut -->
+  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]">
+    <xsl:element name="hudson.plugins.build__timeout.BuildTimeoutWrapper">
+      <xsl:element name="strategy">
+        <xsl:choose>
+          <xsl:when test="*/originalValue/timeoutType/text() = 'absolute'">
+            <xsl:attribute name="class">
+              <xsl:text>hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy</xsl:text>
+            </xsl:attribute>
+            <!-- TODO: simplify copy-of ? -->
+            <xsl:element name="timeoutMinutes">
+              <xsl:copy-of select="*/originalValue/timeoutMinutes/text()" />
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="*/originalValue/timeoutType/text() = 'elastic'">
+            <xsl:attribute name="class">
+              <xsl:text>hudson.plugins.build_timeout.impl.ElasticTimeOutStrategy</xsl:text>
+            </xsl:attribute>
+            <!-- TODO: simplify copy-of ? -->
+            <xsl:element name="timeoutPercentage">
+              <xsl:copy-of select="*/originalValue/timeoutPercentage/text()" />
+            </xsl:element>
+            <!--
+            Missing in Build Timeout Plugin version 1.11: 
+            <numberOfBuilds>3</numberOfBuilds>
+            <failSafeTimeoutDuration>false</failSafeTimeoutDuration>
+            -->
+            <xsl:element name="timeoutMinutesElasticDefault">
+              <xsl:copy-of select="*/originalValue/timeoutMinutesElasticDefault/text()" />
+            </xsl:element>
+          </xsl:when>
+          <xsl:when test="*/originalValue/timeoutType/text() = 'likelyStuck'">
+            <xsl:attribute name="class">
+              <xsl:text>hudson.plugins.build_timeout.impl.LikelyStuckTimeOutStrategy</xsl:text>
+            </xsl:attribute>
+            <!--
+            Missing in Build Timeout Plugin version 1.11:
+            <timeoutEnvVar>boing</timeoutEnvVar>
+            -->
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- Works with Build Timeout Plugin version 1.7 (same as absolute case above) -->
+            <xsl:attribute name="class">
+              <xsl:text>hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy</xsl:text>
+            </xsl:attribute>
+            <!-- TODO: simplify copy-of ? -->
+            <xsl:element name="timeoutMinutes">
+              <xsl:copy-of select="*/originalValue/timeoutMinutes/text()" />
+            </xsl:element>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:element>
+      <xsl:element name="operationList">
+        <xsl:if test="*/originalValue/failBuild/text() = 'true'">
+          <xsl:element name="hudson.plugins.build__timeout.operations.FailOperation" />
+        </xsl:if>
+        <xsl:if test="*/originalValue/writingDescription/text() = 'true'">
+          <xsl:element name="hudson.plugins.build__timeout.operations.WriteDescriptionOperation" />
+          <!--
+          Missing in Build Timeout Plugin version 1.11:
+          <description>Bla</description>
+          -->
+        </xsl:if>
+      </xsl:element>
+    </xsl:element>
+  </xsl:template>
 
 
   <xsl:template match="/project/project-properties/entry [string = 'builders']/describable-list-property/originalValue">

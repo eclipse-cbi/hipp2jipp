@@ -135,6 +135,14 @@ cp -R org.eclipse.emf.query.repository/target/repository/* update-site/
     </hudson.tasks.ArtifactArchiver>
   </publishers>
   <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>30</timeoutMinutes>
+      </strategy>
+      <operationList>
+        <hudson.plugins.build__timeout.operations.FailOperation/>
+      </operationList>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
     <hudson.plugins.xvnc.Xvnc>
       <takeScreenshot>false</takeScreenshot>
     </hudson.plugins.xvnc.Xvnc>

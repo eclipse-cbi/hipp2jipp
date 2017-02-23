@@ -10,9 +10,10 @@
     -->
     <project>
       <xsl:apply-templates select="actions | description"/>
-      <xsl:apply-templates select="project-properties/entry [string/text() = 'logRotator']"/>
       <xsl:apply-templates select="keepDependencies"/>
       <properties>
+        <xsl:apply-templates select="properties/hudson.security.AuthorizationMatrixProperty"/>
+        <xsl:apply-templates select="project-properties/entry [string/text() = 'logRotator']"/>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'DiskUsageProperty')]"/>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'parametersDefinitionProperties']"/>
       </properties>
@@ -45,7 +46,7 @@
     </project>
   </xsl:template>
 
-  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | concurrentBuild">
+  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | concurrentBuild | hudson.security.AuthorizationMatrixProperty">
     <xsl:copy-of select="." />
   </xsl:template>
 
@@ -71,10 +72,36 @@
         <!-- TODO: hier weitermachen -> maven-builder umsetzen auf hudson.tasks.Maven -->
         <xsl:copy-of select="*/originalValue/*" />
       </xsl:when>
+      <xsl:when test="string [text() = 'logRotator']">
+        <jenkins.model.BuildDiscarderProperty>
+          <xsl:element name="strategy">
+            <xsl:attribute name="class">
+              <xsl:value-of select="*/originalValue/@class" />
+            </xsl:attribute>
+            <xsl:copy-of select="*/originalValue/*" />
+          </xsl:element>
+        </jenkins.model.BuildDiscarderProperty>
+      </xsl:when>
       <xsl:when test="contains(string/text(), 'DiskUsageProperty')">
         <xsl:element name="hudson.plugins.disk__usage.DiskUsageProperty">
           <xsl:copy-of select="*/originalValue/*" />
         </xsl:element>
+      </xsl:when>
+      <xsl:when test="string [text() = 'jdk']">
+        <jdk>
+          <xsl:if test="contains(*/originalValue/text(), '1.8')">
+            <xsl:text>jdk1.8.0-latest</xsl:text>
+          </xsl:if>
+          <xsl:if test="contains(*/originalValue/text(), '1.7')">
+            <xsl:text>jdk1.7.0-latest</xsl:text>
+          </xsl:if>
+          <xsl:if test="contains(*/originalValue/text(), '1.6')">
+            <xsl:text>jdk1.6.0-latest</xsl:text>
+          </xsl:if>
+          <xsl:if test="contains(*/originalValue/text(), '1.5')">
+            <xsl:text>jdk1.5.0-latest</xsl:text>
+          </xsl:if>
+        </jdk>
       </xsl:when>
       <!-- TODO: can this be improved? -->
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
@@ -126,29 +153,26 @@
       </xsl:otherwise>
     </xsl:choose>
   </xsl:template>
-
-  <xsl:template match="/project/project-properties/entry [string = 'builders']">
-    <xsl:choose>
-      <xsl:when test="describable-list-property/originalValue/maven-builder">
-        <xsl:element name="hudson.tasks.Maven">
-          <targets>
-            <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/goals" />
-          </targets>
-          <mavenName>
-            <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/installationId" />
-          </mavenName>
-          <pom>
-            <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/pomFile" />
-          </pom>
-          <usePrivateRepository>
-            <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/privateRepository" />
-          </usePrivateRepository>
-        </xsl:element>
-      </xsl:when>
-      <xsl:otherwise>
-        <xsl:copy-of select="*/originalValue/*" />
-      </xsl:otherwise>
-    </xsl:choose>
+<!-- HIER WEITERMACHEN
+  <xsl:template match="/project/project-properties/describable-list-property/originalValue/maven-builder">
+    <xsl:element name="hudson.tasks.Maven">
+      <targets>
+        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/goals" />
+      </targets>
+      <mavenName>
+        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/installationId" />
+      </mavenName>
+      <pom>
+        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/pomFile" />
+      </pom>
+      <usePrivateRepository>
+        <xsl:value-of select="describable-list-property/originalValue/maven-builder/config/privateRepository" />
+      </usePrivateRepository>
+    </xsl:element>
+  </xsl:template>
+-->
+  <xsl:template match="/project/project-properties/entry [string = 'builders']/describable-list-property/originalValue">
+    <xsl:copy-of select="*" />
   </xsl:template>
 
   <xsl:template match="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
@@ -179,13 +203,22 @@
       <xsl:copy-of select="branches" />
       <xsl:copy-of select="doGenerateSubmoduleConfigurations" />
       <xsl:copy-of select="submoduleCfg" />
-      <xsl:if test="remoteRepositories/RemoteConfig/relativeTargetDir [text() != '']">
-        <extensions>
+      <extensions>
+        <xsl:if test="remoteRepositories/RemoteConfig/relativeTargetDir [text() != '']">
           <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
             <xsl:copy-of select="remoteRepositories/RemoteConfig/relativeTargetDir" />
           </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
-        </extensions>
-      </xsl:if>
+        </xsl:if>
+        <xsl:if test="clean [text() = 'true']">
+          <hudson.plugins.git.extensions.impl.CleanCheckout/>
+        </xsl:if>
+        <xsl:if test="wipeOutWorkspace [text() = 'true']">
+          <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+        </xsl:if>
+        <xsl:if test="pruneBrances [text() = 'true']">
+          <hudson.plugins.git.extensions.impl.PruneStaleBranch/>
+        </xsl:if>
+      </extensions>
     </xsl:element>
   </xsl:template>
 

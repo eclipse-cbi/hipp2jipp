@@ -18,10 +18,25 @@
   <xsl:template match="*/hudson.model.CauseAction/causes">
     <xsl:element name="causeBag">
       <xsl:attribute name="class">linked-hash-map</xsl:attribute>
-       <xsl:element name="entry">
-         <xsl:copy-of select="*" />
-       </xsl:element>
+      <xsl:for-each select="*">
+        <xsl:element name="entry">
+          <xsl:copy-of select="." />
+          <int><xsl:value-of select="position()" /></int>
+        </xsl:element>
+      </xsl:for-each>
+
     </xsl:element>
   </xsl:template>
+
+  <xsl:template match="*/hudson.tasks.junit.TestResultAction/descriptions [@class='java.util.concurrent.ConcurrentHashMap']">
+    <xsl:element name="descriptions">
+      <xsl:attribute name="class">concurrent-hash-map</xsl:attribute>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- Filter out the tags by just doing nothing-->
+  <xsl:template match="*/hudson.plugins.disk__usage.BuildDiskUsageAction" />
+  <xsl:template match="*/maven-build-record" />
+  <xsl:template match="*/maven-build-action" />
 
 </xsl:stylesheet>

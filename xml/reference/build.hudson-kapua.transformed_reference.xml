@@ -2,10 +2,11 @@
   <actions>
     <hudson.model.CauseAction>
       <causeBag class="linked-hash-map">
-<entry>
-<hudson.triggers.SCMTrigger_-SCMTriggerCause/>
-</entry>
-</causeBag>
+        <entry>
+          <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
+          <int>1</int>
+        </entry>
+      </causeBag>
     </hudson.model.CauseAction>
     <hudson.triggers.SCMTrigger_-BuildAction>
       <build class="build" reference="../../.."/>
@@ -16,15 +17,15 @@
           <string>origin/master</string>
           <hudson.plugins.git.util.Build>
             <marked>
-<sha1>01769b0073ce161cc5cdde587c6aabfdfc3a00d4</sha1>
-<branches class="list">
+              <sha1>01769b0073ce161cc5cdde587c6aabfdfc3a00d4</sha1>
+              <branches class="list">
                 <hudson.plugins.git.Branch>
                   <sha1 reference="../../../sha1"/>
                   <name>origin/master</name>
                 </hudson.plugins.git.Branch>
               </branches>
-</marked>
-<revision reference="../marked"/>
+            </marked>
+            <revision reference="../marked"/>
             <hudsonBuildNumber>4</hudsonBuildNumber>
           </hudson.plugins.git.util.Build>
         </entry>
@@ -32,15 +33,15 @@
           <string>origin/develop</string>
           <hudson.plugins.git.util.Build>
             <marked>
-<sha1>276d78ef501f01be0301927d0c7b496ea83e9928</sha1>
-<branches class="list">
+              <sha1>276d78ef501f01be0301927d0c7b496ea83e9928</sha1>
+              <branches class="list">
                 <hudson.plugins.git.Branch>
                   <sha1 reference="../../../sha1"/>
                   <name>origin/develop</name>
                 </hudson.plugins.git.Branch>
               </branches>
-</marked>
-<revision reference="../marked"/>
+            </marked>
+            <revision reference="../marked"/>
             <hudsonBuildNumber>48</hudsonBuildNumber>
           </hudson.plugins.git.util.Build>
         </entry>
@@ -48,16 +49,8 @@
       <lastBuild reference="../buildsByBranchName/entry[2]/hudson.plugins.git.util.Build"/>
     </hudson.plugins.git.util.BuildData>
     <hudson.scm.SCMRevisionState_-None/>
-    <maven-build-record>
-      <id>62a3f9fd-6e42-4f7d-b9d1-d57bc1f6a0a3</id>
-      <build class="build" reference="../../.."/>
-      <state>
-        <outer-class reference="../.."/>
-      </state>
-    </maven-build-record>
-    <maven-build-action>
-      <build class="build" reference="../../.."/>
-    </maven-build-action>
+    
+    
     <hudson.tasks.junit.TestResultAction>
       <owner class="build" reference="../../.."/>
       <descriptions class="concurrent-hash-map"/>
@@ -127,13 +120,7 @@
       </thresholds>
     </hudson.plugins.jacoco.JacocoBuildAction>
     <hudson.plugins.sonar.BuildSonarAction/>
-    <hudson.plugins.disk__usage.BuildDiskUsageAction>
-      <diskUsage>
-        <buildUsage>15705669</buildUsage>
-        <wsUsage>0</wsUsage>
-      </diskUsage>
-      <build class="build" reference="../../.."/>
-    </hudson.plugins.disk__usage.BuildDiskUsageAction>
+    
   </actions>
   <number>48</number>
   <result>SUCCESS</result>

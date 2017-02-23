@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.xml.transform.Source;
 
@@ -21,7 +23,16 @@ public class XslTransformerTest {
     private final static String ORIGINAL_DIR = "xml/original";
     private final static String REFERENCE_DIR = "xml/reference";
     private final static String TRANSFORM_OUTPUT_DIR = "xml/transformed";
-    
+
+    @Test
+    public void convertTimestampTest() {
+        String timestamp = "2017-02-16_12-35-13";
+        long epoch = XslTransformer.convertTimestampToEpoch(timestamp);
+        Date date = new Date(epoch);
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
+        assertEquals(timestamp, df.format(date));
+    }
+
     @Test
     public void getXmlRootNodeTest() {
         String xmlRootNodeNameBuild = XslTransformer.getXmlRootNodeName(new File("xml", "build.hudson.xml"));
@@ -61,6 +72,21 @@ public class XslTransformerTest {
     }
 
     @Test
+    public void buildTest_query() {
+        transformAndCompare("query", "build.hudson", "build");
+    }
+
+    @Test
+    public void buildTest_query1() {
+        transformSingleFile("xml/build.hudson-query.xml", null, "build");
+    }
+
+    @Test
+    public void buildTest_timestamp() {
+        transformSingleFile("test/hudson/jobs/Develop/builds/2016-11-30_14-56-00/build.xml", null, "build");
+    }
+
+    @Test
     public void configJobTest_kapua() {
         transformAndCompare("kapua", "config.job.hudson", "project");
     }
@@ -80,14 +106,19 @@ public class XslTransformerTest {
     //TODO: simplify
     private void transformAndCompare(String name, String prefix, String rootNodeName) {
         String fileName = prefix + "-" + name;
-        transformSingleFile(ORIGINAL_DIR + "/" + fileName + ".xml", rootNodeName);
+        transformSingleFile(ORIGINAL_DIR + "/" + fileName + ".xml", TRANSFORM_OUTPUT_DIR, rootNodeName);
         compareWithReferenceFile(fileName);
     }
 
-    private void transformSingleFile(String inputFileName, String expectedXmlRootNodeName) {
+    private void transformSingleFile(String inputFileName, String outputDirName, String expectedXmlRootNodeName) {
         String fileName = new File (inputFileName).getName();
         String nameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
-        File outputDir = new File (TRANSFORM_OUTPUT_DIR);
+        File outputDir = null;
+        if (outputDirName == null) {
+            outputDir = new File (inputFileName).getAbsoluteFile().getParentFile();
+        } else {
+            outputDir = new File (outputDirName);
+        }
         File transformedFile = new File(outputDir, nameWithoutExtension + XslTransformer.DEFAULT_TRANSFORMED_FILE_EXTENSION);
         if (transformedFile.exists()) {
             transformedFile.delete();

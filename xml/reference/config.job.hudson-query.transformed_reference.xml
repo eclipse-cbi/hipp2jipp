@@ -1,16 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?><project>
-<actions/>
-<description>Builds for EMF Query for the Oxygen release</description>
-<logRotator class="hudson.tasks.LogRotator">
-<daysToKeep>-1</daysToKeep>
-<numToKeep>15</numToKeep>
-<artifactDaysToKeep>-1</artifactDaysToKeep>
-<artifactNumToKeep>-1</artifactNumToKeep>
-</logRotator>
-<keepDependencies>false</keepDependencies>
-<properties>
-<hudson.plugins.disk__usage.DiskUsageProperty/>
-<hudson.model.ParametersDefinitionProperty>
+  <actions/>
+  <description>Builds for EMF Query for the Oxygen release</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Read:ahunter</permission>
+      <permission>hudson.model.Item.Configure:ahunter</permission>
+      <permission>hudson.model.Item.Build:ahunter</permission>
+      <permission>hudson.model.Run.Delete:ahunter</permission>
+      <permission>hudson.model.Run.Update:ahunter</permission>
+      <permission>hudson.model.Item.Workspace:ahunter</permission>
+      <permission>hudson.model.Item.Delete:ahunter</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>15</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
             <parameterDefinitions>
               <hudson.model.ChoiceParameterDefinition>
                 <name>BUILD_TYPE</name>
@@ -30,66 +41,102 @@
               </hudson.model.StringParameterDefinition>
             </parameterDefinitions>
           </hudson.model.ParametersDefinitionProperty>
-</properties>
-<scm class="hudson.plugins.git.GitSCM">
-<userRemoteConfigs>
-<hudson.plugins.git.UserRemoteConfig>
-<name>origin</name>
-<refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
-<url>http://git.eclipse.org/gitroot/emf-query/org.eclipse.emf.query.git</url>
-</hudson.plugins.git.UserRemoteConfig>
-</userRemoteConfigs>
-<branches>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>http://git.eclipse.org/gitroot/emf-query/org.eclipse.emf.query.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
             <hudson.plugins.git.BranchSpec>
               <name>master</name>
             </hudson.plugins.git.BranchSpec>
           </branches>
-<doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
-<submoduleCfg class="list"/>
-</scm>
-<canRoam>false</canRoam>
-<disabled>false</disabled>
-<blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-<blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-<jdk>JDK 1.8.0 Latest</jdk>
-<triggers>
-<hudson.triggers.SCMTrigger>
-<spec>*/10 * * * *</spec>
-</hudson.triggers.SCMTrigger>
-<hudson.triggers.TimerTrigger>
-<spec>34 12 * * *</spec>
-</hudson.triggers.TimerTrigger>
-</triggers>
-<concurrentBuild>false</concurrentBuild>
-<builders>
-<hudson.tasks.Maven>
-<targets>clean install</targets>
-<mavenName>(Bundled)</mavenName>
-<pom>org.eclipse.emf.query.releng/pom.xml</pom>
-<usePrivateRepository>true</usePrivateRepository>
-</hudson.tasks.Maven>
-</builders>
-<publishers>
-<hudson.tasks.Mailer>
-<recipients>anthonyh@ca.ibm.com</recipients>
-<dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
-<sendToIndividuals>false</sendToIndividuals>
-</hudson.tasks.Mailer>
-<hudson.tasks.junit.JUnitResultArchiver>
-<testResults>**/target/surefire-reports/*.xml</testResults>
-<keepLongStdio>false</keepLongStdio>
-<testDataPublishers/>
-</hudson.tasks.junit.JUnitResultArchiver>
-<hudson.tasks.ArtifactArchiver>
-<artifacts>update-site/**</artifacts>
-<compressionType>GZIP</compressionType>
-<latestOnly>false</latestOnly>
-<autoValidateFileMask>false</autoValidateFileMask>
-</hudson.tasks.ArtifactArchiver>
-</publishers>
-<buildWrappers>
-<hudson.plugins.xvnc.Xvnc>
-<takeScreenshot>false</takeScreenshot>
-</hudson.plugins.xvnc.Xvnc>
-</buildWrappers>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.CleanCheckout/>
+      <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+    </extensions>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>*/10 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+    <hudson.triggers.TimerTrigger>
+      <spec>34 12 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <builders class="hudson.util.DescribableList">
+      <maven-builder>
+            <config>
+              <installationId>(Bundled)</installationId>
+              <goals>clean install</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>org.eclipse.emf.query.releng/pom.xml</pomFile>
+              <properties>
+                <entries/>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>hudson.eclipse.org</string>
+                <string>emf-query.target</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Dorg.eclipse.update.jarprocessor.pack200="/shared/common/sun-jdk1.6.0_21_x64/jre/bin"</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+      <hudson.tasks.Shell>
+            <command>if [ -d "update-site" ]; then
+  rm -fr update-site
+fi
+mkdir update-site
+cp -R org.eclipse.emf.query.repository/target/repository/* update-site/
+/bin/sh org.eclipse.emf.query.repository/emf-query-hipp-publish.sh</command>
+          </hudson.tasks.Shell>
+    </builders>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>anthonyh@ca.ibm.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>**/target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>update-site/**</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+  </buildWrappers>
 </project>

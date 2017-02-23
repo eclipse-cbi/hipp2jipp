@@ -65,36 +65,11 @@
   <xsl:template match="creationTime | cascadingChildrenNames | cascading-job-properties | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | properties | cleanWorkspaceRequired | scm | concurrentBuild" />
   -->
 
-  <!-- TODO: how can the choose-when structure changed to template matches especially the catch-all otherwise part? -->
   <xsl:template match="/project/project-properties/entry">
     <xsl:choose>
-      <xsl:when test="string = 'parametersDefinitionProperties'">
-        <!-- <xsl:when test="string = 'parametersDefinitionProperties' or string = 'builders'"> -->
-        <!-- TODO: hier weitermachen -> maven-builder umsetzen auf hudson.tasks.Maven -->
-        <xsl:copy-of select="*/originalValue/*" />
-      </xsl:when>
       <!-- TODO: can this be improved? -->
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
           <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']"/>
-      </xsl:when>
-      <xsl:when test="*/originalValue [@class = 'string' or @class = 'int' or @class = 'boolean' or @class = '']">
-        <xsl:variable name="tagName">
-          <xsl:copy-of select="string/text()" />
-        </xsl:variable>
-        <xsl:element name="{$tagName}">
-          <xsl:copy-of select="*/originalValue/text()" />
-        </xsl:element>
-      </xsl:when>
-      <xsl:when test="not(*/originalValue) and (*/propertyOverridden [text() = 'false'])">
-        <!-- DO NOTHING! -->
-      </xsl:when>
-      <xsl:when test="not(*/originalValue)">
-        <xsl:variable name="tagName">
-          <xsl:copy-of select="string/text()" />
-        </xsl:variable>
-        <xsl:element name="{$tagName}">
-          <xsl:text>FOOBAR TEST FOOBAR</xsl:text>
-        </xsl:element>
       </xsl:when>
       <xsl:otherwise>
         <!-- TODO: improve this -->
@@ -141,6 +116,24 @@
     </xsl:element>
   </xsl:template>
 -->
+
+  <!-- Filter out tags that exist in the XML, but are not set, by just doing nothing-->
+  <xsl:template match="/project/project-properties/entry [not(*/originalValue) and (*/propertyOverridden [text() = 'false'])]" />
+
+  <!-- ParameterDefinitionProperties -->
+  <xsl:template match="/project/project-properties/entry [string/text() = 'parametersDefinitionProperties']">
+    <xsl:copy-of select="*/originalValue/*" />
+  </xsl:template>
+
+  <!-- String, Int, Boolean, etc -->
+  <xsl:template match="/project/project-properties/entry [*/originalValue/@class = 'string' or @class = 'int' or @class = 'boolean' or @class = '']">
+    <xsl:variable name="tagName">
+      <xsl:copy-of select="string/text()" />
+    </xsl:variable>
+    <xsl:element name="{$tagName}">
+      <xsl:copy-of select="*/originalValue/text()" />
+    </xsl:element>
+  </xsl:template>
 
   <!-- LogRotator -->
   <xsl:template match="/project/project-properties/entry [string/text() = 'logRotator']">

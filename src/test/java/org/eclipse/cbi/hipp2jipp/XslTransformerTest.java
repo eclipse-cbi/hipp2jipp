@@ -27,7 +27,7 @@ public class XslTransformerTest {
     @Test
     public void convertTimestampTest() {
         String timestamp = "2017-02-16_12-35-13";
-        long epoch = XslTransformer.convertTimestampToEpoch(timestamp);
+        long epoch = TimestampConverter.convertTimestampToEpoch(timestamp);
         Date date = new Date(epoch);
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
         assertEquals(timestamp, df.format(date));
@@ -95,7 +95,12 @@ public class XslTransformerTest {
     public void configJobTest_query() {
         transformAndCompare("query", "config.job.hudson", "project");
     }
-    
+
+    @Test
+    public void configJobTest_transaction() {
+        transformAndCompare("transaction", "config.job.hudson", "project");
+    }
+
     @Test
     public void configMainTest_kapua() {
         transformAndCompare("kapua", "config.main.hudson", "hudson");

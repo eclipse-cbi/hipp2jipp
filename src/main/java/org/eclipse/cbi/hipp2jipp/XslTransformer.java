@@ -8,10 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
-import java.util.Date;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -20,7 +17,6 @@ import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
@@ -169,7 +165,7 @@ public class XslTransformer {
             
             xslTransformer.transform(inputFile, outputFile);
             if ("build.transformed.xml".equalsIgnoreCase(outputFile.getName())) {
-                convertBuildTimestamp(outputFile);
+                TimestampConverter.convertBuildTimestamp(outputFile);
             }
             System.out.println("Done. File written: " + outputFile.getAbsolutePath());
         } else if (inputFile.isDirectory() && isJenkinsHomeDir(inputFile)) {
@@ -227,7 +223,8 @@ public class XslTransformer {
 
     private static void search (File file) {
         if (file.canRead()) {
-            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
+            // do not search workspace dir
+            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath()) && !"workspace".equalsIgnoreCase(file.getName())) {
                 // System.out.println("Searching directory ... " + file.getAbsoluteFile());
                 for (File f : file.listFiles()) {
                     if (f.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
@@ -247,80 +244,16 @@ public class XslTransformer {
     private static void checkFile(File file) {
         if ("build.xml".equalsIgnoreCase(file.getName()) || "config.xml".equalsIgnoreCase(file.getName())) {
             createBackupFile(file);
-            System.out.print("Converting " + file + "...");
+            System.out.println("Converting " + file + "...");
             xslTransformer.transform(file);
             if ("build.xml".equalsIgnoreCase(file.getName())) {
-                convertBuildTimestamp(file);
+                TimestampConverter.convertBuildTimestamp(file);
             }
             System.out.println(" Done.");
         } 
     }
 
-    private static void convertBuildTimestamp(File file) {
-        System.out.println("Trying to fix missing build time stamp...");
-        // System.out.println("File: " + file.getPath());
-        // TODO: check if time stamp is already there
-        // convert parent directory name to time stamp
-        String parentDirName = file.getAbsoluteFile().getParentFile().getName();
-        System.out.print("Parent dir name: " +  parentDirName);
-        long epoch = convertTimestampToEpoch(parentDirName);
-        if (epoch != -1) {
-            writeBuildTimestampToXml(file, epoch);
-        }
-    }
 
-    public static long convertTimestampToEpoch(String timestamp) {
-        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-        long epoch = -1;
-        try {
-            Date date = df.parse(timestamp);
-            epoch = date.getTime();
-            System.out.print(" -> epoch date: " + epoch);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return epoch;
-    }
-
-    public static void writeBuildTimestampToXml(File file, long timestamp) {
-        try {
-            InputSource is = new InputSource(); 
-            is.setCharacterStream(new FileReader(file));
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(is);
-            Element root = doc.getDocumentElement();
-            if ("build".equalsIgnoreCase(root.getNodeName())){
-                // add time stamp element
-                Element timestampElement = doc.createElement("timestamp");
-                timestampElement.appendChild(doc.createTextNode(String.valueOf(timestamp)));
-                root.appendChild(timestampElement);
-                // add start time element
-                Element startTimeElement = doc.createElement("startTime");
-                startTimeElement.appendChild(doc.createTextNode(String.valueOf(timestamp+5)));
-                root.appendChild(startTimeElement);
-
-                // Write XML file
-                DOMSource source = new DOMSource(doc);
-                TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                transformerFactory.setAttribute("indent-number", 2); // does not work
-                Transformer transformer = transformerFactory.newTransformer();
-                transformer.setOutputProperty(OutputKeys.INDENT, "yes");
-                //transformer.setOutputProperty(OutputKeys.METHOD, "xml");
-                transformer.setOutputProperty("indent", "yes");
-                transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
-                // String outputFileName = file.getAbsoluteFile().getParentFile().getAbsolutePath() + "/build.timestamp.xml";
-                String outputFileName = file.getAbsolutePath();
-                StreamResult result = new StreamResult(outputFileName);
-                transformer.transform(source, result);
-                System.out.println(" -> fixed build time stamp.");
-            } else {
-                System.err.println("Wrong rootNodeName: " + root.getNodeName());
-            }
-        } catch (ParserConfigurationException | SAXException | IOException | TransformerException e) {
-            e.printStackTrace();
-        }
-    }
 
     private static void convertBuildXmls(File jobDir) {
         File buildsDir = new File(jobDir, "builds");
@@ -343,7 +276,7 @@ public class XslTransformer {
                 // converting job config.xml
                 System.out.print("Converting " + buildFile.getName() + " in " + buildDir.getName() + "...");
                 xslTransformer.transform(buildFile);
-                convertBuildTimestamp(buildFile);
+                TimestampConverter.convertBuildTimestamp(buildFile);
                 System.out.println(" Done.");
             }
         }

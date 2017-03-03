@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:pierre-charles.david@obeo.fr</permission>
+      <permission>hudson.model.Item.Delete:pierre-charles.david@obeo.fr</permission>
+      <permission>hudson.model.Run.Delete:pierre-charles.david@obeo.fr</permission>
+      <permission>hudson.model.Item.Build:pierre-charles.david@obeo.fr</permission>
+      <permission>hudson.model.Item.Read:pierre-charles.david@obeo.fr</permission>
+      <permission>hudson.model.Item.Configure:pierre-charles.david@obeo.fr</permission>
+      <permission>hudson.model.Run.Update:pierre-charles.david@obeo.fr</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class=""/>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+  </properties>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk/>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+            <command>rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612021644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612031644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612041644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612051644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612061644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612071644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612081644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612101644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612111645
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612121644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612131644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612141644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612151645
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612161644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612171644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612181644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612191644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612201644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612211644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612221644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612231644
+rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612241644
+</command>
+          </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes/>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
+</project>

@@ -30,7 +30,6 @@ public class TimestampConverter {
         // TODO: check if time stamp is already there
         // convert parent directory name to time stamp
         String parentDirName = file.getAbsoluteFile().getParentFile().getName();
-        System.out.print("Parent dir name: " +  parentDirName);
         long epoch = convertTimestampToEpoch(parentDirName);
         if (epoch != -1) {
             writeBuildTimestampToXml(file, epoch);
@@ -44,7 +43,7 @@ public class TimestampConverter {
         try {
             Date date = df.parse(timestamp);
             epoch = date.getTime();
-            System.out.print(" -> epoch date: " + epoch);
+            System.out.print(" " + timestamp + " -> epoch date: " + epoch);
         } catch (ParseException e) {
             System.out.println(" -> Parsing exception. Skipping conversion...");
         }
@@ -82,7 +81,7 @@ public class TimestampConverter {
                 String outputFileName = file.getAbsolutePath();
                 StreamResult result = new StreamResult(outputFileName);
                 transformer.transform(source, result);
-                System.out.println(" -> fixed build time stamp.");
+                System.out.println(" -> fixed.");
             } else {
                 System.err.println("Wrong rootNodeName: " + root.getNodeName());
             }

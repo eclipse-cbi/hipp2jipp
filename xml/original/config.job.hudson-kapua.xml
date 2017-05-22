@@ -17,12 +17,19 @@
               <privateTmpdir>true</privateTmpdir>
               <pomFile>pom.xml</pomFile>
               <properties>
-                <entries/>
+                <entries>
+                  <entry name="org.eclipse.kapua.qa.waitMultiplier" value="4.0" />
+                  <entry name="maven.test.failure.ignore" value="true" />
+                </entries>
               </properties>
               <errors>true</errors>
               <verbosity>NORMAL</verbosity>
               <offline>false</offline>
               <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>eclipse-hudson</string>
+                <string>javadoc</string>
+              </profiles>
               <recursive>true</recursive>
               <checksumMode>NORMAL</checksumMode>
               <failMode>NORMAL</failMode>

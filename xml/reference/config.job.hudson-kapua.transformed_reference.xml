@@ -35,11 +35,13 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>clean install</targets>
+      <targets>clean install -peclipse-hudson -pjavadoc</targets>
       <mavenName>apache-maven-latest</mavenName>
       <jvmOptions/>
       <pom>pom.xml</pom>
-      <properties/>
+      <properties>org.eclipse.kapua.qa.waitMultiplier=4.0
+maven.test.failure.ignore=true
+</properties>
       <usePrivateRepository>true</usePrivateRepository>
     </hudson.tasks.Maven>
   </builders>

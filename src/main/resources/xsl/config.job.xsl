@@ -233,7 +233,7 @@
       <xsl:element name="targets">
         <xsl:value-of select="config/goals" />
         <xsl:for-each select="config/profiles/string">
-          <xsl:text> -p</xsl:text>
+          <xsl:text> -P</xsl:text>
           <xsl:value-of select="text()" />
         </xsl:for-each>
       </xsl:element>

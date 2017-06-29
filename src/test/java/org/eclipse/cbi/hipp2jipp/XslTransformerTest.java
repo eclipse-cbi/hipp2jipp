@@ -65,6 +65,15 @@ public class XslTransformerTest {
 //        // TODO: assertions
 //        // TODO: overwrite old .bak files
 //    }
+//
+//    @Test
+//    public void xslTransformerMainTest_JenkinsDir() {
+//        System.out.println();
+//        XslTransformer.main(new String[]{"test/jenkins"});
+//        
+//        // TODO: assertions
+//        // TODO: overwrite old .bak files
+//    }
     
     @Test
     public void buildTest_kapua() {
@@ -106,10 +115,10 @@ public class XslTransformerTest {
         transformAndCompare("package-drone", "config.job.hudson", "project");
     }
 
-    @Test
-    public void configMainTest_kapua() {
-        transformAndCompare("kapua", "config.main.hudson", "hudson");
-    }
+//    @Test
+//    public void configMainTest_kapua() {
+//        transformAndCompare("kapua", "config.main.hudson", "hudson");
+//    }
 
     /* Utilities */
 

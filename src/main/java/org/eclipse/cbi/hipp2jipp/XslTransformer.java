@@ -4,10 +4,12 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -52,6 +54,10 @@ public class XslTransformer {
             if (xslFileName == null) {
                 System.err.println(inputFile + " cannot be converted.");
                 return false;
+            // Skip general config files
+            } else if (GENERAL_CONFIG_XSL.equalsIgnoreCase(xslFileName)) {
+                System.out.println("Skipping main config file!");
+                return false;
             }
 
             InputStream xsl = classloader.getResourceAsStream(XSL_DIR + "/" + xslFileName);
@@ -86,7 +92,9 @@ public class XslTransformer {
         try {
             File tempFile = File.createTempFile(inputFile.getName(), "tmp", inputFile.getAbsoluteFile().getParentFile());
             boolean successful = transform(inputFile, tempFile);
-            if (!successful || !tempFile.exists() || tempFile.length() == 0) {
+            if (!successful) {
+                return false;
+            } else if (!tempFile.exists() || tempFile.length() == 0) {
                 System.err.println("Error during creation of temp file.");
                 return false;
             }
@@ -178,15 +186,20 @@ public class XslTransformer {
 
     private static void search (File file) {
         if (file.canRead()) {
-            // do not search workspace or user dir
-            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath()) && !"workspace".equalsIgnoreCase(file.getName()) && !"users".equalsIgnoreCase(file.getName())) {
-                // System.out.println("Searching directory ... " + file.getAbsoluteFile());
-                for (File f : file.listFiles()) {
-                    if (f.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
-                        search(f);
-                    } else {
-                        checkFile(f);
+            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
+                // do not search workspace, users and config-history dir
+                File[] list = file.listFiles(new FilenameFilter() {
+                    
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return  !"workspace".equalsIgnoreCase(name) &&
+                                !"users".equalsIgnoreCase(name) &&
+                                !"config-history".equalsIgnoreCase(name);
                     }
+                });
+                // System.out.println("Searching directory ... " + file.getAbsoluteFile());
+                for (File f : list) {
+                    search(f);
                 }
             } else {
                 checkFile(file);
@@ -215,7 +228,7 @@ public class XslTransformer {
         String nameWithoutExtension = file.getName().substring(0, file.getName().lastIndexOf("."));
         File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_BACKUP_FILE_EXTENSION);
         try {
-            Files.copy(file.toPath(),backupFile.toPath());
+            Files.copy(file.toPath(),backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }

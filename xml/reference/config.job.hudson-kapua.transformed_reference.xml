@@ -35,7 +35,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>clean install -peclipse-hudson -pjavadoc</targets>
+      <targets>clean install -Peclipse-hudson -Pjavadoc</targets>
       <mavenName>apache-maven-latest</mavenName>
       <jvmOptions/>
       <pom>pom.xml</pom>

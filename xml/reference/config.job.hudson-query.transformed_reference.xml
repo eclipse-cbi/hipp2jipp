@@ -78,7 +78,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
-      <targets>clean install -phudson.eclipse.org -pemf-query.target</targets>
+      <targets>clean install -Phudson.eclipse.org -Pemf-query.target</targets>
       <mavenName>apache-maven-latest</mavenName>
       <jvmOptions>-Dorg.eclipse.update.jarprocessor.pack200="/shared/common/sun-jdk1.6.0_21_x64/jre/bin"</jvmOptions>
       <pom>org.eclipse.emf.query.releng/pom.xml</pom>

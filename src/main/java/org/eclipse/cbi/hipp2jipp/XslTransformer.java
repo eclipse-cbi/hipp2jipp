@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.util.Arrays;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,9 +30,6 @@ public class XslTransformer {
     private static final String JOB_CONFIG_XSL = "config.job.xsl";
     private static final String BUILD_XSL = "build.xsl";
 
-    private static final String GENERAL_CONFIG_XML = "config.xml";
-    private static final String JOB_CONFIG_XML = "config.xml";
-    private static final String BUILD_XML = "build.xml";
     private static final String DEFAULT_BACKUP_FILE_EXTENSION = ".bak";
     private static final String XSL_DIR = "xsl";
     public static final String DEFAULT_TRANSFORMED_FILE_EXTENSION = ".transformed.xml";
@@ -166,52 +162,9 @@ public class XslTransformer {
             
             xslTransformer.transform(inputFile, outputFile);
             if ("build.transformed.xml".equalsIgnoreCase(outputFile.getName())) {
-                TimestampConverter.convertBuildTimestamp(outputFile);
+//                TimestampConverter.convertBuildTimestamp(outputFile);
             }
             System.out.println("Done. File written: " + outputFile.getAbsolutePath());
-        } else if (inputFile.isDirectory() && isJenkinsHomeDir(inputFile)) {
-            // assume Hudson root dir
-            File hudsonRootDir = inputFile;
-            File jobsDir = new File(hudsonRootDir, "jobs");
-            if (!jobsDir.exists()) {
-                System.err.println("Jobs dir " + jobsDir.getAbsolutePath() + " does not exist.");
-                return;
-            }
-
-            // check if config files exists
-//            File generalConfigFile = new File(hudsonRootDir, GENERAL_CONFIG_XML);
-//            if (!generalConfigFile.exists()) {
-//                System.err.println("Main config file " + generalConfigFile.getAbsolutePath() + " does not exist.");
-//                return;
-//            }
-
-            // converting general config.xml
-            // disabled, because it's easier to keep the new config.xml and adjust when necessary
-//            System.out.print("Converting config.xml in Hudson root dir " + hudsonRootDir.getAbsolutePath() + "...");
-//            createBackupFile(generalConfigFile);
-//            xslTransformer.transform(generalConfigFile);
-//            System.out.println(" Done.");
-
-            File[] jobDirList = jobsDir.listFiles();
-            Arrays.sort(jobDirList);
-            for (File jobDir : jobDirList) {
-                if (jobDir.isDirectory()) {
-                    File jobConfigFile = new File(jobDir, JOB_CONFIG_XML);
-                    if (!jobConfigFile.exists()) {
-                        System.err.println("Job dir " + jobDir.getName() + " does not contain a config.xml file. Skipping directory...");
-                        continue;
-                    }
-                    
-                    // converting job config.xml
-                    System.out.print("Converting config.xml in " + jobDir.getName() + "...");
-                    createBackupFile(jobConfigFile);
-                    xslTransformer.transform(jobConfigFile);
-                    System.out.println(" Done.");
-                    
-                    convertBuildXmls(jobDir);
-                }
-                System.out.println();
-            }
         } else {
             // scan directory recursively for config.xmls or build.xmls
             search(inputFile);
@@ -223,16 +176,9 @@ public class XslTransformer {
         return new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_TRANSFORMED_FILE_EXTENSION);
     }
 
-    private static boolean isJenkinsHomeDir(File inputDir) {
-        return ".hudson".equalsIgnoreCase(inputDir.getName()) ||
-               "hudson".equalsIgnoreCase(inputDir.getName()) ||
-               ".jenkins".equalsIgnoreCase(inputDir.getName()) ||
-               "jenkins".equalsIgnoreCase(inputDir.getName());
-    }
-
     private static void search (File file) {
         if (file.canRead()) {
-            // do not search workspace dir
+            // do not search workspace or user dir
             if (file.isDirectory() && !Files.isSymbolicLink(file.toPath()) && !"workspace".equalsIgnoreCase(file.getName()) && !"users".equalsIgnoreCase(file.getName())) {
                 // System.out.println("Searching directory ... " + file.getAbsoluteFile());
                 for (File f : file.listFiles()) {
@@ -258,33 +204,8 @@ public class XslTransformer {
             if (successful) {
                 System.out.println(" Done.");
                 if ("build.xml".equalsIgnoreCase(file.getName())) {
-                    TimestampConverter.convertBuildTimestamp(file);
+//                    TimestampConverter.convertBuildTimestamp(file);
                 }
-            }
-        }
-    }
-
-    private static void convertBuildXmls(File jobDir) {
-        File buildsDir = new File(jobDir, "builds");
-        if (!buildsDir.exists()) {
-            System.err.println("Builds dir " + buildsDir.getName() + " does not exist in " + jobDir.getAbsolutePath() + ". Skipping directory...");
-            return;
-        }
-        File[] buildDirList = buildsDir.listFiles();
-        Arrays.sort(buildDirList);
-        for (File buildDir : buildDirList) {
-            if (buildDir.isDirectory() && !Files.isSymbolicLink(buildDir.toPath())) {
-                File buildFile = new File(buildDir, BUILD_XML);
-                if (!buildFile.exists()) {
-                    System.err.println("Build dir " + jobDir.getAbsolutePath() + " does not contain a build.xml file. Skipping directory...");
-                    continue;
-                }
-                // converting job config.xml
-                System.out.print("Converting " + buildFile.getName() + " in " + buildDir.getName() + "...");
-                createBackupFile(buildFile);
-                xslTransformer.transform(buildFile);
-                System.out.println(" Done.");
-                TimestampConverter.convertBuildTimestamp(buildFile);
             }
         }
     }

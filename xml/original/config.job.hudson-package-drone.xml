@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description>pre-flight stuff</description>
+            <command>env</command>
+          </hudson.tasks.Shell>
+          <maven-builder>
+            <disabled>false</disabled>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>clean package</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>true</privateTmpdir>
+              <pomFile>runtime/pom.xml</pomFile>
+              <properties>
+                <entries/>
+              </properties>
+              <errors>true</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Dhttp.proxyHost=proxy.eclipse.org
+-Dhttp.proxyPort=9898
+-Dhttp.nonProxyHosts=xeclipse.org
+-Dhttps.proxyHost=proxy.eclipse.org
+-Dhttps.proxyPort=9898
+-Dhttps.nonProxyHosts=xeclipse.org
+-Dftp.proxyHost=proxy.eclipse.org
+-Dftp.proxyPort=9898
+-Dftp.nonProxyHosts=xeclipse.org</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <maven-builder>
+            <disabled>false</disabled>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>integration-test</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>true</privateTmpdir>
+              <pomFile>pom.xml</pomFile>
+              <properties>
+                <entries/>
+              </properties>
+              <errors>true</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>rpm</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description></description>
+            <command>set +x
+
+export DEPLOY_KEY=14b22e32dd5b275d4dfd321b4623716b282cd940758a496d245907eadc583bd0
+export no_proxy=
+for i in `ls products/org.eclipse.packagedrone.server/target/*.{zip,deb}`; do
+  curl -X PUT --data-binary @$i &quot;http://deploy:$DEPLOY_KEY@130.211.145.13/api/v2/upload/channel/packagedrone-ci/$(basename $i)?hudson:buildId=$BUILD_ID&amp;hudson:buildNumber=$BUILD_NUMBER&amp;hudson:buildUrl=$(perl -MURI::Escape -e &apos;print uri_escape($ARGV[0])&apos; &quot;$BUILD_URL&quot;)&quot;
+done</command>
+          </hudson.tasks.Shell>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>https</scheme>
+                  <path>/eclipse/packagedrone</path>
+                  <rawPath>/eclipse/packagedrone</rawPath>
+                  <port>-1</port>
+                  <host>github.com</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <browser class="hudson.plugins.git.browser.GithubWeb">
+            <url>https://github.com/eclipse/packagedrone/</url>
+          </browser>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>true</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Fingerprinter</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Fingerprinter">
+          <targets></targets>
+          <recordBuildArtifacts>true</recordBuildArtifacts>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-ArtifactArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.ArtifactArchiver">
+          <artifacts>products/org.eclipse.packagedrone.server/target/**/*.rpm, products/org.eclipse.packagedrone.server/target/*.deb, products/org.eclipse.packagedrone.server/target/*.zip</artifacts>
+          <compressionType>GZIP</compressionType>
+          <latestOnly>false</latestOnly>
+          <autoValidateFileMask>false</autoValidateFileMask>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-SCMTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.SCMTrigger">
+          <spec>@hourly</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">jdk1.8.0-latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-junit-JUnitResultArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.junit.JUnitResultArchiver">
+          <testResults>**/target/surefire-reports/TEST-*.xml</testResults>
+          <keepLongStdio>false</keepLongStdio>
+          <testDataPublishers/>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>10</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Mailer</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Mailer">
+          <recipients>jreimann@redhat.com</recipients>
+          <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+          <sendToIndividuals>false</sendToIndividuals>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>30</timeoutMinutes>
+          <failBuild>false</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>150</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>60</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>jens.reimann@ibh-systems.com</createdBy>
+  <creationTime>1446817690397</creationTime>
+  <properties/>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

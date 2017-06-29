@@ -223,8 +223,16 @@
 
   <!-- builders catch-all -->
   <xsl:template match="/project/project-properties/entry [string/text() = 'builders']/describable-list-property/originalValue">
-    <xsl:apply-templates select="maven-builder" />
-    <xsl:copy-of select="*[not(self::maven-builder)]" />
+    <xsl:for-each select="./*">
+      <xsl:choose>
+        <xsl:when test="name() = 'maven-builder'">
+          <xsl:apply-templates select="." />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="." />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:for-each>
   </xsl:template>
 
   <!-- maven-builder -->

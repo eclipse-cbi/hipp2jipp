@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>https://github.com/eclipse/packagedrone</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>@hourly</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description>pre-flight stuff</description>
+            <command>env</command>
+          </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>clean package</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Dhttp.proxyHost=proxy.eclipse.org
+-Dhttp.proxyPort=9898
+-Dhttp.nonProxyHosts=xeclipse.org
+-Dhttps.proxyHost=proxy.eclipse.org
+-Dhttps.proxyPort=9898
+-Dhttps.nonProxyHosts=xeclipse.org
+-Dftp.proxyHost=proxy.eclipse.org
+-Dftp.proxyPort=9898
+-Dftp.nonProxyHosts=xeclipse.org</jvmOptions>
+      <pom>runtime/pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>integration-test -Prpm</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description/>
+            <command>set +x
+
+export DEPLOY_KEY=14b22e32dd5b275d4dfd321b4623716b282cd940758a496d245907eadc583bd0
+export no_proxy=
+for i in `ls products/org.eclipse.packagedrone.server/target/*.{zip,deb}`; do
+  curl -X PUT --data-binary @$i "http://deploy:$DEPLOY_KEY@130.211.145.13/api/v2/upload/channel/packagedrone-ci/$(basename $i)?hudson:buildId=$BUILD_ID&amp;hudson:buildNumber=$BUILD_NUMBER&amp;hudson:buildUrl=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0])' "$BUILD_URL")"
+done</command>
+          </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Fingerprinter>
+      <targets/>
+      <recordBuildArtifacts>true</recordBuildArtifacts>
+    </hudson.tasks.Fingerprinter>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>products/org.eclipse.packagedrone.server/target/**/*.rpm, products/org.eclipse.packagedrone.server/target/*.deb, products/org.eclipse.packagedrone.server/target/*.zip</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>**/target/surefire-reports/TEST-*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.Mailer>
+      <recipients>jreimann@redhat.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>30</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
+</project>

@@ -102,6 +102,11 @@ public class XslTransformerTest {
     }
 
     @Test
+    public void configJobTest_packagedrone() {
+        transformAndCompare("package-drone", "config.job.hudson", "project");
+    }
+
+    @Test
     public void configMainTest_kapua() {
         transformAndCompare("kapua", "config.main.hudson", "hudson");
     }

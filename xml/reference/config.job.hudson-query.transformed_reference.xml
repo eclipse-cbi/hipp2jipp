@@ -88,13 +88,13 @@ efefe=aaas
       <usePrivateRepository>true</usePrivateRepository>
     </hudson.tasks.Maven>
     <hudson.tasks.Shell>
-            <command>if [ -d "update-site" ]; then
+      <command>if [ -d "update-site" ]; then
   rm -fr update-site
 fi
 mkdir update-site
 cp -R org.eclipse.emf.query.repository/target/repository/* update-site/
 /bin/sh org.eclipse.emf.query.repository/emf-query-hipp-publish.sh</command>
-          </hudson.tasks.Shell>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.Mailer>

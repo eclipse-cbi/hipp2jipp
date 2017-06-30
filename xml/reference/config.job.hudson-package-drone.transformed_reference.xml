@@ -43,10 +43,8 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-            <disabled>false</disabled>
-            <description>pre-flight stuff</description>
-            <command>env</command>
-          </hudson.tasks.Shell>
+      <command>env</command>
+    </hudson.tasks.Shell>
     <hudson.tasks.Maven>
       <targets>clean package</targets>
       <mavenName>apache-maven-latest</mavenName>
@@ -72,16 +70,14 @@
       <usePrivateRepository>true</usePrivateRepository>
     </hudson.tasks.Maven>
     <hudson.tasks.Shell>
-            <disabled>false</disabled>
-            <description/>
-            <command>set +x
+      <command>set +x
 
 export DEPLOY_KEY=14b22e32dd5b275d4dfd321b4623716b282cd940758a496d245907eadc583bd0
 export no_proxy=
 for i in `ls products/org.eclipse.packagedrone.server/target/*.{zip,deb}`; do
   curl -X PUT --data-binary @$i "http://deploy:$DEPLOY_KEY@130.211.145.13/api/v2/upload/channel/packagedrone-ci/$(basename $i)?hudson:buildId=$BUILD_ID&amp;hudson:buildNumber=$BUILD_NUMBER&amp;hudson:buildUrl=$(perl -MURI::Escape -e 'print uri_escape($ARGV[0])' "$BUILD_URL")"
 done</command>
-          </hudson.tasks.Shell>
+    </hudson.tasks.Shell>
   </builders>
   <publishers>
     <hudson.tasks.Fingerprinter>

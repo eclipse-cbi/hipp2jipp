@@ -225,7 +225,7 @@
   <xsl:template match="/project/project-properties/entry [string/text() = 'builders']/describable-list-property/originalValue">
     <xsl:for-each select="./*">
       <xsl:choose>
-        <xsl:when test="name() = 'maven-builder'">
+        <xsl:when test="name() = 'maven-builder' or name() = 'hudson.tasks.Shell'">
           <xsl:apply-templates select="." />
         </xsl:when>
         <xsl:otherwise>
@@ -267,6 +267,13 @@
       <xsl:element name="usePrivateRepository">
         <xsl:value-of select="config/privateRepository" />
       </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- hudson.tasks.Shell -->
+  <xsl:template match="hudson.tasks.Shell">
+    <xsl:element name="hudson.tasks.Shell">
+      <xsl:copy-of select="command" />
     </xsl:element>
   </xsl:template>
 

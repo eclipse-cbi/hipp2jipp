@@ -26,7 +26,7 @@
   <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
-            <command>rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612021644
+      <command>rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612021644
 rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612031644
 rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612041644
 rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612051644
@@ -49,7 +49,7 @@ rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/int
 rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612231644
 rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/interim/I201612241644
 </command>
-          </hudson.tasks.Shell>
+    </hudson.tasks.Shell>
   </builders>
   <publishers/>
   <buildWrappers>

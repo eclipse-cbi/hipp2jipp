@@ -34,6 +34,8 @@
         <xsl:apply-templates select="project-properties/entry [string/text() = 'builders']" />
       </builders>
       <publishers>
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'FindBugsPublisher')]" />
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'DryPublisher')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'HtmlPublisher')]" />
         <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'JacocoPublisher')]" />
@@ -277,6 +279,7 @@
     </xsl:element>
   </xsl:template>
 
+  <!-- Git -->
   <xsl:template match="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
     <xsl:element name="scm">
       <xsl:attribute name="class">

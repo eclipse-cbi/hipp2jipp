@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>JGit - branch stable-4.8&#13;
+&#13;
+monitoring Git every 1 hrs for changes&#13;
+&#13;
+&#13;
+</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:spearce</permission>
+      <permission>hudson.model.Item.Workspace:msohn</permission>
+      <permission>hudson.model.Item.Delete:spearce</permission>
+      <permission>hudson.model.Item.Delete:msohn</permission>
+      <permission>hudson.model.Run.Delete:spearce</permission>
+      <permission>hudson.model.Run.Delete:msohn</permission>
+      <permission>hudson.model.Item.Build:spearce</permission>
+      <permission>hudson.model.Item.Build:msohn</permission>
+      <permission>hudson.model.Item.Read:spearce</permission>
+      <permission>hudson.model.Item.Read:msohn</permission>
+      <permission>hudson.model.Item.Configure:spearce</permission>
+      <permission>hudson.model.Item.Configure:msohn</permission>
+      <permission>hudson.model.Run.Update:spearce</permission>
+      <permission>hudson.model.Run.Update:msohn</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>5</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>https://git.eclipse.org/r/jgit/jgit.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>stable-4.8</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>#FIXME
+#10 3,9,15,21 * * *
+*/15 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>-B -T 1C clean verify -Pjgit.java8 -Pstatic-checks</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>-B
+install
+deploy:deploy
+ -Pjgit.java8 -Peclipse-sign -Pbuild-server</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>pom.xml</pom>
+      <properties>skipTests=true
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>-B
+clean
+install
+deploy:deploy -Pjgit.java8 -Peclipse-sign</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>org.eclipse.jgit.packaging/pom.xml</pom>
+      <properties>eclipse.p2.mirrors=false
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <hudson.plugins.findbugs.FindBugsPublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[FINDBUGS] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll/>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <unstableNewAll/>
+            <unstableNewHigh/>
+            <unstableNewNormal/>
+            <unstableNewLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+            <failedNewAll/>
+            <failedNewHigh/>
+            <failedNewNormal/>
+            <failedNewLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>false</dontComputeNew>
+      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+      <pattern>**/target/findbugsXml.xml</pattern>
+      <isRankActivated>false</isRankActivated>
+    </hudson.plugins.findbugs.FindBugsPublisher>
+    <hudson.plugins.dry.DryPublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[DRY] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll/>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <unstableNewAll/>
+            <unstableNewHigh/>
+            <unstableNewNormal/>
+            <unstableNewLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+            <failedNewAll/>
+            <failedNewHigh/>
+            <failedNewNormal/>
+            <failedNewLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>false</dontComputeNew>
+      <doNotResolveRelativePaths>false</doNotResolveRelativePaths>
+      <pattern/>
+      <highThreshold>50</highThreshold>
+      <normalThreshold>25</normalThreshold>
+    </hudson.plugins.dry.DryPublisher>
+    <hudson.tasks.Mailer>
+      <recipients>jgit-build@eclipse.org</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>**/*.test/target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.JavadocArchiver>
+      <javadocDir>org.eclipse.jgit/target/apidocs/</javadocDir>
+      <keepAll>true</keepAll>
+    </hudson.tasks.JavadocArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>org.eclipse.jgit.packaging/org.eclipse.jgit.repository/target/**,target/**,**/target/site/**</artifacts>
+      <excludes>**/*site.xml*</excludes>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>true</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>40</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
+</project>

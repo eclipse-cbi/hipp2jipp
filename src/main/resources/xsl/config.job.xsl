@@ -28,7 +28,7 @@
         <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-triggers-')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'GerritTrigger')]"/>
       </triggers>
-      <xsl:apply-templates select="concurrentBuild"/>
+      <xsl:apply-templates select="project-properties/entry [string/text() = 'concurrentBuild']"/>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'customWorkspace']"/>
       <builders>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'builders']" />
@@ -49,7 +49,7 @@
     </project>
   </xsl:template>
 
-  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | concurrentBuild | hudson.security.AuthorizationMatrixProperty">
+  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | hudson.security.AuthorizationMatrixProperty">
     <xsl:copy-of select="." />
   </xsl:template>
 
@@ -109,7 +109,7 @@
   </xsl:template>
 
   <!-- String, Int, Boolean, etc -->
-  <xsl:template match="/project/project-properties/entry [*/originalValue/@class = 'string' or @class = 'int' or @class = 'boolean' or @class = '']">
+  <xsl:template match="/project/project-properties/entry [*/originalValue/@class = 'string' or */originalValue/@class = 'int' or */originalValue/@class = 'boolean' or */originalValue/@class = '']">
     <xsl:variable name="tagName">
       <xsl:copy-of select="string/text()" />
     </xsl:variable>

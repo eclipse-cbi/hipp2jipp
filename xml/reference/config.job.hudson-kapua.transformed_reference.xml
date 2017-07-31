@@ -32,7 +32,6 @@
       <spec>* * * * *</spec>
     </hudson.triggers.SCMTrigger>
   </triggers>
-  <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Maven>
       <targets>clean install -Peclipse-hudson -Pjavadoc</targets>

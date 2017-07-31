@@ -40,7 +40,6 @@
       <spec>@hourly</spec>
     </hudson.triggers.SCMTrigger>
   </triggers>
-  <concurrentBuild>false</concurrentBuild>
   <builders>
     <hudson.tasks.Shell>
       <command>env</command>

@@ -323,6 +323,13 @@
         <xsl:if test="pruneBrances [text() = 'true']">
           <hudson.plugins.git.extensions.impl.PruneStaleBranch/>
         </xsl:if>
+        <xsl:if test="buildChooser [@class = 'com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser']">
+          <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+            <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser">
+              <xsl:copy-of select="buildChooser/separator" />
+            </buildChooser>
+          </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        </xsl:if>
       </extensions>
     </xsl:element>
   </xsl:template>

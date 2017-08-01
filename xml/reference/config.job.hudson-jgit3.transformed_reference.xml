@@ -49,12 +49,5 @@ bazel test //...</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers>
-    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
-      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
-        <timeoutMinutes/>
-      </strategy>
-      <operationList/>
-    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
-  </buildWrappers>
+  <buildWrappers/>
 </project>

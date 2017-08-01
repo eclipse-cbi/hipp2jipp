@@ -157,7 +157,7 @@
 
   <!-- TODO: Externalize? -->
   <!-- BuildTimeOut -->
-  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]">
+  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper') and external-property/originalValue/@class = 'hudson.plugins.build_timeout.BuildTimeoutWrapper']">
     <xsl:element name="hudson.plugins.build__timeout.BuildTimeoutWrapper">
       <xsl:element name="strategy">
         <xsl:choose>

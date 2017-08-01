@@ -290,10 +290,18 @@
           <xsl:element name="hudson.plugins.git.UserRemoteConfig">
             <name><xsl:value-of select="name/text()" /></name>
             <refspec>
-              <xsl:text>+</xsl:text>
-              <xsl:value-of select="fetch/org.eclipse.jgit.transport.RefSpec/srcName/text()" />
-              <xsl:text>:</xsl:text>
-              <xsl:value-of select="fetch/org.eclipse.jgit.transport.RefSpec/dstName/text()" />
+              <xsl:choose>
+                <!-- TODO: make this more universal -->
+                <xsl:when test="fetch/org.eclipse.jgit.transport.RefSpec/srcName [text() = '$GERRIT_REFSPEC']">
+                  <xsl:value-of select="fetch/org.eclipse.jgit.transport.RefSpec/srcName/text()" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <xsl:text>+</xsl:text>
+                  <xsl:value-of select="fetch/org.eclipse.jgit.transport.RefSpec/srcName/text()" />
+                  <xsl:text>:</xsl:text>
+                  <xsl:value-of select="fetch/org.eclipse.jgit.transport.RefSpec/dstName/text()" />
+                </xsl:otherwise>
+              </xsl:choose>
             </refspec>
             <url>
               <!-- TODO: concatenate strings? -->

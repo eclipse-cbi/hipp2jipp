@@ -45,6 +45,7 @@
       <buildWrappers>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Xvnc')]" />
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'cleanWorkspaceRequired')]" />
       </buildWrappers>
     </project>
   </xsl:template>
@@ -109,7 +110,7 @@
   </xsl:template>
 
   <!-- String, Int, Boolean, etc -->
-  <xsl:template match="/project/project-properties/entry [*/originalValue/@class = 'string' or */originalValue/@class = 'int' or */originalValue/@class = 'boolean' or */originalValue/@class = '']">
+  <xsl:template match="/project/project-properties/entry [(*/originalValue/@class = 'string' or */originalValue/@class = 'int' or */originalValue/@class = 'boolean' or */originalValue/@class = '') and not(string/text() = 'cleanWorkspaceRequired')]">
     <xsl:variable name="tagName">
       <xsl:copy-of select="string/text()" />
     </xsl:variable>
@@ -127,6 +128,15 @@
         </xsl:attribute>
         <xsl:copy-of select="*/originalValue/*" />
       </xsl:element>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- cleanWorkspaceRequired -->
+  <xsl:template match="/project/project-properties/entry [string/text() = 'cleanWorkspaceRequired' and boolean-property/originalValue/@class = 'boolean' and boolean-property/originalValue/text() = 'true']">
+    <xsl:element name="hudson.plugins.ws__cleanup.PreBuildCleanup">
+      <xsl:element name="deleteDirs">false</xsl:element>
+      <xsl:element name="cleanupParameter"/>
+      <xsl:element name="externalDelete"/>
     </xsl:element>
   </xsl:template>
 
@@ -304,11 +314,18 @@
               </xsl:choose>
             </refspec>
             <url>
-              <!-- TODO: concatenate strings? -->
-              <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/scheme/text()" />
-              <xsl:text>://</xsl:text>
-              <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/host/text()" />
-              <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
+              <xsl:choose>
+                <xsl:when test="uris/org.eclipse.jgit.transport.URIish [not(scheme)]">
+                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
+                </xsl:when>
+                <xsl:otherwise>
+                  <!-- TODO: concatenate strings? -->
+                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/scheme/text()" />
+                  <xsl:text>://</xsl:text>
+                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/host/text()" />
+                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
+                </xsl:otherwise>
+              </xsl:choose>
             </url>
           </xsl:element>
         </xsl:for-each>

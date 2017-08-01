@@ -130,6 +130,11 @@ public class XslTransformerTest {
          transformAndCompare("jgit3", "config.job.hudson", "project");
      }
 
+     @Test
+     public void configJobTest_app4mc() {
+         transformAndCompare("app4mc", "config.job.hudson", "project");
+     }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

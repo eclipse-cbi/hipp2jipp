@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin-app4mc-web</name>
+        <refspec>+refs/heads/*:refs/remotes/origin-app4mc-web/*</refspec>
+        <url>/gitroot/app4mc/org.eclipse.app4mc.web.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin-www</name>
+        <refspec>+refs/heads/*:refs/remotes/origin-www/*</refspec>
+        <url>/gitroot/www.eclipse.org/app4mc.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>app4mc-web</relativeTargetDir>
+        <relativeTargetDir>www</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk/>
+  <triggers/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/sh -x
+pushd app4mc-web/websites/www.eclipse.org-app4mc-hugo/site
+/shared/common/hugo/latest/hugo -b https://www.eclipse.org/app4mc/ -D
+popd
+cp -Rvf app4mc-web/websites/www.eclipse.org-app4mc-hugo/site/public/* www/
+pushd www
+git diff --exit-code &gt; /dev/null
+if [ $? -ne 0 ]; then
+  echo "Changes have been detected, publishing to www repo"
+  git add -A
+  git commit -m "Website build ${JOB_NAME}-${BUILD_NUMBER}"
+  git push origin-www HEAD:master
+else
+  echo "No change have been detected since last build, nothing to publish"
+fi</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup>
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter></cleanupParameter>
+      <externalDelete></externalDelete>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

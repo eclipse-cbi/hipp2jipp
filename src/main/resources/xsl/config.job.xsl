@@ -119,7 +119,7 @@
   </xsl:template>
 
   <!-- LogRotator -->
-  <xsl:template match="/project/project-properties/entry [string/text() = 'logRotator']">
+  <xsl:template match="/project/project-properties/entry [string/text() = 'logRotator' and log-rotator-property/originalValue/@class = 'hudson.tasks.LogRotator']">
     <xsl:element name="jenkins.model.BuildDiscarderProperty">
       <xsl:element name="strategy">
         <xsl:attribute name="class">

@@ -192,8 +192,9 @@ public class XslTransformer {
                     
                     @Override
                     public boolean accept(File dir, String name) {
-                        return  !"workspace".equalsIgnoreCase(name) &&
+                        return  !name.startsWith("workspace") &&
                                 !"users".equalsIgnoreCase(name) &&
+                                !"archive".equalsIgnoreCase(name) &&
                                 !"config-history".equalsIgnoreCase(name);
                     }
                 });

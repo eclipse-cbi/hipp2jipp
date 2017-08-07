@@ -195,7 +195,8 @@ public class XslTransformer {
                         return  !name.startsWith("workspace") &&
                                 !"users".equalsIgnoreCase(name) &&
                                 !"archive".equalsIgnoreCase(name) &&
-                                !"config-history".equalsIgnoreCase(name);
+                                !"config-history".equalsIgnoreCase(name) &&
+                                !"promotions".equalsIgnoreCase(name);
                     }
                 });
                 // System.out.println("Searching directory ... " + file.getAbsoluteFile());

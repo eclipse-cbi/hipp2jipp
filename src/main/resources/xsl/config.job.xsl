@@ -81,9 +81,11 @@
         <xsl:variable name="tagName">
           <xsl:value-of select="*/originalValue/@class" />
         </xsl:variable>
-        <xsl:element name="{$tagName}">
-          <xsl:copy-of select="*/originalValue/*" />
-        </xsl:element>
+        <xsl:if test="not($tagName = '')">
+          <xsl:element name="{$tagName}">
+            <xsl:copy-of select="*/originalValue/*" />
+          </xsl:element>
+        </xsl:if>
       </xsl:when>
       <xsl:otherwise>
         <!-- 

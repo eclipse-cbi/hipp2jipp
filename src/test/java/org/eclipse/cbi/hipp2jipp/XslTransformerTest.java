@@ -135,6 +135,11 @@ public class XslTransformerTest {
          transformAndCompare("app4mc", "config.job.hudson", "project");
      }
 
+     @Test
+     public void configJobTest_cbi1() {
+         transformAndCompare("cbi1", "config.job.hudson", "project");
+     }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

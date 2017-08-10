@@ -86,7 +86,24 @@
         </xsl:variable>
         <xsl:if test="not($tagName = '')">
           <xsl:element name="{$tagName}">
-            <xsl:copy-of select="*/originalValue/*" />
+            <xsl:choose>
+              <!-- special case for BuildTrigger -->
+              <xsl:when test="$tagName = 'hudson.tasks.BuildTrigger'">
+                <xsl:copy-of select="*/originalValue/childProjects" />
+                <xsl:element name="threshold">
+                  <xsl:copy-of select="*/originalValue/threshold/name" />
+                  <xsl:copy-of select="*/originalValue/threshold/ordinal" />
+                  <xsl:element name="color">
+                    <xsl:if test="*/originalValue/threshold [color = 'GREEN']">
+                      <xsl:text>BLUE</xsl:text>
+                    </xsl:if>
+                  </xsl:element>
+                </xsl:element>
+              </xsl:when>
+              <xsl:otherwise>
+                <xsl:copy-of select="*/originalValue/*" />
+              </xsl:otherwise>
+            </xsl:choose>
           </xsl:element>
         </xsl:if>
       </xsl:when>

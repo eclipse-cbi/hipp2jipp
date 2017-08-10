@@ -150,6 +150,11 @@ public class XslTransformerTest {
          transformAndCompare("cbi3", "config.job.hudson", "project");
      }
 
+     @Test
+     public void configJobTest_cbi4() {
+         transformAndCompare("cbi4", "config.job.hudson", "project");
+     }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

@@ -15,6 +15,7 @@
         <xsl:apply-templates select="properties/hudson.security.AuthorizationMatrixProperty"/>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'logRotator']"/>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'DiskUsageProperty')]"/>
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'promoted_builds')]"/>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'parametersDefinitionProperties']"/>
       </properties>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'scm']"/>
@@ -41,11 +42,13 @@
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'JacocoPublisher')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'GitPublisher')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'SonarPublisher')]" />
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'ExtendedEmailPublisher')]" />
       </publishers>
       <buildWrappers>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Xvnc')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'cleanWorkspaceRequired')]" />
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'TimestamperBuildWrapper')]" />
       </buildWrappers>
     </project>
   </xsl:template>
@@ -77,7 +80,7 @@
       <xsl:when test="string = 'builders'">
         <xsl:apply-templates select="describable-list-property/originalValue"/>
       </xsl:when>
-      <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger')">
+      <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger') or contains(string/text(), 'TimestamperBuildWrapper')">
         <xsl:variable name="tagName">
           <xsl:value-of select="*/originalValue/@class" />
         </xsl:variable>
@@ -145,6 +148,13 @@
   <!-- DiskUsage -->
   <xsl:template match="/project/project-properties/entry [contains(string/text(), 'DiskUsageProperty')]">
     <xsl:element name="hudson.plugins.disk__usage.DiskUsageProperty">
+      <xsl:copy-of select="*/originalValue/*" />
+    </xsl:element>
+  </xsl:template>
+
+  <!-- PromotedBuilds -->
+  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'promoted_builds')]">
+    <xsl:element name="hudson.plugins.promoted__builds.JobPropertyImpl">
       <xsl:copy-of select="*/originalValue/*" />
     </xsl:element>
   </xsl:template>

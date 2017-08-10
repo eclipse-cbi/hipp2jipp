@@ -4,6 +4,7 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty/>
+    <hudson.plugins.promoted__builds.JobPropertyImpl/>
     <hudson.model.ParametersDefinitionProperty>
             <parameterDefinitions>
               <hudson.model.StringParameterDefinition>

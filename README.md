@@ -16,12 +16,12 @@ Backups of each transformed file will be created (e.g. config.bak).
 
 ## Known issues
 * Git SCM
- * Checking out more than one Git repo to different local directories is (currently) not supported by the Git plugin
+  * Checking out more than one Git repo to different local directories is (currently) not supported by the Git plugin
 * Maven 3
- * Maven 3 settings files are not available in Jenkins (specific deploy settings have to be put in separate files manually and referenced in the Maven Build step configuration)
- * "Record fingerprints of Maven 3 artifacts" option is not available in Jenkins
+  * Maven 3 settings files are not available in Jenkins (specific deploy settings have to be put in separate files manually and referenced in the Maven Build step configuration)
+  * "Record fingerprints of Maven 3 artifacts" option is not available in Jenkins
 * Shell build step
- * "Temporarily disable this builder" option is not supported out-of-the-box
+  * "Temporarily disable this builder" option is not supported out-of-the-box
 * Cascading jobs are not supported in Jenkins
 * Migration of the following features is not supported yet:
   * Slave configs (can be copied from main config.xml to separate config.xml files in JENKINS_HOME/nodes/<node name>/)

@@ -155,6 +155,14 @@ public class XslTransformerTest {
          transformAndCompare("cbi4", "config.job.hudson", "project");
      }
 
+     /**
+     * Tests that the <authToken> field is transformed correctly
+     */
+    @Test
+     public void configJobTest_omr() {
+         transformAndCompare("omr", "config.job.hudson", "project");
+     }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

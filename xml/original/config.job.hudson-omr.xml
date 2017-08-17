@@ -1,0 +1,190 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>                                                                                                                           
+        <originalValue class="hudson.tasks.LogRotator">                                                                                              
+          <daysToKeep>-1</daysToKeep>                                                                                                                
+          <numToKeep>15</numToKeep>                                                                                                                  
+          <artifactDaysToKeep>-1</artifactDaysToKeep>                                                                                                
+          <artifactNumToKeep>-1</artifactNumToKeep>                                                                                              
+        </originalValue>                                                                                                                         
+        <propertyOverridden>false</propertyOverridden>                                                                                           
+      </log-rotator-property>                                                                                                                    
+    </entry>                                                                                                                                     
+    <entry>                                                                                                                                  
+      <string>parametersDefinitionProperties</string>                                                                                        
+      <copy-write-list-property>                                                                                                             
+        <originalValue class="hudson.util.CopyOnWriteList">                                                                                  
+          <hudson.model.ParametersDefinitionProperty>                                                                                        
+            <parameterDefinitions>                                                                                                           
+              <hudson.model.BooleanParameterDefinition>                                                                                      
+                <name>FORCE</name>                                                                                                           
+                <description>Force deploy even if there are not any website changes.  (currently required to force to have changes show up!)</description>
+                <defaultValue>false</defaultValue>                                                                                          
+              </hudson.model.BooleanParameterDefinition>                                                                                    
+            </parameterDefinitions>                                                                                                         
+          </hudson.model.ParametersDefinitionProperty>                                                                                      
+        </originalValue>                                                                                                                    
+        <propertyOverridden>false</propertyOverridden>                                                                                      
+      </copy-write-list-property>                                                                                                           
+    </entry>                                                                                                                                
+    <entry>                                                                                                                                 
+      <string>builders</string>                                                                                                             
+      <describable-list-property>                                                                                                           
+        <originalValue class="hudson.util.DescribableList">                                                                                 
+          <hudson.tasks.Shell>                                                                                                              
+            <disabled>false</disabled>                                                                                                      
+            <description></description>                                                                                                     
+            <command>#!/bin/bash -l                                                                                                         
+                                                                                                                                            
+# Early exit                                                                                                                                
+cd ${WORKSPACE}/git-repo/                                                                                                                   
+                                                                                                                                            
+PREVIOUS_COMMIT=`curl -sf &quot;$BUILD_URL/api/xml?xpath=//lastBuiltRevision/SHA1/text()&quot;`                                             
+echo Rev: $PREVIOUS_COMMIT                                                                                                                 
+git diff $PREVIOUS_COMMIT HEAD                                                                                                             
+                                                                                                                                           
+#if there were no changes just exit unless FORCE is set to true                                                                                     
+if [[ -z `git diff $PREVIOUS_COMMIT HEAD` &amp;&amp; $FORCE == false ]]; then echo &quot;Nothing changed in website projects. Exit.&quot;; exit 0; fi          
+                                                                                                                                                                  
+#set the path for node.js                                                                                                                                        
+export PATH=$PATH:/opt/public/common/node-latest/bin/
+
+# Build the static HTML from the markdown
+jekyll build --baseurl &apos;/omr&apos;
+
+# clear deployment if we need to re-build from scratch
+# rm -fr ${WORKSPACE}/deploy-omr.website-git-repo/
+
+if [ -d ${WORKSPACE}/deploy-omr.website-git-repo/.git ];
+then
+  cd ${WORKSPACE}/deploy-omr.website-git-repo/
+  git fetch
+  git reset --hard origin/master
+else
+  mkdir -p ${WORKSPACE}/deploy-omr.website-git-repo
+  git clone /gitroot/www.eclipse.org/omr.git/ ${WORKSPACE}/deploy-omr.website-git-repo
+  cd  ${WORKSPACE}/deploy-omr.website-git-repo/
+  git reset --hard origin/master
+fi
+
+# delete the current version of the website.  This is required to handle the case where files are deleted
+rm -rf ${WORKSPACE}/deploy-omr.website-git-repo/*
+
+#copy in the new version
+cp -r ${WORKSPACE}/git-repo/_site/* .
+
+# output the diff, add the changes, commit them and push to master
+git diff
+git add -A &amp;&amp; git commit -m &quot;Generated from commit: https://github.com/eclipse/omr.website/commit/${GIT_COMMIT}&quot;
+git status
+git push origin master
+</command>
+          </hudson.tasks.Shell>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">(Default)</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>https</scheme>
+                  <path>/eclipse/omr.website.git</path>
+                  <rawPath>/eclipse/omr.website.git</rawPath>
+                  <port>-1</port>
+                  <host>github.com</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir>git-repo/</relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>true</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <browser class="hudson.plugins.git.browser.GithubWeb">
+            <url>https://github.com/eclipse/omr.website/</url>
+          </browser>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>true</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>charlie.gracie@gmail.com</createdBy>
+  <creationTime>1473860854269</creationTime>
+  <properties/>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <authToken>SYNC_NEW_WEBSITE</authToken>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

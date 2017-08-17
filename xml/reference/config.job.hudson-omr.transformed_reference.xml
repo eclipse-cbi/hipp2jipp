@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>15</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>                                                                                        
+            <parameterDefinitions>                                                                                                           
+              <hudson.model.BooleanParameterDefinition>                                                                                      
+                <name>FORCE</name>                                                                                                           
+                <description>Force deploy even if there are not any website changes.  (currently required to force to have changes show up!)</description>
+                <defaultValue>false</defaultValue>                                                                                          
+              </hudson.model.BooleanParameterDefinition>                                                                                    
+            </parameterDefinitions>                                                                                                         
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>https://github.com/eclipse/omr.website.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>git-repo/</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+      <hudson.plugins.git.extensions.impl.CleanCheckout/>
+    </extensions>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk/>
+  <authToken>SYNC_NEW_WEBSITE</authToken>
+  <triggers/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/bin/bash -l                                                                                                         
+                                                                                                                                            
+# Early exit                                                                                                                                
+cd ${WORKSPACE}/git-repo/                                                                                                                   
+                                                                                                                                            
+PREVIOUS_COMMIT=`curl -sf "$BUILD_URL/api/xml?xpath=//lastBuiltRevision/SHA1/text()"`                                             
+echo Rev: $PREVIOUS_COMMIT                                                                                                                 
+git diff $PREVIOUS_COMMIT HEAD                                                                                                             
+                                                                                                                                           
+#if there were no changes just exit unless FORCE is set to true                                                                                     
+if [[ -z `git diff $PREVIOUS_COMMIT HEAD` &amp;&amp; $FORCE == false ]]; then echo "Nothing changed in website projects. Exit."; exit 0; fi          
+                                                                                                                                                                  
+#set the path for node.js                                                                                                                                        
+export PATH=$PATH:/opt/public/common/node-latest/bin/
+
+# Build the static HTML from the markdown
+jekyll build --baseurl '/omr'
+
+# clear deployment if we need to re-build from scratch
+# rm -fr ${WORKSPACE}/deploy-omr.website-git-repo/
+
+if [ -d ${WORKSPACE}/deploy-omr.website-git-repo/.git ];
+then
+  cd ${WORKSPACE}/deploy-omr.website-git-repo/
+  git fetch
+  git reset --hard origin/master
+else
+  mkdir -p ${WORKSPACE}/deploy-omr.website-git-repo
+  git clone /gitroot/www.eclipse.org/omr.git/ ${WORKSPACE}/deploy-omr.website-git-repo
+  cd  ${WORKSPACE}/deploy-omr.website-git-repo/
+  git reset --hard origin/master
+fi
+
+# delete the current version of the website.  This is required to handle the case where files are deleted
+rm -rf ${WORKSPACE}/deploy-omr.website-git-repo/*
+
+#copy in the new version
+cp -r ${WORKSPACE}/git-repo/_site/* .
+
+# output the diff, add the changes, commit them and push to master
+git diff
+git add -A &amp;&amp; git commit -m "Generated from commit: https://github.com/eclipse/omr.website/commit/${GIT_COMMIT}"
+git status
+git push origin master
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers/>
+  <buildWrappers/>
+</project>

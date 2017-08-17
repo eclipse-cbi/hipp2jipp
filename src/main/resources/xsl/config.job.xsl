@@ -25,6 +25,7 @@
       <xsl:apply-templates select="blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding"/>
       <!-- <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'blockBuildWhen')]"/> -->
       <xsl:apply-templates select="project-properties/entry [string/text() = 'jdk']"/>
+      <xsl:apply-templates select="authToken"/>
       <triggers>
         <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-triggers-')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'GerritTrigger')]"/>
@@ -53,7 +54,7 @@
     </project>
   </xsl:template>
 
-  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | hudson.security.AuthorizationMatrixProperty">
+  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | hudson.security.AuthorizationMatrixProperty | authToken">
     <xsl:copy-of select="." />
   </xsl:template>
 

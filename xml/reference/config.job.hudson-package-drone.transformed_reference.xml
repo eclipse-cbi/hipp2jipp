@@ -95,7 +95,7 @@ done</command>
       <testDataPublishers/>
     </hudson.tasks.junit.JUnitResultArchiver>
     <hudson.tasks.Mailer>
-      <recipients>jreimann@redhat.com</recipients>
+      <recipients>someone@somewhere.com</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>

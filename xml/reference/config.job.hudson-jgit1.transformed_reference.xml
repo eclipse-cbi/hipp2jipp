@@ -167,7 +167,7 @@ deploy:deploy -Pjgit.java8 -Peclipse-sign</targets>
       <isRankActivated>false</isRankActivated>
     </hudson.plugins.findbugs.FindBugsPublisher>
     <hudson.tasks.Mailer>
-      <recipients>jgit-build@eclipse.org</recipients>
+      <recipients>someone@somewhere.com</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>

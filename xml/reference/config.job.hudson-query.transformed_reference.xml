@@ -98,7 +98,7 @@ cp -R org.eclipse.emf.query.repository/target/repository/* update-site/
   </builders>
   <publishers>
     <hudson.tasks.Mailer>
-      <recipients>anthonyh@ca.ibm.com</recipients>
+      <recipients>someone@somewhere.com</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>

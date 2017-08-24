@@ -146,7 +146,7 @@ monitoring Git every 1 hrs for changes&#xd;
       <string>hudson-tasks-Mailer</string>
       <external-property>
         <originalValue class="hudson.tasks.Mailer">
-          <recipients>jgit-build@eclipse.org</recipients>
+          <recipients>someone@somewhere.com</recipients>
           <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
           <sendToIndividuals>false</sendToIndividuals>
         </originalValue>

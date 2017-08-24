@@ -4,13 +4,13 @@
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Workspace:matthias.sohn@sap.com</permission>
-      <permission>hudson.model.Item.Delete:matthias.sohn@sap.com</permission>
-      <permission>hudson.model.Run.Delete:matthias.sohn@sap.com</permission>
-      <permission>hudson.model.Item.Build:matthias.sohn@sap.com</permission>
-      <permission>hudson.model.Item.Read:matthias.sohn@sap.com</permission>
-      <permission>hudson.model.Item.Configure:matthias.sohn@sap.com</permission>
-      <permission>hudson.model.Run.Update:matthias.sohn@sap.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
   </properties>

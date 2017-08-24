@@ -226,17 +226,17 @@ rm git.tar.bz2</command>
     </entry>
   </project-properties>
   <keepDependencies>false</keepDependencies>
-  <createdBy>cristiano.dealti@eurotech.com</createdBy>
+  <createdBy>someone@somewhere.com</createdBy>
   <creationTime>1493371028737</creationTime>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Workspace:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Run.Update:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Run.Delete:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Delete:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Configure:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Read:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Build:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>

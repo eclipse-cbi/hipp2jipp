@@ -5,22 +5,22 @@
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Workspace:anonymous</permission>
-      <permission>hudson.model.Item.Workspace:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Workspace:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.Delete:david_williams@acm.org</permission>
-      <permission>hudson.model.Run.Update:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Run.Update:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.Configure:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Configure:david_williams@acm.org</permission>
-      <permission>hudson.model.Run.Delete:david_williams@acm.org</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
       <permission>hudson.model.Item.Read:anonymous</permission>
-      <permission>hudson.model.Item.Read:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Read:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.Build:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Build:david_williams@acm.org</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
       <permission>hudson.model.Item.ExtendedRead:anonymous</permission>
-      <permission>hudson.model.Item.ExtendedRead:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.ExtendedRead:david_williams@acm.org</permission>
+      <permission>hudson.model.Item.ExtendedRead:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.ExtendedRead:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <jenkins.model.BuildDiscarderProperty>
       <strategy class="hudson.tasks.LogRotator">
@@ -68,7 +68,7 @@ echo "See results in https://hudson.eclipse.org/cbi/job/cbi.p2repo.analyzers.Tes
   </builders>
   <publishers>
     <hudson.plugins.emailext.ExtendedEmailPublisher>
-      <recipientList>david_williams@acm.org</recipientList>
+      <recipientList>someone@somewhere.com</recipientList>
       <configuredTriggers>
             <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
               <email>
@@ -170,7 +170,7 @@ echo "See results in https://hudson.eclipse.org/cbi/job/cbi.p2repo.analyzers.Tes
       <compressBuildLog>false</compressBuildLog>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
     <hudson.tasks.Mailer>
-      <recipients>dennis.huebner@gmail.com</recipients>
+      <recipients>someone@somewhere.com</recipients>
       <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
       <sendToIndividuals>false</sendToIndividuals>
     </hudson.tasks.Mailer>

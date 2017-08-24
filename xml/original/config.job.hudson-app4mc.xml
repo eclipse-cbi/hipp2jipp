@@ -153,7 +153,7 @@ fi</command>
     </entry>
   </project-properties>
   <keepDependencies>false</keepDependencies>
-  <createdBy>mikael@eclipse.org</createdBy>
+  <createdBy>someone@somewhere.com</createdBy>
   <creationTime>1447833362987</creationTime>
   <properties/>
   <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>

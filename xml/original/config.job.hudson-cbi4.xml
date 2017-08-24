@@ -71,7 +71,7 @@
       <string>hudson-plugins-emailext-ExtendedEmailPublisher</string>
       <external-property>
         <originalValue class="hudson.plugins.emailext.ExtendedEmailPublisher">
-          <recipientList>david_williams@acm.org</recipientList>
+          <recipientList>someone@somewhere.com</recipientList>
           <configuredTriggers>
             <hudson.plugins.emailext.plugins.trigger.UnstableTrigger>
               <email>
@@ -372,27 +372,27 @@ tar -xf output/products/org.eclipse.cbi.p2repo.analyzers.product-linux.gtk.x86_6
     </entry>
   </project-properties>
   <keepDependencies>false</keepDependencies>
-  <createdBy>david_williams@us.ibm.com</createdBy>
+  <createdBy>someone@somewhere.com</createdBy>
   <creationTime>1455438495662</creationTime>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
       <permission>hudson.model.Item.Workspace:anonymous</permission>
-      <permission>hudson.model.Item.Workspace:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Workspace:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.Delete:david_williams@acm.org</permission>
-      <permission>hudson.model.Run.Update:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Run.Update:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.Configure:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Configure:david_williams@acm.org</permission>
-      <permission>hudson.model.Run.Delete:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Run.Delete:david_williams@acm.org</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
       <permission>hudson.model.Item.Read:anonymous</permission>
-      <permission>hudson.model.Item.Read:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Read:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.Build:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.Build:david_williams@acm.org</permission>
-      <permission>hudson.model.Item.ExtendedRead:dennis.huebner@gmail.com</permission>
-      <permission>hudson.model.Item.ExtendedRead:david_williams@acm.org</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.ExtendedRead:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.ExtendedRead:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
   </properties>
   <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>

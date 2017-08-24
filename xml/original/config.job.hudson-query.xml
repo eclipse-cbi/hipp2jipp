@@ -110,7 +110,7 @@
       <string>hudson-tasks-Mailer</string>
       <external-property>
         <originalValue class="hudson.tasks.Mailer">
-          <recipients>anthonyh@ca.ibm.com</recipients>
+          <recipients>someone@somewhere.com</recipients>
           <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
           <sendToIndividuals>false</sendToIndividuals>
         </originalValue>

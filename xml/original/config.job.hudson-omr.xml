@@ -172,7 +172,7 @@ git push origin master
     </entry>
   </project-properties>
   <keepDependencies>false</keepDependencies>
-  <createdBy>charlie.gracie@gmail.com</createdBy>
+  <createdBy>someone@somewhere.com</createdBy>
   <creationTime>1473860854269</creationTime>
   <properties/>
   <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>

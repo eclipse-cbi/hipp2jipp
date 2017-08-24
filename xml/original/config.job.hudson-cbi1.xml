@@ -150,7 +150,7 @@
     </entry>
   </project-properties>
   <keepDependencies>false</keepDependencies>
-  <createdBy>thanh.ha@eclipse.org</createdBy>
+  <createdBy>someone@somewhere.com</createdBy>
   <creationTime>1392146209504</creationTime>
   <properties>
     <hudson.security.AuthorizationMatrixProperty/>

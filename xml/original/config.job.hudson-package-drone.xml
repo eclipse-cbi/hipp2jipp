@@ -229,7 +229,7 @@ done</command>
       <string>hudson-tasks-Mailer</string>
       <external-property>
         <originalValue class="hudson.tasks.Mailer">
-          <recipients>jreimann@redhat.com</recipients>
+          <recipients>someone@somewhere.com</recipients>
           <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
           <sendToIndividuals>false</sendToIndividuals>
         </originalValue>
@@ -254,7 +254,7 @@ done</command>
     </entry>
   </project-properties>
   <keepDependencies>false</keepDependencies>
-  <createdBy>jens.reimann@ibh-systems.com</createdBy>
+  <createdBy>someone@somewhere.com</createdBy>
   <creationTime>1446817690397</creationTime>
   <properties/>
   <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>

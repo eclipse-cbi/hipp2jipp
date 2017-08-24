@@ -53,13 +53,13 @@ References&lt;br&gt;&#13;
   <keepDependencies>false</keepDependencies>
   <properties>
     <hudson.security.AuthorizationMatrixProperty>
-      <permission>hudson.model.Item.Workspace:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Run.Update:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Run.Delete:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Delete:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Configure:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Read:cristiano.dealti@eurotech.com</permission>
-      <permission>hudson.model.Item.Build:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
     <hudson.model.ParametersDefinitionProperty>

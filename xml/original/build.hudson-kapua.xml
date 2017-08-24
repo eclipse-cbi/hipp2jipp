@@ -144,6 +144,6 @@
     <authorOrCommitter>false</authorOrCommitter>
   </scm>
   <culprits>
-    <string>Andrej Nussdorfer</string>
+    <string>Someone</string>
   </culprits>
 </build>

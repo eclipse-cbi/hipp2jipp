@@ -1,0 +1,254 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>(Attempt to) Deploy Maven artifacts to Eclipse Nexus from the archived workspace of the last successful release candidate build.&lt;br&gt;&#xd;
+Even this simple task is not that simple.&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+Apparently Maven is not able to just deploy what was already built [1].&lt;br&gt;&#xd;
+&quot;mvn jar:jar deploy:deploy&quot; seems to work for all the projects but &quot;web2&quot; deploys an artifact which is smaller than normal.&lt;br&gt;&#xd;
+The link above explains that this does not always work (multimodule projects, different packaging types) so we will not use it (but it would be very fast).&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+The only alternative is &quot;mvn delpoy -Dmaven.test.skip=true&quot; but Maven will execute the earlier phases too so we will not deploy the exact same binaries from the RC build :-(.&lt;br&gt;&#xd;
+Also we have this stupid Hudson Clone Workspace SCM Plug-in bug [2] but there&apos;s a workaround [3].&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+The flow is thus less than ideal and we should consider a cleaner approach.&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+Classes are typically not recompiled except the following (why???)&lt;br&gt;&#xd;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#xd;
+[INFO] Building Java API for working with Human Interface USB Devices (HID) 1.1.100-SNAPSHOT&lt;br&gt;&#xd;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#xd;
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ com.codeminders.hidapi ---&lt;br&gt;&#xd;
+[INFO] Changes detected - recompiling the module!&lt;br&gt;&#xd;
+[INFO] Compiling 7 source files to /jobs/genie.kura/kura-develop-deploy-from-archived-workspace/workspace/target-platform/com.codeminders.hidapi-parent/com.codeminders.hidapi/target/classes&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#xd;
+[INFO] Building Serial Device based on SODA DK comm 1.2.100-SNAPSHOT&lt;br&gt;&#xd;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#xd;
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ org.eclipse.soda.dk.comm ---&lt;br&gt;&#xd;
+[INFO] Changes detected - recompiling the module!&lt;br&gt;&#xd;
+[INFO] Compiling 26 source files to /jobs/genie.kura/kura-develop-deploy-from-archived-workspace/workspace/target-platform/org.eclipse.soda.dk.comm-parent/org.eclipse.soda.dk.comm/target/classes&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#xd;
+[INFO] Building org.eclipse.kura.web2 2.0.100-SNAPSHOT&lt;br&gt;&#xd;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#xd;
+[INFO] --- tycho-compiler-plugin:0.26.0:compile (default-compile) @ org.eclipse.kura.web2 ---&lt;br&gt;&#xd;
+[INFO] Compiling 2 source files to /jobs/genie.kura/kura-develop-deploy-from-archived-workspace/workspace/kura/org.eclipse.kura.web2/target/classes&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+web2 javascripts would be recompiled:&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+[INFO] --- tycho-compiler-plugin:0.26.0:compile (default-compile) @ org.eclipse.kura.web2 ---&lt;br&gt;&#xd;
+[INFO] Compiling 2 source files to /home/cristiano/dev/git/cdealti/kura/kura/org.eclipse.kura.web2/target/classes&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+and the all javascript is generated:&lt;br&gt;&#xd;
+[INFO] --- gwt-maven-plugin:2.7.0:compile (default) @ org.eclipse.kura.web2 ---&lt;br&gt;&#xd;
+[INFO] auto discovered modules [org.eclipse.kura.web.denali]&lt;br&gt;&#xd;
+[INFO] Compiling module org.eclipse.kura.web.denali&lt;br&gt;&#xd;
+[INFO]    Compiling 10 permutations&lt;br&gt;&#xd;
+...&lt;br&gt;&#xd;
+ but this can be disabled with -Dgwt.compiler.skip=true&lt;br&gt;&#xd;
+&lt;br&gt;&#xd;
+References&lt;br&gt;&#xd;
+[1] http://stackoverflow.com/questions/6308162/maven-the-packaging-for-this-project-did-not-assign-a-file-to-the-build-artifac&lt;br&gt;&#xd;
+[2] http://stackoverflow.com/questions/35014569/jenkins-clone-workspace-plugin-does-not-clone-git-directory&lt;br&gt;&#xd;
+[3] https://jowisoftware.de/wp/2012/03/building-a-simple-jenkins-pipeline/&lt;br&gt;</description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>cleanWorkspaceRequired</string>
+      <boolean-property>
+        <originalValue class="boolean">true</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList">
+          <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>MAVEN_OPTS</name>
+                <description>MAVEN_OPTS due bug 474406
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=474406</description>
+                <defaultValue>-Xmx512m -XX:MaxPermSize=256m</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>120</timeoutMinutes>
+          <failBuild>false</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>300</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>45</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <disabled>true</disabled>
+            <description>Stupid Hudson crap!
+
+Restore the .git directory from the archived workspace [1].
+
+[1] https://jowisoftware.de/wp/2012/03/building-a-simple-jenkins-pipeline/</description>
+            <command>tar -xjf git.tar.bz2
+rm git.tar.bz2</command>
+          </hudson.tasks.Shell>
+          <maven-builder>
+            <disabled>true</disabled>
+            <description></description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>deploy -e</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>target-platform/pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="maven.test.skip" value="true"/>
+                </entries>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>no-mirror</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>e23a0b6a-ab36-4ea3-8d97-c6ce7ba3db90</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <maven-builder>
+            <disabled>true</disabled>
+            <description></description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>deploy -e -Pspeedup</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>kura/manifest_pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="maven.test.skip" value="true"/>
+                  <entry name="gwt.compiler.skip" value="true"/>
+                </entries>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>bree</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Xmx512m -XX:MaxPermSize=128m</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <maven-builder>
+            <disabled>true</disabled>
+            <description>Nothing to deploy to Nexus from pom_pom.xml</description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>deploy</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>kura/pom_pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="maven.test.skip" value="true"/>
+                </entries>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Xmx512m -XX:MaxPermSize=128m</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">jdk1.8.0-latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM">
+          <parentJobName>kura-develop-test-archive-workspace</parentJobName>
+          <criteria>Successful</criteria>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>cristiano.dealti@eurotech.com</createdBy>
+  <creationTime>1493371028737</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Update:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Configure:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Read:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Build:cristiano.dealti@eurotech.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+    <string>hudson-plugins-promoted_builds-JobPropertyImpl</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

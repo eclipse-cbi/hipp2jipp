@@ -36,14 +36,8 @@
         <xsl:apply-templates select="project-properties/entry [string/text() = 'builders']" />
       </builders>
       <publishers>
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'FindBugsPublisher')]" />
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'DryPublisher')]" />
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'HtmlPublisher')]" />
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher')]" />
         <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'JacocoPublisher')]" />
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'GitPublisher')]" />
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'SonarPublisher')]" />
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'ExtendedEmailPublisher')]" />
       </publishers>
       <buildWrappers>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]" />
@@ -77,6 +71,14 @@
     <xsl:choose>
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
         <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']" />
+      </xsl:when>
+      <xsl:when test="*/originalValue [@class = 'hudson.plugins.cloneworkspace.CloneWorkspaceSCM']">
+        <xsl:element name="scm">
+          <xsl:attribute name="class">
+            <xsl:value-of select="*/originalValue/@class" />
+          </xsl:attribute>
+            <xsl:copy-of select="*/originalValue/*" />
+        </xsl:element>
       </xsl:when>
       <xsl:when test="string = 'builders'">
         <xsl:apply-templates select="describable-list-property/originalValue"/>

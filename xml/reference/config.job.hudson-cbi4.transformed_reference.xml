@@ -136,25 +136,6 @@ tar -xf output/products/org.eclipse.cbi.p2repo.analyzers.product-linux.gtk.x86_6
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>org.eclipse.cbi.p2repo.analyzers/tests/org.eclipse.cbi.p2repo.analyzers.tests/target/surefire-reports/*.xml</testResults>
-      <keepLongStdio>false</keepLongStdio>
-      <testDataPublishers/>
-    </hudson.tasks.junit.JUnitResultArchiver>
-    <hudson.tasks.BuildTrigger>
-      <childProjects>cbi.p2repo.analyzers.TestMars, cbi.p2repo.analyzers.TestMars.reports</childProjects>
-      <threshold>
-        <name>SUCCESS</name>
-        <ordinal>0</ordinal>
-        <color>BLUE</color>
-      </threshold>
-    </hudson.tasks.BuildTrigger>
-    <hudson.tasks.ArtifactArchiver>
-      <artifacts>output/**/*</artifacts>
-      <compressionType>GZIP</compressionType>
-      <latestOnly>false</latestOnly>
-      <autoValidateFileMask>false</autoValidateFileMask>
-    </hudson.tasks.ArtifactArchiver>
     <hudson.plugins.emailext.ExtendedEmailPublisher>
       <recipientList>david_williams@acm.org</recipientList>
       <configuredTriggers>
@@ -244,6 +225,25 @@ tar -xf output/products/org.eclipse.cbi.p2repo.analyzers.product-linux.gtk.x86_6
       <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>org.eclipse.cbi.p2repo.analyzers/tests/org.eclipse.cbi.p2repo.analyzers.tests/target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.BuildTrigger>
+      <childProjects>cbi.p2repo.analyzers.TestMars, cbi.p2repo.analyzers.TestMars.reports</childProjects>
+      <threshold>
+        <name>SUCCESS</name>
+        <ordinal>0</ordinal>
+        <color>BLUE</color>
+      </threshold>
+    </hudson.tasks.BuildTrigger>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>output/**/*</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
   </publishers>
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper>

@@ -67,22 +67,6 @@ echo "See results in https://hudson.eclipse.org/cbi/job/cbi.p2repo.analyzers.Tes
     </hudson.tasks.Shell>
   </builders>
   <publishers>
-    <hudson.tasks.Mailer>
-      <recipients>dennis.huebner@gmail.com</recipients>
-      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
-      <sendToIndividuals>false</sendToIndividuals>
-    </hudson.tasks.Mailer>
-    <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>test-report/data/junit-report.xml</testResults>
-      <keepLongStdio>true</keepLongStdio>
-      <testDataPublishers/>
-    </hudson.tasks.junit.JUnitResultArchiver>
-    <hudson.tasks.ArtifactArchiver>
-      <artifacts>test-report/data/*,test-report/*.html</artifacts>
-      <compressionType>GZIP</compressionType>
-      <latestOnly>false</latestOnly>
-      <autoValidateFileMask>false</autoValidateFileMask>
-    </hudson.tasks.ArtifactArchiver>
     <hudson.plugins.emailext.ExtendedEmailPublisher>
       <recipientList>david_williams@acm.org</recipientList>
       <configuredTriggers>
@@ -185,6 +169,22 @@ echo "See results in https://hudson.eclipse.org/cbi/job/cbi.p2repo.analyzers.Tes
       <attachBuildLog>false</attachBuildLog>
       <compressBuildLog>false</compressBuildLog>
     </hudson.plugins.emailext.ExtendedEmailPublisher>
+    <hudson.tasks.Mailer>
+      <recipients>dennis.huebner@gmail.com</recipients>
+      <dontNotifyEveryUnstableBuild>true</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>test-report/data/junit-report.xml</testResults>
+      <keepLongStdio>true</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>test-report/data/*,test-report/*.html</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
   </publishers>
   <buildWrappers>
     <hudson.plugins.build__timeout.BuildTimeoutWrapper>

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>(Attempt to) Deploy Maven artifacts to Eclipse Nexus from the archived workspace of the last successful release candidate build.&lt;br&gt;&#13;
+Even this simple task is not that simple.&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+Apparently Maven is not able to just deploy what was already built [1].&lt;br&gt;&#13;
+"mvn jar:jar deploy:deploy" seems to work for all the projects but "web2" deploys an artifact which is smaller than normal.&lt;br&gt;&#13;
+The link above explains that this does not always work (multimodule projects, different packaging types) so we will not use it (but it would be very fast).&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+The only alternative is "mvn delpoy -Dmaven.test.skip=true" but Maven will execute the earlier phases too so we will not deploy the exact same binaries from the RC build :-(.&lt;br&gt;&#13;
+Also we have this stupid Hudson Clone Workspace SCM Plug-in bug [2] but there's a workaround [3].&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+The flow is thus less than ideal and we should consider a cleaner approach.&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+Classes are typically not recompiled except the following (why???)&lt;br&gt;&#13;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#13;
+[INFO] Building Java API for working with Human Interface USB Devices (HID) 1.1.100-SNAPSHOT&lt;br&gt;&#13;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#13;
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ com.codeminders.hidapi ---&lt;br&gt;&#13;
+[INFO] Changes detected - recompiling the module!&lt;br&gt;&#13;
+[INFO] Compiling 7 source files to /jobs/genie.kura/kura-develop-deploy-from-archived-workspace/workspace/target-platform/com.codeminders.hidapi-parent/com.codeminders.hidapi/target/classes&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#13;
+[INFO] Building Serial Device based on SODA DK comm 1.2.100-SNAPSHOT&lt;br&gt;&#13;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#13;
+[INFO] --- maven-compiler-plugin:3.5.1:compile (default-compile) @ org.eclipse.soda.dk.comm ---&lt;br&gt;&#13;
+[INFO] Changes detected - recompiling the module!&lt;br&gt;&#13;
+[INFO] Compiling 26 source files to /jobs/genie.kura/kura-develop-deploy-from-archived-workspace/workspace/target-platform/org.eclipse.soda.dk.comm-parent/org.eclipse.soda.dk.comm/target/classes&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#13;
+[INFO] Building org.eclipse.kura.web2 2.0.100-SNAPSHOT&lt;br&gt;&#13;
+[INFO] ------------------------------------------------------------------------&lt;br&gt;&#13;
+[INFO] --- tycho-compiler-plugin:0.26.0:compile (default-compile) @ org.eclipse.kura.web2 ---&lt;br&gt;&#13;
+[INFO] Compiling 2 source files to /jobs/genie.kura/kura-develop-deploy-from-archived-workspace/workspace/kura/org.eclipse.kura.web2/target/classes&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+web2 javascripts would be recompiled:&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+[INFO] --- tycho-compiler-plugin:0.26.0:compile (default-compile) @ org.eclipse.kura.web2 ---&lt;br&gt;&#13;
+[INFO] Compiling 2 source files to /home/cristiano/dev/git/cdealti/kura/kura/org.eclipse.kura.web2/target/classes&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+and the all javascript is generated:&lt;br&gt;&#13;
+[INFO] --- gwt-maven-plugin:2.7.0:compile (default) @ org.eclipse.kura.web2 ---&lt;br&gt;&#13;
+[INFO] auto discovered modules [org.eclipse.kura.web.denali]&lt;br&gt;&#13;
+[INFO] Compiling module org.eclipse.kura.web.denali&lt;br&gt;&#13;
+[INFO]    Compiling 10 permutations&lt;br&gt;&#13;
+...&lt;br&gt;&#13;
+ but this can be disabled with -Dgwt.compiler.skip=true&lt;br&gt;&#13;
+&lt;br&gt;&#13;
+References&lt;br&gt;&#13;
+[1] http://stackoverflow.com/questions/6308162/maven-the-packaging-for-this-project-did-not-assign-a-file-to-the-build-artifac&lt;br&gt;&#13;
+[2] http://stackoverflow.com/questions/35014569/jenkins-clone-workspace-plugin-does-not-clone-git-directory&lt;br&gt;&#13;
+[3] https://jowisoftware.de/wp/2012/03/building-a-simple-jenkins-pipeline/&lt;br&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Update:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Configure:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Read:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Build:cristiano.dealti@eurotech.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>MAVEN_OPTS</name>
+                <description>MAVEN_OPTS due bug 474406
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=474406</description>
+                <defaultValue>-Xmx512m -XX:MaxPermSize=256m</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.cloneworkspace.CloneWorkspaceSCM">
+    <parentJobName>kura-develop-test-archive-workspace</parentJobName>
+    <criteria>Successful</criteria>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>tar -xjf git.tar.bz2
+rm git.tar.bz2</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>deploy -e -Pno-mirror</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>target-platform/pom.xml</pom>
+      <properties>maven.test.skip=true
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>deploy -e -Pspeedup -Pbree</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Xmx512m -XX:MaxPermSize=128m</jvmOptions>
+      <pom>kura/manifest_pom.xml</pom>
+      <properties>maven.test.skip=true
+gwt.compiler.skip=true
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>deploy</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Xmx512m -XX:MaxPermSize=128m</jvmOptions>
+      <pom>kura/pom_pom.xml</pom>
+      <properties>maven.test.skip=true
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers/>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>120</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup>
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter/>
+      <externalDelete/>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

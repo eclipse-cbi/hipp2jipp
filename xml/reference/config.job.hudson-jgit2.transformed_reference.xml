@@ -121,31 +121,6 @@ install -Peclipse-sign</targets>
     </hudson.tasks.Maven>
   </builders>
   <publishers>
-    <hudson.plugins.findbugs.FindBugsPublisher>
-      <healthy/>
-      <unHealthy/>
-      <thresholdLimit>low</thresholdLimit>
-      <pluginName>[FINDBUGS] </pluginName>
-      <defaultEncoding/>
-      <canRunOnFailed>false</canRunOnFailed>
-      <useStableBuildAsReference>false</useStableBuildAsReference>
-      <useDeltaValues>false</useDeltaValues>
-      <thresholds>
-            <unstableTotalAll/>
-            <unstableTotalHigh/>
-            <unstableTotalNormal/>
-            <unstableTotalLow/>
-            <failedTotalAll/>
-            <failedTotalHigh/>
-            <failedTotalNormal/>
-            <failedTotalLow/>
-          </thresholds>
-      <shouldDetectModules>false</shouldDetectModules>
-      <dontComputeNew>true</dontComputeNew>
-      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
-      <pattern>**/target/findbugsXml.xml</pattern>
-      <isRankActivated>false</isRankActivated>
-    </hudson.plugins.findbugs.FindBugsPublisher>
     <hudson.plugins.dry.DryPublisher>
       <healthy/>
       <unHealthy/>
@@ -172,6 +147,31 @@ install -Peclipse-sign</targets>
       <highThreshold>50</highThreshold>
       <normalThreshold>25</normalThreshold>
     </hudson.plugins.dry.DryPublisher>
+    <hudson.plugins.findbugs.FindBugsPublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[FINDBUGS] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll/>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>true</dontComputeNew>
+      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+      <pattern>**/target/findbugsXml.xml</pattern>
+      <isRankActivated>false</isRankActivated>
+    </hudson.plugins.findbugs.FindBugsPublisher>
     <hudson.tasks.junit.JUnitResultArchiver>
       <testResults>**/*.test/target/surefire-reports/*.xml</testResults>
       <keepLongStdio>false</keepLongStdio>

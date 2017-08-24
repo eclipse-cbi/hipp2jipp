@@ -1,0 +1,288 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>Temporary job to test workspace archival through Hudson Clone SCM Workspace Plugin.&lt;br&gt;
+It should support the flow of deploying the build artifacts to Nexus from another job after the release QA is complete.&lt;br&gt;
+It does not seem to be an uncommon requirement but the simple task of &lt;b&gt;just&lt;/b&gt; deploying what has already been built and installed is not straightforward (early phases will be run).&lt;br&gt;
+Cruel world!</description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>10</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-cloneworkspace-CloneWorkspacePublisher</string>
+      <external-property>
+        <originalValue class="hudson.plugins.cloneworkspace.CloneWorkspacePublisher">
+          <workspaceGlob></workspaceGlob>
+          <criteria>Any</criteria>
+          <archiveMethod>TAR</archiveMethod>
+          <overrideDefaultExcludes>false</overrideDefaultExcludes>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList">
+          <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>MAVEN_OPTS</name>
+                <description>MAVEN_OPTS due bug 474406
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=474406</description>
+                <defaultValue>-Xmx512m -XX:MaxPermSize=256m</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>120</timeoutMinutes>
+          <failBuild>false</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>300</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>45</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <disabled>true</disabled>
+            <description></description>
+            <command>env
+echo ***********************
+echo GIT_COMMIT: $GIT_COMMIT</command>
+          </hudson.tasks.Shell>
+          <maven-builder>
+            <disabled>true</disabled>
+            <description></description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>clean
+install
+-U
+-e</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>target-platform/pom.xml</pomFile>
+              <properties>
+                <entries/>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>no-mirror</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>e23a0b6a-ab36-4ea3-8d97-c6ce7ba3db90</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <maven-builder>
+            <disabled>true</disabled>
+            <description></description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>clean install -U -e</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>kura/manifest_pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="maven.test.failure.ignore" value="true"/>
+                </entries>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>bree</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Xmx512m -XX:MaxPermSize=128m</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <maven-builder>
+            <disabled>true</disabled>
+            <description></description>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>clean install -U -e -Pweb</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>false</privateTmpdir>
+              <pomFile>kura/pom_pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="maven.test.failure.ignore" value="true"/>
+                </entries>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NORMAL</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Xmx512m -XX:MaxPermSize=128m</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>e23a0b6a-ab36-4ea3-8d97-c6ce7ba3db90</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <hudson.tasks.Shell>
+            <disabled>true</disabled>
+            <description></description>
+            <command>sed &quot;s:&lt;module&gt;examples&lt;/module&gt;::g&quot; /home/hudson/genie.kura/.hudson/jobs/kura-develop/workspace/kura/manifest_pom.xml &gt; /home/hudson/genie.kura/.hudson/jobs/kura-develop/workspace/kura/sonar_manifest_pom.xml
+sed -i &quot;s:&lt;module&gt;org.eclipse.kura.deployment.customizer.upgrade&lt;/module&gt;::g&quot; /home/hudson/genie.kura/.hudson/jobs/kura-develop/workspace/kura/sonar_manifest_pom.xml</command>
+          </hudson.tasks.Shell>
+          <hudson.tasks.Shell>
+            <disabled>true</disabled>
+            <description>The stupid Hudson Clone SCM Workspace Plugin does not copy the .git directory</description>
+            <command>find -name .git -type d | tar -T- -cjf git.tar.bz2</command>
+          </hudson.tasks.Shell>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">jdk1.8.0-latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>https</scheme>
+                  <path>/eclipse/kura</path>
+                  <rawPath>/eclipse/kura</rawPath>
+                  <port>-1</port>
+                  <host>github.com</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>develop</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>true</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>cristiano.dealti@eurotech.com</createdBy>
+  <creationTime>1493366749378</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Update:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Configure:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Read:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Build:cristiano.dealti@eurotech.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+    <string>hudson-plugins-promoted_builds-JobPropertyImpl</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

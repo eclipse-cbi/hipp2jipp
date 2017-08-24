@@ -125,43 +125,59 @@ public class XslTransformerTest {
         transformAndCompare("jgit2", "config.job.hudson", "project");
     }
 
-     @Test
-     public void configJobTest_jgit3() {
-         transformAndCompare("jgit3", "config.job.hudson", "project");
-     }
+    @Test
+    public void configJobTest_jgit3() {
+        transformAndCompare("jgit3", "config.job.hudson", "project");
+    }
 
-     @Test
-     public void configJobTest_app4mc() {
-         transformAndCompare("app4mc", "config.job.hudson", "project");
-     }
+    @Test
+    public void configJobTest_app4mc() {
+        transformAndCompare("app4mc", "config.job.hudson", "project");
+    }
 
-     @Test
-     public void configJobTest_cbi1() {
-         transformAndCompare("cbi1", "config.job.hudson", "project");
-     }
+    @Test
+    public void configJobTest_cbi1() {
+        transformAndCompare("cbi1", "config.job.hudson", "project");
+    }
 
-     @Test
-     public void configJobTest_cbi2() {
-         transformAndCompare("cbi2", "config.job.hudson", "project");
-     }
+    @Test
+    public void configJobTest_cbi2() {
+        transformAndCompare("cbi2", "config.job.hudson", "project");
+    }
 
-     @Test
-     public void configJobTest_cbi3() {
-         transformAndCompare("cbi3", "config.job.hudson", "project");
-     }
+    @Test
+    public void configJobTest_cbi3() {
+        transformAndCompare("cbi3", "config.job.hudson", "project");
+    }
 
-     @Test
-     public void configJobTest_cbi4() {
-         transformAndCompare("cbi4", "config.job.hudson", "project");
-     }
+    @Test
+    public void configJobTest_cbi4() {
+        transformAndCompare("cbi4", "config.job.hudson", "project");
+    }
 
-     /**
+    /**
      * Tests that the <authToken> field is transformed correctly
      */
     @Test
-     public void configJobTest_omr() {
-         transformAndCompare("omr", "config.job.hudson", "project");
-     }
+    public void configJobTest_omr() {
+        transformAndCompare("omr", "config.job.hudson", "project");
+    }
+
+    /**
+     * Tests that CloneWorkspaceSCM is transformed correctly
+     */
+    @Test
+    public void configJobTest_kura1() {
+        transformAndCompare("kura1", "config.job.hudson", "project");
+    }
+
+    /**
+     * Tests that CloneWorkspacePublisher is transformed correctly
+     */
+    @Test
+    public void configJobTest_kura2() {
+        transformAndCompare("kura2", "config.job.hudson", "project");
+    }
 
 //    @Test
 //    public void configMainTest_kapua() {

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>Temporary job to test workspace archival through Hudson Clone SCM Workspace Plugin.&lt;br&gt;
+It should support the flow of deploying the build artifacts to Nexus from another job after the release QA is complete.&lt;br&gt;
+It does not seem to be an uncommon requirement but the simple task of &lt;b&gt;just&lt;/b&gt; deploying what has already been built and installed is not straightforward (early phases will be run).&lt;br&gt;
+Cruel world!</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Update:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Run.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Delete:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Configure:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Read:cristiano.dealti@eurotech.com</permission>
+      <permission>hudson.model.Item.Build:cristiano.dealti@eurotech.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>MAVEN_OPTS</name>
+                <description>MAVEN_OPTS due bug 474406
+https://bugs.eclipse.org/bugs/show_bug.cgi?id=474406</description>
+                <defaultValue>-Xmx512m -XX:MaxPermSize=256m</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>https://github.com/eclipse/kura</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>develop</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>env
+echo ***********************
+echo GIT_COMMIT: $GIT_COMMIT</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>clean
+install
+-U
+-e -Pno-mirror</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>target-platform/pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>clean install -U -e -Pbree</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Xmx512m -XX:MaxPermSize=128m</jvmOptions>
+      <pom>kura/manifest_pom.xml</pom>
+      <properties>maven.test.failure.ignore=true
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>clean install -U -e -Pweb</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Xmx512m -XX:MaxPermSize=128m</jvmOptions>
+      <pom>kura/pom_pom.xml</pom>
+      <properties>maven.test.failure.ignore=true
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>sed "s:&lt;module&gt;examples&lt;/module&gt;::g" /home/hudson/genie.kura/.hudson/jobs/kura-develop/workspace/kura/manifest_pom.xml &gt; /home/hudson/genie.kura/.hudson/jobs/kura-develop/workspace/kura/sonar_manifest_pom.xml
+sed -i "s:&lt;module&gt;org.eclipse.kura.deployment.customizer.upgrade&lt;/module&gt;::g" /home/hudson/genie.kura/.hudson/jobs/kura-develop/workspace/kura/sonar_manifest_pom.xml</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command>find -name .git -type d | tar -T- -cjf git.tar.bz2</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
+      <workspaceGlob/>
+      <criteria>Any</criteria>
+      <archiveMethod>TAR</archiveMethod>
+      <overrideDefaultExcludes>false</overrideDefaultExcludes>
+    </hudson.plugins.cloneworkspace.CloneWorkspacePublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>120</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+  </buildWrappers>
+</project>

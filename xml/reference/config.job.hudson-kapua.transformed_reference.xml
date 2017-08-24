@@ -57,11 +57,15 @@ maven.test.failure.ignore=true
             </htmlpublisher.HtmlPublisherTarget>
           </reportTargets>
     </htmlpublisher.HtmlPublisher>
-    <hudson.tasks.junit.JUnitResultArchiver>
-      <testResults>**/target/surefire-reports/*.xml</testResults>
-      <keepLongStdio>false</keepLongStdio>
-      <testDataPublishers/>
-    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.plugins.sonar.SonarPublisher>
+      <jdk>(Inherit From Job)</jdk>
+      <branch/>
+      <language/>
+      <mavenOpts/>
+      <jobAdditionalProperties/>
+      <mavenInstallationName>apache-maven-latest</mavenInstallationName>
+      <rootPom/>
+    </hudson.plugins.sonar.SonarPublisher>
     <hudson.plugins.jacoco.JacocoPublisher>
       <execPattern>**/target/**.exec</execPattern>
       <classPattern>**/target/classes</classPattern>
@@ -82,15 +86,11 @@ maven.test.failure.ignore=true
       <maximumClassCoverage>0</maximumClassCoverage>
       <changeBuildStatus>false</changeBuildStatus>
     </hudson.plugins.jacoco.JacocoPublisher>
-    <hudson.plugins.sonar.SonarPublisher>
-      <jdk>(Inherit From Job)</jdk>
-      <branch/>
-      <language/>
-      <mavenOpts/>
-      <jobAdditionalProperties/>
-      <mavenInstallationName>apache-maven-latest</mavenInstallationName>
-      <rootPom/>
-    </hudson.plugins.sonar.SonarPublisher>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>**/target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
   </publishers>
   <buildWrappers/>
 </project>

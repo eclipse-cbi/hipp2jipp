@@ -99,39 +99,6 @@ deploy:deploy -Pjgit.java8 -Peclipse-sign</targets>
     </hudson.tasks.Maven>
   </builders>
   <publishers>
-    <hudson.plugins.findbugs.FindBugsPublisher>
-      <healthy/>
-      <unHealthy/>
-      <thresholdLimit>low</thresholdLimit>
-      <pluginName>[FINDBUGS] </pluginName>
-      <defaultEncoding/>
-      <canRunOnFailed>false</canRunOnFailed>
-      <useStableBuildAsReference>false</useStableBuildAsReference>
-      <useDeltaValues>false</useDeltaValues>
-      <thresholds>
-            <unstableTotalAll/>
-            <unstableTotalHigh/>
-            <unstableTotalNormal/>
-            <unstableTotalLow/>
-            <unstableNewAll/>
-            <unstableNewHigh/>
-            <unstableNewNormal/>
-            <unstableNewLow/>
-            <failedTotalAll/>
-            <failedTotalHigh/>
-            <failedTotalNormal/>
-            <failedTotalLow/>
-            <failedNewAll/>
-            <failedNewHigh/>
-            <failedNewNormal/>
-            <failedNewLow/>
-          </thresholds>
-      <shouldDetectModules>false</shouldDetectModules>
-      <dontComputeNew>false</dontComputeNew>
-      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
-      <pattern>**/target/findbugsXml.xml</pattern>
-      <isRankActivated>false</isRankActivated>
-    </hudson.plugins.findbugs.FindBugsPublisher>
     <hudson.plugins.dry.DryPublisher>
       <healthy/>
       <unHealthy/>
@@ -166,6 +133,39 @@ deploy:deploy -Pjgit.java8 -Peclipse-sign</targets>
       <highThreshold>50</highThreshold>
       <normalThreshold>25</normalThreshold>
     </hudson.plugins.dry.DryPublisher>
+    <hudson.plugins.findbugs.FindBugsPublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[FINDBUGS] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll/>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <unstableNewAll/>
+            <unstableNewHigh/>
+            <unstableNewNormal/>
+            <unstableNewLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+            <failedNewAll/>
+            <failedNewHigh/>
+            <failedNewNormal/>
+            <failedNewLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>false</dontComputeNew>
+      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+      <pattern>**/target/findbugsXml.xml</pattern>
+      <isRankActivated>false</isRankActivated>
+    </hudson.plugins.findbugs.FindBugsPublisher>
     <hudson.tasks.Mailer>
       <recipients>jgit-build@eclipse.org</recipients>
       <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>

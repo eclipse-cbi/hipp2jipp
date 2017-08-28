@@ -15,7 +15,9 @@
   </properties>
 
   <scm>
-    <developerConnection>scm:git:git://github.com/eclipse/hipp2jipp</developerConnection>
+    <connection>scm:git:https://github.com/eclipse/hipp2jipp.git</connection>
+    <developerConnection>scm:git:git@github.com:eclipse/hipp2jipp.git</developerConnection>
+    <url>https://github.com/eclipse/hipp2jipp</url>
   </scm>
 
   <dependencies>

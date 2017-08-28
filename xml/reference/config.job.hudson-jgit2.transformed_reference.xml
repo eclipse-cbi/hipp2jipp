@@ -21,7 +21,6 @@
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
-    <hudson.plugins.locksandlatches.LockWrapper/>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <userRemoteConfigs>
@@ -186,5 +185,6 @@ install -Peclipse-sign</targets>
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.locksandlatches.LockWrapper/>
   </buildWrappers>
 </project>

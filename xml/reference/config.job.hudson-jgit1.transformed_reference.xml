@@ -33,7 +33,6 @@ monitoring Git every 1 hrs for changes&#13;
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
-    <hudson.plugins.locksandlatches.LockWrapper/>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <userRemoteConfigs>
@@ -196,5 +195,6 @@ deploy:deploy -Pjgit.java8 -Peclipse-sign</targets>
       </strategy>
       <operationList/>
     </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.locksandlatches.LockWrapper/>
   </buildWrappers>
 </project>

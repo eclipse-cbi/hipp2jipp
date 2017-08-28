@@ -15,7 +15,6 @@
         <xsl:apply-templates select="properties/hudson.security.AuthorizationMatrixProperty"/>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'logRotator']"/>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'DiskUsageProperty')]"/>
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'LockWrapper')]"/>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'promoted_builds')]"/>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'parametersDefinitionProperties']"/>
       </properties>
@@ -45,6 +44,7 @@
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Xvnc')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'cleanWorkspaceRequired')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'TimestamperBuildWrapper')]" />
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'LockWrapper')]"/>
       </buildWrappers>
     </project>
   </xsl:template>

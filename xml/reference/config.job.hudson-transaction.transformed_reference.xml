@@ -13,7 +13,6 @@
       <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
-    <hudson.plugins.locksandlatches.LockWrapper/>
   </properties>
   <canRoam>false</canRoam>
   <disabled>true</disabled>
@@ -50,5 +49,7 @@ rm -r /home/data/httpd/download.eclipse.org/modeling/emf/transaction/updates/int
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.locksandlatches.LockWrapper/>
+  </buildWrappers>
 </project>

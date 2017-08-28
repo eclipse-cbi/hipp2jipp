@@ -13,7 +13,6 @@
       <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
-    <hudson.plugins.locksandlatches.LockWrapper/>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <userRemoteConfigs>
@@ -50,5 +49,7 @@ bazel test //...</command>
     </hudson.tasks.Shell>
   </builders>
   <publishers/>
-  <buildWrappers/>
+  <buildWrappers>
+    <hudson.plugins.locksandlatches.LockWrapper/>
+  </buildWrappers>
 </project>

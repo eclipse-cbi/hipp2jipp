@@ -21,7 +21,6 @@
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
-    <hudson.plugins.locksandlatches.LockWrapper/>
     <hudson.model.ParametersDefinitionProperty>
             <parameterDefinitions>
               <hudson.model.ChoiceParameterDefinition>
@@ -127,5 +126,6 @@ cp -R org.eclipse.emf.query.repository/target/repository/* update-site/
     <hudson.plugins.xvnc.Xvnc>
       <takeScreenshot>false</takeScreenshot>
     </hudson.plugins.xvnc.Xvnc>
+    <hudson.plugins.locksandlatches.LockWrapper/>
   </buildWrappers>
 </project>

@@ -179,6 +179,14 @@ public class XslTransformerTest {
         transformAndCompare("kura2", "config.job.hudson", "project");
     }
 
+    /**
+     * Tests that LockWrapper is transformed correctly
+     */
+    @Test
+    public void configJobTest_simrel1() {
+        transformAndCompare("simrel1", "config.job.hudson", "project");
+    }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

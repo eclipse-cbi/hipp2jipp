@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>This job takes "last successful" clean build, and promotes it to "staging". &lt;br/&gt;
+As such it "shares workspace" with CLEAN_BUILD and thus this job, and CLEAN_BUILD must acquire 'mainSimRelLock' (to make sure "last successful" doesn't change), while this job is running. 
+</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>10</artifactDaysToKeep>
+        <artifactNumToKeep>10</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.plugins.locksandlatches.LockWrapper>
+      <locks>
+            <hudson.plugins.locksandlatches.LockWrapper_-LockWaitConfig>
+              <name>maintenanceLockBuild</name>
+            </hudson.plugins.locksandlatches.LockWrapper_-LockWaitConfig>
+          </locks>
+    </hudson.plugins.locksandlatches.LockWrapper>
+  </properties>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers/>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>#!/usr/bin/env bash
+
+# TODO: print stats
+
+TRAIN_NAME=neon
+STAGING_SEG=staging
+STAGING_DIR=${STAGING_SEG}/${TRAIN_NAME}
+DOWNLOAD_BASE=/home/data/httpd/download.eclipse.org
+
+CLEAN_BUILD_JOB=simrel.neon.3_respin.runaggregator.BUILD__CLEAN
+
+echo -e "\n\tDEBUG: Who am I: $(whoami)"
+
+# clean old staging first
+printf "\n\tINFO: %s\t\n" "Cleaning old staging ($STAGING_DIR) repository ..."
+rm -fr ${DOWNLOAD_BASE}/$STAGING_DIR/*
+RC=$?
+if [[ $RC != 0 ]]
+then 
+  printf "\n\tERROR: %s\t\n" "Cleaning (removing) previous staging ($STAGING_DIR) repo failed. RC: $RC"
+  exit $RC
+fi
+printf "\n\tINFO: %s\t\n" "Cleaning old staging repository ended ok."
+
+# assuming directories (and symbolic link, lastSuccessfulBuild) is predictable and accessible
+printf "\n\tINFO: %s\t\n" "Copying from last successful clean build, to downloads staging server ..."
+rsync -r --chmod=Dg+s,ug+w,Fo-w,+X --copy-links /home/hudson/genie.simrel/.hudson/jobs/${CLEAN_BUILD_JOB}/lastSuccessful/archive/aggregation/final/* ${DOWNLOAD_BASE}/$STAGING_DIR/
+RC=$?
+if [[ $RC != 0 ]]
+then 
+  printf "\n\tERROR: %s\t\n" "Error occurred during copy from Hudson archive to downloads staging. RC: $RC"
+  exit $RC
+fi
+printf "\n\tINFO: %s\t\n" "Copying from last successful clean build logs, to downloads server staging/buildInfo/hudsonrecords ..."
+# purposely do not recurse
+mkdir -p ${DOWNLOAD_BASE}/$STAGING_DIR/buildInfo/hudsonrecords
+
+# tried chmod, in rsync command, in past, to correct access problems, but, 
+# should not be needed
+# --chmod=Dg+s,ug+w,Fo-w,+X 
+rsync  --copy-links /home/hudson/genie.simrel/.hudson/jobs/${CLEAN_BUILD_JOB}/lastSuccessful/* ${DOWNLOAD_BASE}/$STAGING_DIR/buildInfo/hudsonrecords/
+RC=$?
+if [[ $RC != 0 ]]
+then 
+  printf "\n\tERROR: %s\t\n" "Error occurred during copy from Hudson archive Hudson records to downloads $STAGING_DIR/buildInfo/hudsonrecords. RC: $RC"
+  exit $RC
+fi
+printf "\n\tINFO: %s\t\n" "Copying from last successful clean build, to downloads staging server ended ok."
+
+#TODO: print stats on new staging
+
+#TODO: potentially may want to put this (or similar) at top, to be sure all will work ok before deleting current directories. 
+#      in this case, though, could still manually start the EPP builds. 
+CURL_EXE=$(which curl)
+RC=$?
+if [[ ! $RC == 0 ]]
+then
+    printf "\n\tERROR: 'curl' is nonexistent or not executable. Return code from 'which': %d\n" $RC
+    printf "\t\tWe are running with 'USER' set to $USER\n"
+    env &gt; envOutput.txt
+    printf "\t\tSee 'envOutput.txt' for full listing of environment variables\n"
+    printf "\tExiting early due to this error.\n"
+    exit 1
+fi
+
+${CURL_EXE} https://hudson.eclipse.org/packaging/job/${TRAIN_NAME}.epp-tycho-build/buildWithParameters?token=Yah6CohtYwO6b?6P
+RC=$?
+if [[ $RC != 0 ]]
+then 
+  printf "\n\tERROR: %s\t\n" "Notifying EPP Build returned an error. RC: $RC"
+  exit $RC
+fi
+printf "\n\tINFO: %s\t\n" "Notifying EPP Build there is a new staging repo ended ok."
+
+exit 0
+
+</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.emailext.ExtendedEmailPublisher>
+      <recipientList>someone@somewhere.com</recipientList>
+      <configuredTriggers>
+            <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+              <email>
+                <recipientList/>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern/>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>true</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+            <hudson.plugins.emailext.plugins.trigger.StillFailingTrigger>
+              <email>
+                <recipientList/>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern/>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>true</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.StillFailingTrigger>
+            <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+              <email>
+                <recipientList/>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern/>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>false</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+            <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+              <email>
+                <recipientList/>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern/>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>true</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+          </configuredTriggers>
+      <contentType>default</contentType>
+      <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+      <defaultContent>$DEFAULT_CONTENT</defaultContent>
+      <attachmentsPattern/>
+      <attachBuildLog>false</attachBuildLog>
+      <compressBuildLog>false</compressBuildLog>
+    </hudson.plugins.emailext.ExtendedEmailPublisher>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>30</timeoutMinutes>
+      </strategy>
+      <operationList>
+        <hudson.plugins.build__timeout.operations.FailOperation/>
+        <hudson.plugins.build__timeout.operations.WriteDescriptionOperation/>
+      </operationList>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.timestamper.TimestamperBuildWrapper/>
+  </buildWrappers>
+</project>

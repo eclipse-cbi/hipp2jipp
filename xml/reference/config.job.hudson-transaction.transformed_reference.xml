@@ -13,6 +13,7 @@
       <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
     </hudson.security.AuthorizationMatrixProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.plugins.locksandlatches.LockWrapper/>
   </properties>
   <canRoam>false</canRoam>
   <disabled>true</disabled>

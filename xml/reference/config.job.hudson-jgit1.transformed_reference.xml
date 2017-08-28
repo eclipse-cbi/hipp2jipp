@@ -33,6 +33,7 @@ monitoring Git every 1 hrs for changes&#13;
       </strategy>
     </jenkins.model.BuildDiscarderProperty>
     <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.plugins.locksandlatches.LockWrapper/>
   </properties>
   <scm class="hudson.plugins.git.GitSCM">
     <userRemoteConfigs>

@@ -277,7 +277,7 @@
   <xsl:template match="/project/project-properties/entry [string/text() = 'builders']/describable-list-property/originalValue">
     <xsl:for-each select="./*">
       <xsl:choose>
-        <xsl:when test="name() = 'maven-builder' or name() = 'hudson.tasks.Shell'">
+        <xsl:when test="name() = 'maven-builder' or name() = 'hudson.tasks.Shell' or name() = 'hudson.plugins.groovy.SystemGroovy'">
           <xsl:apply-templates select="." />
         </xsl:when>
         <xsl:otherwise>
@@ -328,6 +328,23 @@
       <xsl:copy-of select="command" />
     </xsl:element>
   </xsl:template>
+
+  <!-- hudson.plugins.groovy.SystemGroovy -->
+  <xsl:template match="hudson.plugins.groovy.SystemGroovy">
+    <xsl:element name="hudson.plugins.groovy.SystemGroovy">
+      <xsl:element name="source">
+        <xsl:attribute name="class">
+          <xsl:value-of select="scriptSource/@class"/>
+        </xsl:attribute>
+        <xsl:copy-of select="scriptSource/*" />
+      </xsl:element>
+      <xsl:copy-of select="bindings" />
+      <xsl:copy-of select="classpath" />
+    </xsl:element>
+  </xsl:template>
+
+  <!-- hudson.plugins.groovy.Groovy -->
+  <!-- no extra template necessary, <xsl:otherwise> block in line 283 takes care of it -->
 
   <!-- Git -->
   <xsl:template match="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">

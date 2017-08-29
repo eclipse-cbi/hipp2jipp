@@ -1,0 +1,290 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>This job gets the latest contributions from simrel build files (from HEAD of master or branch) and invokes the b3 aggregator with -action CLEAN_BUILD</description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description>This step is to make sure that org.eclipse.simrel.tools is checked out and current, as &quot;master&quot;, before anything else is done, since the ant tasks assumes it exists and is current. 
+</description>
+            <command>#!/usr/bin/env bash
+
+wget --no-verbose -O ${WORKSPACE}/getSimRelTools.sh http://git.eclipse.org/c/simrel/org.eclipse.simrel.tools.git/plain/bootstrapScript/getSimRelTools.sh 2&gt;&amp;1
+RC=$?
+if [[ $RC != 0 ]]
+then
+  printf &quot;\n[ERROR] wget returned non-zero return code: $RC. Exiting&quot;
+  exit 1
+fi
+chmod +x ${WORKSPACE}/getSimRelTools.sh
+RC=$?
+if [[ $RC != 0 ]]
+then
+  printf &quot;\n[ERROR] chmod returned non-zero return code: $RC. Exiting&quot;
+  exit 1
+fi
+${WORKSPACE}/getSimRelTools.sh
+RC=$?
+if [[ $RC != 0 ]]
+then
+  printf &quot;\n[ERROR] getSimRelTools.sh returned non-zero return code: $RC. Exiting&quot;
+  exit 1
+fi
+exit 0
+</command>
+          </hudson.tasks.Shell>
+          <hudson.plugins.groovy.SystemGroovy>
+            <disabled>false</disabled>
+            <scriptSource class="hudson.plugins.groovy.FileScriptSource">
+              <scriptFile>org.eclipse.simrel.tools/groovyScripts/clearCache</scriptFile>
+            </scriptSource>
+            <bindings></bindings>
+            <classpath></classpath>
+          </hudson.plugins.groovy.SystemGroovy>
+          <!-- just inserted for testing -->
+          <hudson.plugins.groovy.Groovy>
+            <disabled>false</disabled>
+            <scriptSource class="hudson.plugins.groovy.FileScriptSource">
+              <scriptFile>org.eclipse.simrel.tools/groovyScripts/clearCache</scriptFile>
+            </scriptSource>
+            <groovyName>(Default)</groovyName>
+            <parameters></parameters>
+            <scriptParameters></scriptParameters>
+            <properties></properties>
+            <javaOpts></javaOpts>
+            <classPath></classPath>
+          </hudson.plugins.groovy.Groovy>
+          <hudson.tasks.Ant>
+            <disabled>false</disabled>
+            <description>&lt;p&gt;The primary build mechanism is to run ant on build.xml, with different targets and properties.&lt;/p&gt;</description>
+            <targets>runAggregatorCleanBuild</targets>
+            <antName>apache-ant-1.9.6</antName>
+            <buildFile>org.eclipse.simrel.tools/build.xml</buildFile>
+            <properties>release=${trainName}
+aggrPropertyFile=${WORKSPACE}/org.eclipse.simrel.tools/production.properties</properties>
+          </hudson.tasks.Ant>
+        </originalValue>
+        <propertyOverridden>true</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-locksandlatches-LockWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.locksandlatches.LockWrapper">
+          <locks>
+            <hudson.plugins.locksandlatches.LockWrapper_-LockWaitConfig>
+              <name>maintenanceLockBuild</name>
+            </hudson.plugins.locksandlatches.LockWrapper_-LockWaitConfig>
+          </locks>
+        </originalValue>
+        <propertyOverridden>true</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>cleanWorkspaceRequired</string>
+      <boolean-property>
+        <originalValue class="boolean">true</originalValue>
+        <propertyOverridden>true</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>file</scheme>
+                  <path>/gitroot/simrel/org.eclipse.simrel.build</path>
+                  <rawPath>/gitroot/simrel/org.eclipse.simrel.build</rawPath>
+                  <port>-1</port>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir>org.eclipse.simrel.build</relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>Neon.3_respin</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>true</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <browser class="hudson.plugins.git.browser.CGit">
+            <url>http://git.eclipse.org/c/simrel/org.eclipse.simrel.build.git/</url>
+          </browser>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>true</skipTag>
+          <useCgitClone>false</useCgitClone>
+        </originalValue>
+        <propertyOverridden>true</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-queueSorter-PrioritySorterJobProperty</string>
+      <base-property>
+        <originalValue class="hudson.queueSorter.PrioritySorterJobProperty">
+          <priority>90</priority>
+        </originalValue>
+        <propertyOverridden>true</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>blockBuildWhenDownstreamBuilding</string>
+      <boolean-property>
+        <originalValue class="boolean">true</originalValue>
+        <propertyOverridden>true</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-emailext-ExtendedEmailPublisher</string>
+      <external-property>
+        <originalValue class="hudson.plugins.emailext.ExtendedEmailPublisher">
+          <recipientList>someone@somewhere.com</recipientList>
+          <configuredTriggers>
+            <hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+              <email>
+                <recipientList></recipientList>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern></attachmentsPattern>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>true</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.FailureTrigger>
+            <hudson.plugins.emailext.plugins.trigger.StillFailingTrigger>
+              <email>
+                <recipientList></recipientList>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern></attachmentsPattern>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>true</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.StillFailingTrigger>
+            <hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+              <email>
+                <recipientList></recipientList>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern></attachmentsPattern>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>false</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.SuccessTrigger>
+            <hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+              <email>
+                <recipientList></recipientList>
+                <subject>$PROJECT_DEFAULT_SUBJECT</subject>
+                <body>$PROJECT_DEFAULT_CONTENT</body>
+                <attachmentsPattern></attachmentsPattern>
+                <attachBuildLog>false</attachBuildLog>
+                <compressBuildLog>false</compressBuildLog>
+                <sendToDevelopers>false</sendToDevelopers>
+                <includeCulprits>false</includeCulprits>
+                <sendToRecipientList>true</sendToRecipientList>
+              </email>
+            </hudson.plugins.emailext.plugins.trigger.FixedTrigger>
+          </configuredTriggers>
+          <contentType>text/html</contentType>
+          <defaultSubject>$DEFAULT_SUBJECT</defaultSubject>
+          <defaultContent>$DEFAULT_CONTENT</defaultContent>
+          <attachmentsPattern></attachmentsPattern>
+          <attachBuildLog>false</attachBuildLog>
+          <compressBuildLog>false</compressBuildLog>
+        </originalValue>
+        <propertyOverridden>true</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>240</timeoutMinutes>
+          <failBuild>true</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>150</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>300</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>true</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1489493224044</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingProjectName>simrel.neon.runaggregator.base</cascadingProjectName>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+    <string>hudson-queueSorter-PrioritySorterJobProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

@@ -187,6 +187,14 @@ public class XslTransformerTest {
         transformAndCompare("simrel1", "config.job.hudson", "project");
     }
 
+    /**
+     * Tests that Groovy build step is transformed correctly
+     */
+    @Test
+    public void configJobTest_simrel2() {
+        transformAndCompare("simrel2", "config.job.hudson", "project");
+    }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

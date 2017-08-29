@@ -28,3 +28,7 @@ Backups of each transformed file will be created (e.g. config.bak).
   * Views (can be copied from main config.xml)
 * Priority Sorter Plugin
   * "In [version] 3.x the option 'Allow priorities directly on Jobs' has been removed in favor of the Priority Strategy 'Take the priority from Property on the Job'." (https://wiki.jenkins.io/display/JENKINS/Priority+Sorter+Plugin)
+
+# Credits
+This tool was inspired by code from Marcel Schutte that he posted in the jenkins-ci Google group here:
+https://groups.google.com/d/msg/jenkinsci-users/arKSTc3Fz3Q/2JsQk9E0_eAJ

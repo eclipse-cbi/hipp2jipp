@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <version>3.3.3</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <systemMessage>system message</systemMessage>
+  <privacyMessage>privacy message</privacyMessage>
+  <instanceTag>super instance</instanceTag>
+  <jdks>
+    <jdk>
+      <name>jdk-1.8</name>
+      <home>/path/to/java</home>
+      <properties/>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <allowUnsecuredAction>true</allowUnsecuredAction>
+  <allowCli>true</allowCli>
+  <clouds/>
+  <slaves/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>2</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>All</primaryView>
+  <label></label>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>1</int>
+          <string>key</string>
+          <string>value</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+    <hudson.plugins.xvnc.NodePropertyImpl/>
+  </globalNodeProperties>
+  <disabledAdministrativeMonitors/>
+  <useBlueBall>true</useBlueBall>
+</hudson>

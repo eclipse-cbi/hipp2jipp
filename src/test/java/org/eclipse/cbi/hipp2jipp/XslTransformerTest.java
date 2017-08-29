@@ -20,6 +20,7 @@ import java.util.Date;
 import javax.xml.transform.Source;
 
 import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.xmlunit.builder.Input;
 import org.xmlunit.diff.Comparison;
@@ -34,6 +35,11 @@ public class XslTransformerTest {
     private final static String REFERENCE_DIR = "xml/reference";
     private final static String TRANSFORM_OUTPUT_DIR = "xml/transformed";
 
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        new File("xml/transformed/").mkdirs();
+    }
+
     @Test
     public void convertTimestampTest() {
         String timestamp = "2017-02-16_12-35-13";
@@ -45,9 +51,9 @@ public class XslTransformerTest {
 
     @Test
     public void getXmlRootNodeTest() {
-        String xmlRootNodeNameBuild = XslTransformer.getXmlRootNodeName(new File("xml", "build.hudson.xml"));
-        String xmlRootNodeNameConfigJob = XslTransformer.getXmlRootNodeName(new File("xml", "config.job.hudson.xml"));
-        String xmlRootNodeNameConfigMain = XslTransformer.getXmlRootNodeName(new File("xml", "config.main.hudson.xml"));
+        String xmlRootNodeNameBuild = XslTransformer.getXmlRootNodeName(new File("xml/original", "build.hudson.xml"));
+        String xmlRootNodeNameConfigJob = XslTransformer.getXmlRootNodeName(new File("xml/original", "config.job.hudson.xml"));
+        String xmlRootNodeNameConfigMain = XslTransformer.getXmlRootNodeName(new File("xml/original", "config.main.hudson.xml"));
         
         assertEquals("build", xmlRootNodeNameBuild);
         assertEquals("project", xmlRootNodeNameConfigJob);
@@ -56,9 +62,9 @@ public class XslTransformerTest {
 
     @Test
     public void getXmlFileNameTest() {
-        String xslFileNameBuild = XslTransformer.getXslFileName(new File("xml", "build.hudson.xml"));
-        String xslFileNameConfigJob = XslTransformer.getXslFileName(new File("xml", "config.job.hudson.xml"));
-        String xslFileNameConfigMain = XslTransformer.getXslFileName(new File("xml", "config.main.hudson.xml"));
+        String xslFileNameBuild = XslTransformer.getXslFileName(new File("xml/original", "build.hudson.xml"));
+        String xslFileNameConfigJob = XslTransformer.getXslFileName(new File("xml/original", "config.job.hudson.xml"));
+        String xslFileNameConfigMain = XslTransformer.getXslFileName(new File("xml/original", "config.main.hudson.xml"));
 //        String xslFileNameFoobar = XslTransformer.getXslFileName(new File("xml", "foobar.xml"));
         
         assertEquals("build.xsl", xslFileNameBuild);
@@ -96,13 +102,8 @@ public class XslTransformerTest {
     }
 
     @Test
-    public void buildTest_query1() {
-        transformSingleFile("xml/build.hudson-query.xml", null, "build");
-    }
-
-    @Test
     public void buildTest_timestamp() {
-        transformSingleFile("test/hudson/jobs/Develop/builds/2016-11-30_14-56-00/build.xml", null, "build");
+        transformSingleFile("xml/original/timestamp/2016-11-30_14-56-00/build.xml", null, "build");
     }
 
     @Test

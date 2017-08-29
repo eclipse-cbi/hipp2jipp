@@ -1,0 +1,120 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.ParametersAction>
+      <parameters>
+        <hudson.model.StringParameterValue>
+          <name>string1</name>
+          <description>des1</description>
+          <value>def1</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.StringParameterValue>
+          <name>choice2</name>
+          <description>des2</description>
+          <value>choica</value>
+        </hudson.model.StringParameterValue>
+        <hudson.model.BooleanParameterValue>
+          <name>bool3</name>
+          <description>des3</description>
+          <value>false</value>
+        </hudson.model.BooleanParameterValue>
+        <hudson.model.PasswordParameterValue>
+          <name>pw4</name>
+          <description>des4</description>
+          <value>e/nItm+cqEL+I+2LFrS3KM/6ZUANNOJ9cx+FgqgicCE=</value>
+        </hudson.model.PasswordParameterValue>
+        <hudson.model.FileParameterValue>
+          <name>file5</name>
+          <description>des5</description>
+          <file class="org.apache.commons.fileupload.disk.DiskFileItem" serialization="custom">
+            <org.apache.commons.fileupload.disk.DiskFileItem>
+              <default>
+                <isFormField>false</isFormField>
+                <size>-1</size>
+                <sizeThreshold>10240</sizeThreshold>
+                <cachedContent></cachedContent>
+                <contentType>application/octet-stream</contentType>
+                <fieldName>file0</fieldName>
+                <fileName></fileName>
+                <headers class="org.apache.commons.fileupload.util.FileItemHeadersImpl">
+                  <headerNameToValueListMap class="linked-hash-map">
+                    <entry>
+                      <string>content-disposition</string>
+                      <list>
+                        <string>form-data; name=&quot;file0&quot;; filename=&quot;&quot;</string>
+                      </list>
+                    </entry>
+                    <entry>
+                      <string>content-type</string>
+                      <list>
+                        <string>application/octet-stream</string>
+                      </list>
+                    </entry>
+                  </headerNameToValueListMap>
+                </headers>
+              </default>
+            </org.apache.commons.fileupload.disk.DiskFileItem>
+          </file>
+          <originalFileName></originalFileName>
+          <location>file5</location>
+        </hudson.model.FileParameterValue>
+      </parameters>
+    </hudson.model.ParametersAction>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.model.Cause_-UserCause>
+          <authenticationName>anonymous</authenticationName>
+        </hudson.model.Cause_-UserCause>
+      </causes>
+    </hudson.model.CauseAction>
+    <hudson.plugins.git.util.BuildData>
+      <buildsByBranchName>
+        <entry>
+          <string>origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <revision>
+              <sha1>a6735707aed02dd405589eb81edd090bc129fc72</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>2</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.scm.SCMRevisionState_-None/>
+    <hudson.tasks.test.AggregatedTestResultPublisher_-TestResultAction>
+      <owner class="build" reference="../../.."/>
+      <descriptions class="concurrent-hash-map"/>
+      <jobs></jobs>
+    </hudson.tasks.test.AggregatedTestResultPublisher_-TestResultAction>
+    <hudson.tasks.Fingerprinter_-FingerprintAction>
+      <build class="build" reference="../../.."/>
+      <record class="hudson.util.PackedMap"/>
+    </hudson.tasks.Fingerprinter_-FingerprintAction>
+    <hudson.plugins.disk__usage.BuildDiskUsageAction>
+      <diskUsage>
+        <buildUsage>10649</buildUsage>
+        <wsUsage>0</wsUsage>
+      </diskUsage>
+      <build class="build" reference="../../.."/>
+    </hudson.plugins.disk__usage.BuildDiskUsageAction>
+  </actions>
+  <number>2</number>
+  <result>FAILURE</result>
+  <duration>281116</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/home/user/hudson/customWorkspace</workspace>
+  <hudsonVersion>3.3.3</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits/>
+</build>

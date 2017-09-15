@@ -4,7 +4,7 @@ This tool helps to migrate a HIPP (Hudson instance per project) to a JIPP (Jenki
 
 Since [Hudson](http://www.hudson-ci.org) and [Jenkins](http://jenkins.io) diverged, their config file format has changed. Therefore a XSLT transformation is used to convert Hudson config files to be compatible with Jenkins.
 
-It currently only transforms job config files (/JENKINS_HOME/jobs/<job name>/config.xml) and build files (/JENKINS_HOME/jobs/<job name>/builds/<number/date>/build.xml). Basic transformation of main config files has been tested, but deemed not necessary for the conversion in the HIPP/JIPP context.
+It currently only transforms job config files (/JENKINS_HOME/jobs/&lt;job name&gt;/config.xml) and build files (/JENKINS_HOME/jobs/&lt;job name&gt;/builds/&lt;number/date&gt;/build.xml). Basic transformation of main config files has been tested, but deemed not necessary for the conversion in the HIPP/JIPP context.
 
 Backups of each transformed file will be created (e.g. config.bak).
 
@@ -24,7 +24,7 @@ Backups of each transformed file will be created (e.g. config.bak).
   * "Temporarily disable this builder" option is not supported out-of-the-box
 * Cascading jobs are not supported in Jenkins
 * Migration of the following features is not supported yet:
-  * Slave configs (can be copied from main config.xml to separate config.xml files in JENKINS_HOME/nodes/<node name>/)
+  * Slave configs (can be copied from main config.xml to separate config.xml files in JENKINS_HOME/nodes/&lt;node name&gt;/)
   * Views (can be copied from main config.xml)
 * Priority Sorter Plugin
   * "In [version] 3.x the option 'Allow priorities directly on Jobs' has been removed in favor of the Priority Strategy 'Take the priority from Property on the Job'." (https://wiki.jenkins.io/display/JENKINS/Priority+Sorter+Plugin)

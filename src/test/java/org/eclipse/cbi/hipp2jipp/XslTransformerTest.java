@@ -229,11 +229,11 @@ public class XslTransformerTest {
         } else {
             outputDir = new File (outputDirName);
         }
-        File transformedFile = new File(outputDir, nameWithoutExtension + XslTransformer.DEFAULT_TRANSFORMED_FILE_EXTENSION);
+        File transformedFile = new File(outputDir, nameWithoutExtension + HudsonConfigConverter.DEFAULT_TRANSFORMED_FILE_EXTENSION);
         if (transformedFile.exists()) {
             transformedFile.delete();
         }
-        XslTransformer.main(new String[]{inputFileName, transformedFile.getAbsolutePath()});
+        HudsonConfigConverter.main(new String[]{inputFileName, transformedFile.getAbsolutePath()});
         assertTrue(transformedFile.exists());
         
         // check root node in transformed file

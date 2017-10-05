@@ -195,6 +195,14 @@ public class XslTransformer {
         return new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_TRANSFORMED_FILE_EXTENSION);
     }
 
+    /**
+     * Search recursively for job config and build XMLs
+     * 
+     * Most likely the given directory will be the jobs or the Jenkins root directory.
+     * A few directories are excluded from the search like "workspace" or "archive". 
+     * 
+     * @param file directory
+     */
     private static void search (File file) {
         if (file.canRead()) {
             if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
@@ -215,23 +223,28 @@ public class XslTransformer {
                     search(f);
                 }
             } else {
-                checkFile(file);
+                convertFile(file);
             }
         } else {
             System.out.println(file.getAbsoluteFile() + " -> Permission Denied");
         }
     }
 
-    private static void checkFile(File file) {
+    /**
+     * Convert file
+     * 
+     * @param file
+     */
+    private static void convertFile(File file) {
+        // only convert build.xml and config.xml files
         if ("build.xml".equalsIgnoreCase(file.getName()) || "config.xml".equalsIgnoreCase(file.getName())) {
             createBackupFile(file);
             System.out.print("Converting " + file + "...");
             boolean successful = xslTransformer.transform(file);
             if (successful) {
                 System.out.println(" Done.");
-                if ("build.xml".equalsIgnoreCase(file.getName())) {
-//                    TimestampConverter.convertBuildTimestamp(file);
-                }
+            } else {
+                System.err.println(" Error.");
             }
         }
     }

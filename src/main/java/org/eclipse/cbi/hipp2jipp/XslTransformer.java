@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -41,11 +42,11 @@ public class XslTransformer {
     private static final String JOB_CONFIG_XSL = "config.job.xsl";
     private static final String BUILD_XSL = "build.xsl";
 
-    private static final String XSL_DIR = "xsl";
+    public static final String XSL_DIR = "xsl";
 
     private TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
-    public boolean transform(File inputFile, File outputFile) {
+    public boolean transform(File inputFile, File outputFile, String xslFileName, Properties xslParameters) {
         InputStream is = null;
         OutputStream os = null;
         try {
@@ -55,18 +56,7 @@ public class XslTransformer {
 
             // InputStream xsl = new FileInputStream(new File(XSL_DIR, getXslFileName(inputFile)));
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
-            String xslFileName = getXslFileName(inputFile);
-            if (xslFileName == null) {
-                System.err.println(inputFile + " cannot be converted.");
-                return false;
-            // Skip general config files
-            } else if (GENERAL_CONFIG_XSL.equalsIgnoreCase(xslFileName)) {
-                System.out.println("Skipping main config file!");
-                return false;
-            }
-
-            InputStream xsl = classloader.getResourceAsStream(XSL_DIR + "/" + xslFileName);
+            InputStream xsl = classloader.getResourceAsStream(xslFileName);
 
             Transformer transformer = transformerFactory.newTransformer(new StreamSource(xsl));
             //TODO: Fix indentation
@@ -75,6 +65,12 @@ public class XslTransformer {
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty("indent", "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            // set optional XSL parameters
+            if (xslParameters != null && !xslParameters.isEmpty()) {
+                for (String key : xslParameters.stringPropertyNames()) {
+                    transformer.setParameter(key, xslParameters.getProperty(key));
+                }
+            }
             transformer.transform(new StreamSource(is), new StreamResult(os));
         } catch (IOException | TransformerException e) {
             e.printStackTrace();
@@ -92,6 +88,19 @@ public class XslTransformer {
             }
         }
         return true;
+    }
+
+    public boolean transform(File inputFile, File outputFile) {
+        String xslFileName = getXslFileName(inputFile);
+        if (xslFileName == null) {
+            System.err.println(inputFile + " cannot be converted.");
+            return false;
+            // Skip general config files
+        } else if (GENERAL_CONFIG_XSL.equalsIgnoreCase(xslFileName)) {
+            System.out.println("Skipping main config file!");
+            return false;
+        }
+        return transform(inputFile, outputFile, XSL_DIR + "/" + xslFileName, null);
     }
 
     public boolean transform(File inputFile) {

@@ -73,6 +73,9 @@
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
         <xsl:apply-templates select="*/originalValue [@class = 'hudson.plugins.git.GitSCM']" />
       </xsl:when>
+      <xsl:when test="*/originalValue [@class = 'hudson.scm.SubversionSCM']">
+        <xsl:apply-templates select="*/originalValue [@class = 'hudson.scm.SubversionSCM']" />
+      </xsl:when>
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.cloneworkspace.CloneWorkspaceSCM']">
         <xsl:element name="scm">
           <xsl:attribute name="class">
@@ -413,6 +416,29 @@
           </hudson.plugins.git.extensions.impl.BuildChooserSetting>
         </xsl:if>
       </extensions>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- SVN -->
+  <xsl:template match="*/originalValue [@class = 'hudson.scm.SubversionSCM']">
+    <xsl:element name="scm">
+      <xsl:attribute name="class">
+        <xsl:value-of select="@class" />
+      </xsl:attribute>
+      <xsl:copy-of select="* [not(name()='workspaceUpdater')]" />
+      <xsl:element name="workspaceUpdater">
+        <xsl:attribute name="class">
+          <!-- TODO: fix for other values -->
+          <xsl:choose>
+            <xsl:when test="workspaceUpdater [@class = 'hudson.scm.subversion.CheckoutWithLocationFoldersCleanupUpdater']">
+              <xsl:text>hudson.scm.subversion.CheckoutUpdater</xsl:text>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:copy-of select="workspaceUpdater/text()" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:attribute>
+      </xsl:element>
     </xsl:element>
   </xsl:template>
 

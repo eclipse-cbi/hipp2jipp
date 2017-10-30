@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>&lt;p&gt;&#13;
+Parametrized JWT update site build, signs the JARs and promotes the results to a target directory.&#13;
+&lt;/p&gt;&#13;
+&#13;
+&lt;p&gt;Generic properties:&lt;/p&gt;&#13;
+&lt;ul&gt;&#13;
+   &lt;li&gt;Build is triggered automatically on SCM change (checked daily 6pm)&lt;/li&gt;&#13;
+   &lt;li&gt;Build does currently NOT run JUnit tests&lt;/li&gt;&#13;
+   &lt;li&gt;Build is aborted if stuck for 120 minutes&lt;/li&gt;&#13;
+   &lt;li&gt;The generated update site artifact is archived&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+&#13;
+&lt;p&gt;Specific properties:&lt;/p&gt;&#13;
+&lt;ul&gt;&#13;
+   &lt;li&gt;JWT Version: 1.4.0&lt;/li&gt;&#13;
+   &lt;li&gt;Build Environment: Luna M2&lt;/li&gt;&#13;
+   &lt;li&gt;Java Version: 1.6&lt;/li&gt;&#13;
+   &lt;li&gt;Hudson directory: /home/data/httpd/download.eclipse.org/jwt/update-site-luna&lt;/li&gt;&#13;
+   &lt;li&gt;Update site: http://download.eclipse.org/jwt/update-site-luna/&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+&#13;
+&lt;p&gt;Build steps:&lt;/p&gt;&#13;
+&lt;ul&gt;&#13;
+   &lt;li&gt;Clean Hudson workspace&lt;/li&gt;&#13;
+   &lt;li&gt;Retrieve source code (svn+ssh://dev.eclipse.org/svnroot/soa/org.eclipse.jwt)&lt;/li&gt;&#13;
+   &lt;li&gt;Run Maven 3 (org.eclipse.jwt/releng/mvn-jwt-builder)&lt;/li&gt;&#13;
+      &lt;ul&gt;&#13;
+         &lt;li&gt;Download dependencies&lt;/li&gt;&#13;
+         &lt;li&gt;Build plugins, features and update site&lt;/li&gt;&#13;
+         &lt;li&gt;Signs the jars (eclipse-jarsigner-plugin)&lt;/li&gt;&#13;
+      &lt;/ul&gt;&#13;
+   &lt;li&gt;Archive generated update site&lt;/li&gt;&#13;
+&lt;/ul&gt;&#13;
+&#13;
+&lt;p&gt;Documentation of the build process:&lt;/p&gt;&#13;
+&lt;ul&gt;&#13;
+   &lt;li&gt;http://wiki.eclipse.org/JWT_Automatic_Build&lt;/li&gt;&#13;
+&lt;/ul&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.ChoiceParameterDefinition>
+                <name>BUILDTYPE</name>
+                <description>(I)ntegration, (S)table, (R)elease</description>
+                <choices class="java.util.Arrays$ArrayList">
+                  <a class="string-array">
+                    <string>R</string>
+                    <string>S</string>
+                    <string>I</string>
+                  </a>
+                </choices>
+              </hudson.model.ChoiceParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>VERSION</name>
+                <description>version has to match manifest versions</description>
+                <defaultValue>1.4.0</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>UPDATESITE</name>
+                <description>update site for deployment</description>
+                <defaultValue>update-site-luna</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.scm.SubversionSCM">
+    <locations>
+            <hudson.scm.SubversionSCM_-ModuleLocation>
+              <remote>http://dev.eclipse.org/svnroot/soa/org.eclipse.jwt/trunk</remote>
+              <local>org.eclipse.jwt</local>
+              <depthOption>infinity</depthOption>
+              <ignoreExternalsOption>false</ignoreExternalsOption>
+            </hudson.scm.SubversionSCM_-ModuleLocation>
+          </locations>
+    <excludedRegions/>
+    <includedRegions/>
+    <excludedUsers/>
+    <excludedRevprop/>
+    <excludedCommitMessages/>
+    <workspaceUpdater class="hudson.scm.subversion.CheckoutUpdater"/>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.6.0-latest</jdk>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean install -Peclipse-sign -Ppublish</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>${WORKSPACE}/org.eclipse.jwt/releng/mvn-jwt-builder/pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>org.eclipse.jwt/releng/jwt-tests-plugin/target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>org.eclipse.jwt/releng/org.eclipse.jwt.p2updatesite/target/*.zip</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>120</timeoutMinutes>
+      </strategy>
+      <operationList>
+        <hudson.plugins.build__timeout.operations.FailOperation/>
+      </operationList>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+    <hudson.plugins.locksandlatches.LockWrapper/>
+  </buildWrappers>
+</project>

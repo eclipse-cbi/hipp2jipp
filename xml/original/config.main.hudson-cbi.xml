@@ -1,0 +1,310 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <version>3.3.2</version>
+  <numExecutors>5</numExecutors>
+  <mode>NORMAL</mode>
+  <systemMessage>&lt;img align=&quot;left&quot; src=&quot;//eclipse.org/eclipse.org-common/themes/Nova/images/eclipse.png&quot; /&gt;&#xd;
+&lt;ul style=&quot;float:right;border:1px dashed; padding:5px&quot;&gt;&#xd;
+&lt;li&gt;&lt;a href=&quot;http://wiki.eclipse.org/Hudson&quot; style=&quot;font-weight:bold;color:green&quot;&gt;Hudson at eclipse&lt;/a&gt;&lt;/li&gt;&#xd;
+&lt;li&gt;&lt;a href=&quot;https://dev.eclipse.org/cacti&quot; style=&quot;font-weight:bold;color:green&quot;&gt;Build Infra health charts&lt;/a&gt;&lt;/li&gt;&#xd;
+&lt;/ul&gt;&#xd;
+&lt;font size=&quot;+2&quot;&gt;Eclipse.org CBI builds&lt;/font&gt;&#xd;
+&lt;br style=&quot;clear:both&quot;/&gt;&#xd;
+</systemMessage>
+  <privacyMessage></privacyMessage>
+  <instanceTag>CBI</instanceTag>
+  <configuredWorkspaceRoot></configuredWorkspaceRoot>
+  <jdks>
+    <jdk>
+      <name>jdk1.8.0-latest</name>
+      <home>/shared/common/jdk1.8.0_x64-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.7.0-latest</name>
+      <home>/shared/common/jdk1.7.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.6.0-latest</name>
+      <home>/shared/common/jdk1.6.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.5.0-latest</name>
+      <home>/shared/common/jdk1.5.0-latest</home>
+      <properties/>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <scriptSupport class="org.hudsonci.plugins.groovy.GroovyScriptSupport"/>
+  <allowUnsecuredAction>false</allowUnsecuredAction>
+  <clouds/>
+  <slaves>
+    <slave>
+      <name>hippcentos</name>
+      <description></description>
+      <remoteFS>/opt/public/hipp/homes/genie.cbi</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher">
+        <host>hippcentos.eclipse.org</host>
+        <port>22</port>
+        <username></username>
+        <password>2f42RG84wn5E5JNzoc6owg==</password>
+        <privatekey></privatekey>
+        <javaPath>/opt/public/common/jdk1.7.0-latest/bin/java</javaPath>
+        <jvmOptions></jvmOptions>
+      </launcher>
+      <label>centos</label>
+      <nodeProperties/>
+    </slave>
+    <slave>
+      <name>mac-tests2</name>
+      <description></description>
+      <remoteFS>/Users/genie.cbi</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher">
+        <host>mac-tests2</host>
+        <port>22</port>
+        <username>genie.cbi</username>
+        <password>2f42RG84wn5E5JNzoc6owg==</password>
+        <privatekey></privatekey>
+        <javaPath></javaPath>
+        <jvmOptions></jvmOptions>
+      </launcher>
+      <label></label>
+      <nodeProperties>
+        <hudson.tools.ToolLocationNodeProperty>
+          <locations>
+            <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+              <type>org.hudsonci.maven.plugin.install.MavenInstallation$DescriptorImpl</type>
+              <name>apache-maven-latest</name>
+              <home>/shared/common/apache-maven-latest</home>
+            </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+            <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+              <type>hudson.plugins.git.GitTool$DescriptorImpl</type>
+              <name>Default</name>
+              <home>/usr/bin/git</home>
+            </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+            <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+              <type>hudson.tasks.Ant$AntInstallation$DescriptorImpl</type>
+              <name>apache-ant-1.8.4</name>
+              <home>/shared/common/apache-ant-1.8.4</home>
+            </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+          </locations>
+        </hudson.tools.ToolLocationNodeProperty>
+        <hudson.slaves.EnvironmentVariablesNodeProperty>
+          <envVars serialization="custom">
+            <unserializable-parents/>
+            <tree-map>
+              <default>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+              </default>
+              <int>6</int>
+              <string>ANT_OPTS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot; -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot;</string>
+              <string>JAVA_ARGS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot; -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot;</string>
+              <string>JAVA_HOME</string>
+              <string>/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home</string>
+              <string>JVM_OPTS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot; -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot;</string>
+              <string>MAVEN_OPTS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot; -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts=&quot;172.30.206.*|*.eclipse.org&quot;</string>
+              <string>no_proxy</string>
+              <string>localhost,172.30.206.*,172.30.206.0,172.25.25.*,172.25.25.0,hudson.eclipse.org,127.0.0.1,download.eclipse.org</string>
+            </tree-map>
+          </envVars>
+        </hudson.slaves.EnvironmentVariablesNodeProperty>
+        <hudson.plugins.xvnc.NodePropertyImpl/>
+      </nodeProperties>
+    </slave>
+    <slave>
+      <offlineCause class="hudson.slaves.OfflineCause$LaunchFailed"/>
+      <name>external-sample</name>
+      <description>external slave example using SSH proxycommand and build.e.o</description>
+      <remoteFS>~</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.CommandLauncher">
+        <agentCommand>ssh -C -i /opt/public/hipp/homes/genie.cbi/.ssh/id_rsa.cbi user@external-slave &quot;wget -qO slave.jar https://hudson.eclipse.org/cbi/jnlpJars/slave.jar ; java -jar slave.jar&quot;</agentCommand>
+      </launcher>
+      <label></label>
+      <nodeProperties/>
+    </slave>
+  </slaves>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+    </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>natives</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>cbi-launcher-linux-x86_64</string>
+        <string>cbi-launcher-macosx-x86_64</string>
+        <string>cbi-platform-aggregator-linux-x86_64</string>
+        <string>cbi-swt-natives-linux-x86_64</string>
+        <string>cbi-swt-natives-macosx-x86_64</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>signing-packaging</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>maven-plugins.*|signing-packaging.*|webservices.*</includeRegex>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>license</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>cbi-eclipse-license</string>
+        <string>cbi-license-gerrit</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>sanity-check</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>sanity-check-build-product-and-sign</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>sanity-check.*</includeRegex>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>p2RepoRelated</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>cbi.p2repo.aggregator.releng.removeRepos</string>
+        <string>cbi.p2repo.aggregator_addComposites</string>
+        <string>cbi.p2repo.aggregator_cleanAndDeploy</string>
+        <string>cbi.p2repo.aggregator_Gerrit</string>
+        <string>cbi.p2repo.aggregator_removeRepos</string>
+        <string>cbi.p2repo.analyzers.TestMars</string>
+        <string>cbi.p2repo.analyzers.TestMars.reports</string>
+        <string>cbi.p2repo.analyzers_addComposites</string>
+        <string>cbi.p2repo.analyzers_cleanAndDeploy</string>
+        <string>cbi.p2repo.analyzers_Gerrit</string>
+        <string>cbi.p2repo.analyzers_removeRepos</string>
+        <string>cbi.p2repo.releng.archiveConfigXmls</string>
+        <string>cbi.p2repo.releng.miscShellTasks</string>
+        <string>cbi.p2repo.releng.probe</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+  </views>
+  <primaryView>All</primaryView>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+    <PROXY__HEADER>X-Forwarded-For</PROXY__HEADER>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="hudson.util.CaseInsensitiveComparator"/>
+          </default>
+          <int>6</int>
+          <string>ANT_ARGS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR</string>
+          <string>ANT_OPTS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR</string>
+          <string>GIT_CONFIG_NOSYSTEM</string>
+          <string>true</string>
+          <string>JAVA_ARGS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR</string>
+          <string>JAVA_TMPDIR</string>
+          <string>/tmp/genie.cbi</string>
+          <string>JVM_OPTS</string>
+          <string>-Djava.io.tmpdir=$JAVA_TMPDIR</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
+  <disabledAdministrativeMonitors/>
+  <useBlueBall>false</useBlueBall>
+</hudson>

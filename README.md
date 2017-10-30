@@ -12,7 +12,12 @@ Backups of each transformed file will be created (e.g. config.bak).
 
 1. Copy the Jobs directory from the Hudson Home dir to the Jenkins Home dir.
 
-2. Run the HIPP2JIPP tool on the Jenkins Home dir:<br>```java -cp hipp2jipp-0.0.1-SNAPSHOT.jar org.eclipse.cbi.hipp2jipp.XslTransformer <JENKINS_HOME> ```
+2. Run the HIPP2JIPP tool on the Jenkins Home dir:<br>```java -cp hipp2jipp-<VERSION>.jar org.eclipse.cbi.hipp2jipp.HudsonConfigConverter <JENKINS_HOME> ```
+
+### Converting Views
+
+If the Hudson server has views configured, the command line option ```-cv``` can be used to copy the views to the Jenkins main config:
+```java -cp hipp2jipp-<version>.jar org.eclipse.cbi.hipp2jipp.HudsonConfigConverter <JENKINS_HOME> -cv <PATH TO HUDSON MAIN CONFIG.XML>```
 
 ## Known issues
 * Git SCM
@@ -23,11 +28,11 @@ Backups of each transformed file will be created (e.g. config.bak).
 * Shell build step
   * "Temporarily disable this builder" option is not supported out-of-the-box
 * Cascading jobs are not supported in Jenkins
-* Migration of the following features is not supported yet:
-  * Slave configs (can be copied from main config.xml to separate config.xml files in JENKINS_HOME/nodes/&lt;node name&gt;/)
-  * Views (can be copied from main config.xml)
+  * they should be converted to normal freestyle jobs first
 * Priority Sorter Plugin
   * "In [version] 3.x the option 'Allow priorities directly on Jobs' has been removed in favor of the Priority Strategy 'Take the priority from Property on the Job'." (https://wiki.jenkins.io/display/JENKINS/Priority+Sorter+Plugin)
+* Migration of the following features is not supported yet:
+  * Slave configs (can be copied from main config.xml to separate config.xml files in JENKINS_HOME/nodes/&lt;node name&gt;/)
 
 # Credits
 This tool was inspired by code from Marcel Schutte that he posted in the jenkins-ci Google group here:

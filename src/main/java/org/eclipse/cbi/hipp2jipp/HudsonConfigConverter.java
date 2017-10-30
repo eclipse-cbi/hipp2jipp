@@ -5,19 +5,28 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
 
 /**
- * Hudson to Jenkins config file XSL transformer
- * 
- * The HudsonConfigConverter can be run from the command line by specifying
- * either a single input file and an optional output file or by specifying a
- * directory (e.g. the jobs directory).
- * 
- * Here is the recommended way to do the migration:
- * 
- * 1. set up a new Jenkins instance 2. copy the jobs from your Hudson instance
- * to the jobs directory of your Jenkins instance 3. run the XslTransformer with
- * the Jenkins job directory as parameter 4. restart Jenkins instance
+ * Hudson to Jenkins config file XSL transformer<br/>
+ * <br/>
+ * The HudsonConfigConverter can be run from the command line by specifying<br/>
+ * either a single input file and an optional output file or by specifying a<br/>
+ * directory (e.g. the jobs directory).<br/>
+ * <br/>
+ * Here is the recommended way to do the migration:<br/>
+ * <br/>
+ * 1. set up a new Jenkins instance<br/>
+ * 2. copy the jobs from your Hudson instance to the jobs directory of your Jenkins instance<br/>
+ * 3. run the XslTransformer with the Jenkins job directory as parameter<br/>
+ * 4. restart Jenkins instance<br/>
  * 
  * @author Frederic Gurr
  *
@@ -29,15 +38,41 @@ public class HudsonConfigConverter {
 
     private static XslTransformer xslTransformer;
 
+    @Option(name="-o",usage="output to this file",metaVar="OUTPUT")
+    private File outputFile = null;
+
+    @Option(name="-cv",usage="copy views from this Hudson config file",metaVar="FILE")
+    private File hudsonConfigFile = null;
+
+    @Argument
+    private List<String> arguments = new ArrayList<String>();
+
     public static void main(String[] args) {
+        new HudsonConfigConverter().doMain(args);
+    }
+
+    public void doMain(String[] args) {
         xslTransformer = new XslTransformer();
 
-        if (args.length < 1) {
-            showUsage();
-            return;
+        CmdLineParser parser = new CmdLineParser(this);
+
+        try {
+            parser.parseArgument(args);
+
+            if (arguments.isEmpty()) {
+                throw new CmdLineException(parser, "No argument is given");
+            }
+
+        } catch (CmdLineException e) {
+            System.err.println(e.getMessage());
+            System.err.println("java HudsonConfigConverter [options...] arguments...");
+            // print the list of available options
+            parser.printUsage(System.err);
+            System.err.println();
         }
 
-        String inputFilePath = args[0];
+        // input file
+        String inputFilePath = arguments.get(0);
 
         File inputFile = new File(inputFilePath);
         if (!inputFile.exists()) {
@@ -47,14 +82,19 @@ public class HudsonConfigConverter {
 
         if (inputFile.isFile()) {
             // single XML file
-            File outputFile;
-            if (args.length == 2) {
-                outputFile = new File(args[1]);
-            } else {
+            if (outputFile == null) {
                 outputFile = getTransformedFileName(inputFile);
             }
 
-            xslTransformer.transform(inputFile, outputFile);
+            String rootNodeName = XslTransformer.getXmlRootNodeName(inputFile);
+            if (hudsonConfigFile != null && "hudson".equalsIgnoreCase(rootNodeName)) {
+                // try to copy views from hudson config
+                Properties xslParameters = new Properties();
+                xslParameters.put("sourceFile", hudsonConfigFile.getAbsolutePath());
+                xslTransformer.transform(inputFile, outputFile, XslTransformer.XSL_DIR + "/copyViews.xsl", xslParameters);
+            } else {
+                xslTransformer.transform(inputFile, outputFile);
+            }
             if ("build.transformed.xml".equalsIgnoreCase(outputFile.getName())) {
                 // TimestampConverter.convertBuildTimestamp(outputFile);
             }
@@ -65,13 +105,13 @@ public class HudsonConfigConverter {
         }
     }
 
-    private static String getNameWithoutExtension(File file) {
+    public static String getNameWithoutExtension(File file) {
         String filename = file.getName();
         int pos = filename.lastIndexOf('.');
         return (pos > 0) ? filename.substring(0, pos) : filename;
     }
 
-    private static File getTransformedFileName(File inputFile) {
+    public static File getTransformedFileName(File inputFile) {
         return new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(inputFile) + DEFAULT_TRANSFORMED_FILE_EXTENSION);
     }
 
@@ -79,34 +119,36 @@ public class HudsonConfigConverter {
         // creating backup of config.xml
         File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(file) + DEFAULT_BACKUP_FILE_EXTENSION);
         try {
-            Files.copy(file.toPath(),backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            Files.copy(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
             e.printStackTrace();
         }
         // System.out.println("Created backup for " + file.getName() +".");
     }
 
-        /**
+    /**
      * Search recursively for job config and build XMLs
      * 
-     * Most likely the given directory will be the jobs or the Jenkins root directory.
-     * A few directories are excluded from the search like "workspace" or "archive". 
+     * Most likely the given directory will be the jobs or the Jenkins root
+     * directory. A few directories are excluded from the search like
+     * "workspace" or "archive".
      * 
-     * @param file directory
+     * @param file
+     *            directory
      */
-    private static void search (File file) {
+    private static void search(File file) {
         if (file.canRead()) {
             if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
                 // do not search workspace, users and config-history dir
                 File[] list = file.listFiles(new FilenameFilter() {
-                    
+
                     @Override
                     public boolean accept(File dir, String name) {
-                        return  !name.startsWith("workspace") &&
-                                !"users".equalsIgnoreCase(name) &&
-                                !"archive".equalsIgnoreCase(name) &&
-                                !"config-history".equalsIgnoreCase(name) &&
-                                !"promotions".equalsIgnoreCase(name);
+                        return !name.startsWith("workspace") &&
+                               !"users".equalsIgnoreCase(name) &&
+                               !"archive".equalsIgnoreCase(name) &&
+                               !"config-history".equalsIgnoreCase(name) &&
+                               !"promotions".equalsIgnoreCase(name);
                     }
                 });
                 // System.out.println("Searching directory ... " + file.getAbsoluteFile());
@@ -140,9 +182,4 @@ public class HudsonConfigConverter {
         }
     }
 
-    private static void showUsage() {
-        System.out.println("Usage:");
-        System.out.println("XslTransformer [single XML file/(hudson root) directory] [outputFile]");
-        System.out.println();
-    }
 }

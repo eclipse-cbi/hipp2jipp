@@ -16,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.xml.transform.Source;
 
@@ -73,24 +74,6 @@ public class XslTransformerTest {
 //        assertNull(xslFileNameFoobar);
     }
 
-//    @Test
-//    public void xslTransformerMainTest_HudsonDir() {
-//        System.out.println();
-//        XslTransformer.main(new String[]{"test/hudson"});
-//        
-//        // TODO: assertions
-//        // TODO: overwrite old .bak files
-//    }
-//
-//    @Test
-//    public void xslTransformerMainTest_JenkinsDir() {
-//        System.out.println();
-//        XslTransformer.main(new String[]{"test/jenkins"});
-//        
-//        // TODO: assertions
-//        // TODO: overwrite old .bak files
-//    }
-    
     @Test
     public void buildTest_kapua() {
         transformAndCompare("kapua", "build.hudson", "build");
@@ -211,7 +194,33 @@ public class XslTransformerTest {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");
 //    }
 
+    @Test
+    public void copyViewsTest_positive() {
+        testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");
+    }
+
+    @Test
+    public void copyViewsTest_CLI() {
+        String inputFileName = "xml/original/config.main.jenkins-cbi.xml";
+        String outputFileName = "xml/transformed/config.main.jenkins-cbi.transformed.xml";
+        String configFile = "xml/original/config.main.hudson-cbi.xml";
+        HudsonConfigConverter.main(new String[]{inputFileName, "-o", outputFileName, "-cv", configFile});
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(inputFileName));
+        compareWithReferenceFile(nameWithoutExtension);
+    }
+
     /* Utilities */
+
+    private void testCopyViews(String in, String configFile) {
+        File inputFile = new File(ORIGINAL_DIR, in);
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(inputFile);
+        File outputFile = new File(TRANSFORM_OUTPUT_DIR, nameWithoutExtension + HudsonConfigConverter.DEFAULT_TRANSFORMED_FILE_EXTENSION);
+        String hudsonConfigFile = ORIGINAL_DIR + "/" + configFile;
+        Properties xslParameters = new Properties();
+        xslParameters.put("sourceFile", hudsonConfigFile);
+        new XslTransformer().transform(inputFile, outputFile, XslTransformer.XSL_DIR + "/copyViews.xsl", xslParameters);
+        compareWithReferenceFile(nameWithoutExtension);
+    }
 
     //TODO: simplify
     private void transformAndCompare(String name, String prefix, String rootNodeName) {
@@ -221,8 +230,8 @@ public class XslTransformerTest {
     }
 
     private void transformSingleFile(String inputFileName, String outputDirName, String expectedXmlRootNodeName) {
-        String fileName = new File (inputFileName).getName();
-        String nameWithoutExtension = fileName.substring(0, fileName.lastIndexOf("."));
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(inputFileName));
+        // delete old file before transforming
         File outputDir = null;
         if (outputDirName == null) {
             outputDir = new File (inputFileName).getAbsoluteFile().getParentFile();
@@ -233,7 +242,7 @@ public class XslTransformerTest {
         if (transformedFile.exists()) {
             transformedFile.delete();
         }
-        HudsonConfigConverter.main(new String[]{inputFileName, transformedFile.getAbsolutePath()});
+        HudsonConfigConverter.main(new String[]{inputFileName, "-o", transformedFile.getAbsolutePath()});
         assertTrue(transformedFile.exists());
         
         // check root node in transformed file
@@ -242,16 +251,16 @@ public class XslTransformerTest {
     }
 
     private void compareWithReferenceFile(String fileName) {
-        //TODO: ignore whitespace
+        // TODO: ignore whitespace
         Source control = Input.fromFile(REFERENCE_DIR + "/" + fileName + ".transformed_reference.xml").build();
         Source test = Input.fromFile(TRANSFORM_OUTPUT_DIR + "/" + fileName + ".transformed.xml").build();
         DifferenceEngine diff = new DOMDifferenceEngine();
         diff.addDifferenceListener(new ComparisonListener() {
-                public void comparisonPerformed(Comparison comparison, ComparisonResult outcome) {
-                    System.out.println(comparison);
-                    Assert.fail("found a difference: " + comparison);
-                }
-            });
+            public void comparisonPerformed(Comparison comparison, ComparisonResult outcome) {
+                System.out.println(comparison);
+                Assert.fail("found a difference: " + comparison);
+            }
+        });
         diff.compare(control, test);
     }
 

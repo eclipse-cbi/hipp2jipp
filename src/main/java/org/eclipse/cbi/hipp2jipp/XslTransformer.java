@@ -36,6 +36,12 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Transforms the given XML files according to the specified XSL file
+ * 
+ * @author Frederic Gurr
+ *
+ */
 public class XslTransformer {
 
     private static final String GENERAL_CONFIG_XSL = "config.main.xsl";

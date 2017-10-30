@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?><hudson>
+  <disabledAdministrativeMonitors>
+    <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>2.32.2</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <systemMessage>&lt;h2&gt;Default JIPP Instance&lt;/h2&gt;&#13;
+&lt;table style="border-spacing: 20px"&gt;&#13;
+  &lt;tr&gt;&#13;
+    &lt;td&gt;&lt;img src="https://eclipse.org/eclipse.org-common/themes/Nova/images/eclipse.png" /&gt;&lt;/td&gt;&#13;
+    &lt;td&gt;&#13;
+    &lt;ul style="border:1px dashed; padding:5px; padding-left: 20px"&gt;&#13;
+      &lt;li&gt;&lt;a href="http://wiki.eclipse.org/Jenkins" style="font-weight:bold;color:green"&gt;Jenkins at Eclipse&lt;/a&gt;&lt;/li&gt;&#13;
+      &lt;li&gt;&lt;a href="https://dev.eclipse.org/cacti" style="font-weight:bold;color:green"&gt;Build Infra health charts&lt;/a&gt;&lt;/li&gt;&#13;
+    &lt;/ul&gt;&#13;
+    &lt;/td&gt;&#13;
+  &lt;/tr&gt;&#13;
+&lt;/table&gt;</systemMessage>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@1.5">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks>
+    <jdk>
+      <name>jdk1.8.0-latest</name>
+      <home>/shared/common/jdk1.8.0_x64-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.7.0-latest</name>
+      <home>/shared/common/jdk1.7.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.6.0-latest</name>
+      <home>/shared/common/jdk1.6.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.5.0-latest</name>
+      <home>/shared/common/jdk1.5.0-latest</home>
+      <properties/>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+    </hudson.model.AllView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>natives</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>cbi-launcher-linux-x86_64</string>
+        <string>cbi-launcher-macosx-x86_64</string>
+        <string>cbi-platform-aggregator-linux-x86_64</string>
+        <string>cbi-swt-natives-linux-x86_64</string>
+        <string>cbi-swt-natives-macosx-x86_64</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>signing-packaging</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>maven-plugins.*|signing-packaging.*|webservices.*</includeRegex>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>license</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>cbi-eclipse-license</string>
+        <string>cbi-license-gerrit</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>sanity-check</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>sanity-check-build-product-and-sign</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+      <includeRegex>sanity-check.*</includeRegex>
+    </listView>
+    <listView>
+      <owner class="hudson" reference="../../.."/>
+      <name>p2RepoRelated</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+      <jobNames>
+        <comparator class="hudson.util.CaseInsensitiveComparator"/>
+        <string>cbi.p2repo.aggregator.releng.removeRepos</string>
+        <string>cbi.p2repo.aggregator_addComposites</string>
+        <string>cbi.p2repo.aggregator_cleanAndDeploy</string>
+        <string>cbi.p2repo.aggregator_Gerrit</string>
+        <string>cbi.p2repo.aggregator_removeRepos</string>
+        <string>cbi.p2repo.analyzers.TestMars</string>
+        <string>cbi.p2repo.analyzers.TestMars.reports</string>
+        <string>cbi.p2repo.analyzers_addComposites</string>
+        <string>cbi.p2repo.analyzers_cleanAndDeploy</string>
+        <string>cbi.p2repo.analyzers_Gerrit</string>
+        <string>cbi.p2repo.analyzers_removeRepos</string>
+        <string>cbi.p2repo.releng.archiveConfigXmls</string>
+        <string>cbi.p2repo.releng.miscShellTasks</string>
+        <string>cbi.p2repo.releng.probe</string>
+      </jobNames>
+      <jobFilters/>
+      <columns>
+        <hudson.views.StatusColumn/>
+        <hudson.views.WeatherColumn/>
+        <hudson.views.JobColumn/>
+        <hudson.views.LastSuccessColumn/>
+        <hudson.views.LastFailureColumn/>
+        <hudson.views.LastDurationColumn/>
+        <hudson.views.ConsoleColumn/>
+        <hudson.views.BuildButtonColumn/>
+      </columns>
+    </listView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label/>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+  <noUsageStatistics>true</noUsageStatistics>
+</hudson>

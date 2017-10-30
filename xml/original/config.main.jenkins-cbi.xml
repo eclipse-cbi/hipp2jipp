@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson>
+  <disabledAdministrativeMonitors>
+    <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
+  </disabledAdministrativeMonitors>
+  <version>2.32.2</version>
+  <numExecutors>2</numExecutors>
+  <mode>NORMAL</mode>
+  <useSecurity>true</useSecurity>
+  <authorizationStrategy class="hudson.security.AuthorizationStrategy$Unsecured"/>
+  <securityRealm class="hudson.security.HudsonPrivateSecurityRealm">
+    <disableSignup>true</disableSignup>
+    <enableCaptcha>false</enableCaptcha>
+  </securityRealm>
+  <disableRememberMe>false</disableRememberMe>
+  <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
+  <workspaceDir>${ITEM_ROOTDIR}/workspace</workspaceDir>
+  <buildsDir>${ITEM_ROOTDIR}/builds</buildsDir>
+  <systemMessage>&lt;h2&gt;Default JIPP Instance&lt;/h2&gt;&#xd;
+&lt;table style=&quot;border-spacing: 20px&quot;&gt;&#xd;
+  &lt;tr&gt;&#xd;
+    &lt;td&gt;&lt;img src=&quot;https://eclipse.org/eclipse.org-common/themes/Nova/images/eclipse.png&quot; /&gt;&lt;/td&gt;&#xd;
+    &lt;td&gt;&#xd;
+    &lt;ul style=&quot;border:1px dashed; padding:5px; padding-left: 20px&quot;&gt;&#xd;
+      &lt;li&gt;&lt;a href=&quot;http://wiki.eclipse.org/Jenkins&quot; style=&quot;font-weight:bold;color:green&quot;&gt;Jenkins at Eclipse&lt;/a&gt;&lt;/li&gt;&#xd;
+      &lt;li&gt;&lt;a href=&quot;https://dev.eclipse.org/cacti&quot; style=&quot;font-weight:bold;color:green&quot;&gt;Build Infra health charts&lt;/a&gt;&lt;/li&gt;&#xd;
+    &lt;/ul&gt;&#xd;
+    &lt;/td&gt;&#xd;
+  &lt;/tr&gt;&#xd;
+&lt;/table&gt;</systemMessage>
+  <markupFormatter class="hudson.markup.RawHtmlMarkupFormatter" plugin="antisamy-markup-formatter@1.5">
+    <disableSyntaxHighlighting>false</disableSyntaxHighlighting>
+  </markupFormatter>
+  <jdks>
+    <jdk>
+      <name>jdk1.8.0-latest</name>
+      <home>/shared/common/jdk1.8.0_x64-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.7.0-latest</name>
+      <home>/shared/common/jdk1.7.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.6.0-latest</name>
+      <home>/shared/common/jdk1.6.0-latest</home>
+      <properties/>
+    </jdk>
+    <jdk>
+      <name>jdk1.5.0-latest</name>
+      <home>/shared/common/jdk1.5.0-latest</home>
+      <properties/>
+    </jdk>
+  </jdks>
+  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <myViewsTabBar class="hudson.views.DefaultMyViewsTabBar"/>
+  <clouds/>
+  <quietPeriod>5</quietPeriod>
+  <scmCheckoutRetryCount>0</scmCheckoutRetryCount>
+  <views>
+    <hudson.model.AllView>
+      <owner class="hudson" reference="../../.."/>
+      <name>All</name>
+      <filterExecutors>false</filterExecutors>
+      <filterQueue>false</filterQueue>
+    </hudson.model.AllView>
+  </views>
+  <primaryView>all</primaryView>
+  <slaveAgentPort>-1</slaveAgentPort>
+  <label></label>
+  <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
+    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+  </crumbIssuer>
+  <nodeProperties/>
+  <globalNodeProperties/>
+  <noUsageStatistics>true</noUsageStatistics>
+</hudson>

@@ -1,0 +1,185 @@
+package org.eclipse.cbi.hipp2jipp;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import org.kohsuke.args4j.Argument;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
+
+/**
+ * Hudson to Jenkins config file XSL transformer<br/>
+ * <br/>
+ * The HudsonConfigConverter can be run from the command line by specifying<br/>
+ * either a single input file and an optional output file or by specifying a<br/>
+ * directory (e.g. the jobs directory).<br/>
+ * <br/>
+ * Here is the recommended way to do the migration:<br/>
+ * <br/>
+ * 1. set up a new Jenkins instance<br/>
+ * 2. copy the jobs from your Hudson instance to the jobs directory of your Jenkins instance<br/>
+ * 3. run the XslTransformer with the Jenkins job directory as parameter<br/>
+ * 4. restart Jenkins instance<br/>
+ * 
+ * @author Frederic Gurr
+ *
+ */
+public class HudsonConfigConverter {
+
+    private static final String DEFAULT_BACKUP_FILE_EXTENSION = ".bak";
+    public static final String DEFAULT_TRANSFORMED_FILE_EXTENSION = ".transformed.xml";
+
+    private static XslTransformer xslTransformer;
+
+    @Option(name="-o",usage="output to this file",metaVar="OUTPUT")
+    private File outputFile = null;
+
+    @Option(name="-cv",usage="copy views from this Hudson config file",metaVar="FILE")
+    private File hudsonConfigFile = null;
+
+    @Argument
+    private List<String> arguments = new ArrayList<String>();
+
+    public static void main(String[] args) {
+        new HudsonConfigConverter().doMain(args);
+    }
+
+    public void doMain(String[] args) {
+        xslTransformer = new XslTransformer();
+
+        CmdLineParser parser = new CmdLineParser(this);
+
+        try {
+            parser.parseArgument(args);
+
+            if (arguments.isEmpty()) {
+                throw new CmdLineException(parser, "No argument is given");
+            }
+
+        } catch (CmdLineException e) {
+            System.err.println(e.getMessage());
+            System.err.println("java HudsonConfigConverter [options...] arguments...");
+            // print the list of available options
+            parser.printUsage(System.err);
+            System.err.println();
+        }
+
+        // input file
+        String inputFilePath = arguments.get(0);
+
+        File inputFile = new File(inputFilePath);
+        if (!inputFile.exists()) {
+            System.err.println("Input file/directory " + inputFile.getAbsolutePath() + " does not exist.");
+            return;
+        }
+
+        if (inputFile.isFile()) {
+            // single XML file
+            if (outputFile == null) {
+                outputFile = getTransformedFileName(inputFile);
+            }
+
+            String rootNodeName = XslTransformer.getXmlRootNodeName(inputFile);
+            if (hudsonConfigFile != null && "hudson".equalsIgnoreCase(rootNodeName)) {
+                // try to copy views from hudson config
+                Properties xslParameters = new Properties();
+                xslParameters.put("sourceFile", hudsonConfigFile.getAbsolutePath());
+                xslTransformer.transform(inputFile, outputFile, XslTransformer.XSL_DIR + "/copyViews.xsl", xslParameters);
+            } else {
+                xslTransformer.transform(inputFile, outputFile);
+            }
+            if ("build.transformed.xml".equalsIgnoreCase(outputFile.getName())) {
+                // TimestampConverter.convertBuildTimestamp(outputFile);
+            }
+            System.out.println("Done. File written: " + outputFile.getAbsolutePath());
+        } else {
+            // scan directory recursively for config.xmls or build.xmls
+            search(inputFile);
+        }
+    }
+
+    public static String getNameWithoutExtension(File file) {
+        String filename = file.getName();
+        int pos = filename.lastIndexOf('.');
+        return (pos > 0) ? filename.substring(0, pos) : filename;
+    }
+
+    public static File getTransformedFileName(File inputFile) {
+        return new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(inputFile) + DEFAULT_TRANSFORMED_FILE_EXTENSION);
+    }
+
+    private static void createBackupFile(File file) {
+        // creating backup of config.xml
+        File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(file) + DEFAULT_BACKUP_FILE_EXTENSION);
+        try {
+            Files.copy(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // System.out.println("Created backup for " + file.getName() +".");
+    }
+
+    /**
+     * Search recursively for job config and build XMLs
+     * 
+     * Most likely the given directory will be the jobs or the Jenkins root
+     * directory. A few directories are excluded from the search like
+     * "workspace" or "archive".
+     * 
+     * @param file
+     *            directory
+     */
+    private static void search(File file) {
+        if (file.canRead()) {
+            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
+                // do not search workspace, users and config-history dir
+                File[] list = file.listFiles(new FilenameFilter() {
+
+                    @Override
+                    public boolean accept(File dir, String name) {
+                        return !name.startsWith("workspace") &&
+                               !"users".equalsIgnoreCase(name) &&
+                               !"archive".equalsIgnoreCase(name) &&
+                               !"config-history".equalsIgnoreCase(name) &&
+                               !"promotions".equalsIgnoreCase(name);
+                    }
+                });
+                // System.out.println("Searching directory ... " + file.getAbsoluteFile());
+                for (File f : list) {
+                    search(f);
+                }
+            } else {
+                convertFile(file);
+            }
+        } else {
+            System.out.println(file.getAbsoluteFile() + " -> Permission Denied");
+        }
+    }
+
+    /**
+     * Convert file
+     * 
+     * @param file
+     */
+    private static void convertFile(File file) {
+        // only convert build.xml and config.xml files
+        if ("build.xml".equalsIgnoreCase(file.getName()) || "config.xml".equalsIgnoreCase(file.getName())) {
+            createBackupFile(file);
+            System.out.print("Converting " + file + "...");
+            boolean successful = xslTransformer.transform(file);
+            if (successful) {
+                System.out.println(" Done.");
+            } else {
+                System.err.println(" Error.");
+            }
+        }
+    }
+
+}

@@ -15,12 +15,11 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
+import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -37,20 +36,23 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Transforms the given XML files according to the specified XSL file
+ * 
+ * @author Frederic Gurr
+ *
+ */
 public class XslTransformer {
 
     private static final String GENERAL_CONFIG_XSL = "config.main.xsl";
     private static final String JOB_CONFIG_XSL = "config.job.xsl";
     private static final String BUILD_XSL = "build.xsl";
 
-    private static final String DEFAULT_BACKUP_FILE_EXTENSION = ".bak";
-    private static final String XSL_DIR = "xsl";
-    public static final String DEFAULT_TRANSFORMED_FILE_EXTENSION = ".transformed.xml";
+    public static final String XSL_DIR = "xsl";
 
-    private static XslTransformer xslTransformer = new XslTransformer();
     private TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
-    public boolean transform(File inputFile, File outputFile) {
+    public boolean transform(File inputFile, File outputFile, String xslFileName, Properties xslParameters) {
         InputStream is = null;
         OutputStream os = null;
         try {
@@ -60,18 +62,7 @@ public class XslTransformer {
 
             // InputStream xsl = new FileInputStream(new File(XSL_DIR, getXslFileName(inputFile)));
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-
-            String xslFileName = getXslFileName(inputFile);
-            if (xslFileName == null) {
-                System.err.println(inputFile + " cannot be converted.");
-                return false;
-            // Skip general config files
-            } else if (GENERAL_CONFIG_XSL.equalsIgnoreCase(xslFileName)) {
-                System.out.println("Skipping main config file!");
-                return false;
-            }
-
-            InputStream xsl = classloader.getResourceAsStream(XSL_DIR + "/" + xslFileName);
+            InputStream xsl = classloader.getResourceAsStream(xslFileName);
 
             Transformer transformer = transformerFactory.newTransformer(new StreamSource(xsl));
             //TODO: Fix indentation
@@ -80,6 +71,12 @@ public class XslTransformer {
             transformer.setOutputProperty(OutputKeys.METHOD, "xml");
             transformer.setOutputProperty("indent", "yes");
             transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
+            // set optional XSL parameters
+            if (xslParameters != null && !xslParameters.isEmpty()) {
+                for (String key : xslParameters.stringPropertyNames()) {
+                    transformer.setParameter(key, xslParameters.getProperty(key));
+                }
+            }
             transformer.transform(new StreamSource(is), new StreamResult(os));
         } catch (IOException | TransformerException e) {
             e.printStackTrace();
@@ -97,6 +94,19 @@ public class XslTransformer {
             }
         }
         return true;
+    }
+
+    public boolean transform(File inputFile, File outputFile) {
+        String xslFileName = getXslFileName(inputFile);
+        if (xslFileName == null) {
+            System.err.println(inputFile + " cannot be converted.");
+            return false;
+            // Skip general config files
+        } else if (GENERAL_CONFIG_XSL.equalsIgnoreCase(xslFileName)) {
+            System.out.println("Skipping main config file!");
+            return false;
+        }
+        return transform(inputFile, outputFile, XSL_DIR + "/" + xslFileName, null);
     }
 
     public boolean transform(File inputFile) {
@@ -154,103 +164,4 @@ public class XslTransformer {
         }
     }
 
-    public static void main(String[] args) {
-        xslTransformer = new XslTransformer();
-
-        if (args.length < 1) {
-            showUsage();
-            return;
-        }
-
-        String inputFilePath = args[0];
-
-        File inputFile = new File(inputFilePath);
-        if (!inputFile.exists()) {
-            System.err.println("Input file/directory " + inputFile.getAbsolutePath() + " does not exist.");
-            return;
-        }
-
-        if (inputFile.isFile()) {
-            // single XML file
-            File outputFile;
-            if (args.length == 2) {
-                outputFile = new File(args[1]);
-            } else {
-                outputFile = getTransformedFileName(inputFile);
-            }
-            
-            xslTransformer.transform(inputFile, outputFile);
-            if ("build.transformed.xml".equalsIgnoreCase(outputFile.getName())) {
-//                TimestampConverter.convertBuildTimestamp(outputFile);
-            }
-            System.out.println("Done. File written: " + outputFile.getAbsolutePath());
-        } else {
-            // scan directory recursively for config.xmls or build.xmls
-            search(inputFile);
-        }
-    }
-
-    private static File getTransformedFileName(File inputFile) {
-        String nameWithoutExtension = inputFile.getName().substring(0, inputFile.getName().lastIndexOf("."));
-        return new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_TRANSFORMED_FILE_EXTENSION);
-    }
-
-    private static void search (File file) {
-        if (file.canRead()) {
-            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
-                // do not search workspace, users and config-history dir
-                File[] list = file.listFiles(new FilenameFilter() {
-                    
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return  !name.startsWith("workspace") &&
-                                !"users".equalsIgnoreCase(name) &&
-                                !"archive".equalsIgnoreCase(name) &&
-                                !"config-history".equalsIgnoreCase(name) &&
-                                !"promotions".equalsIgnoreCase(name);
-                    }
-                });
-                // System.out.println("Searching directory ... " + file.getAbsoluteFile());
-                for (File f : list) {
-                    search(f);
-                }
-            } else {
-                checkFile(file);
-            }
-        } else {
-            System.out.println(file.getAbsoluteFile() + " -> Permission Denied");
-        }
-    }
-
-    private static void checkFile(File file) {
-        if ("build.xml".equalsIgnoreCase(file.getName()) || "config.xml".equalsIgnoreCase(file.getName())) {
-            createBackupFile(file);
-            System.out.print("Converting " + file + "...");
-            boolean successful = xslTransformer.transform(file);
-            if (successful) {
-                System.out.println(" Done.");
-                if ("build.xml".equalsIgnoreCase(file.getName())) {
-//                    TimestampConverter.convertBuildTimestamp(file);
-                }
-            }
-        }
-    }
-
-    private static void createBackupFile(File file) {
-        // creating backup of config.xml
-        String nameWithoutExtension = file.getName().substring(0, file.getName().lastIndexOf("."));
-        File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), nameWithoutExtension + DEFAULT_BACKUP_FILE_EXTENSION);
-        try {
-            Files.copy(file.toPath(),backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        // System.out.println("Created backup for " + file.getName() +".");
-    }
-
-    private static void showUsage() {
-        System.out.println("Usage:");
-        System.out.println("XslTransformer [single XML file/(hudson root) directory] [outputFile]");
-        System.out.println();
-    }
 }

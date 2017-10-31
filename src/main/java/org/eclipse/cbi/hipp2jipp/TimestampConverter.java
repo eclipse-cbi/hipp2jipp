@@ -32,6 +32,14 @@ import org.w3c.dom.Element;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+/**
+ * Converts timestamps of builds<br/>
+ * <br/>
+ * Apparently, this is not needed anymore in newer Jenkins versions<br/>
+ * 
+ * @author Frederic Gurr
+ *
+ */
 public class TimestampConverter {
 
     public static void convertBuildTimestamp(File file) {

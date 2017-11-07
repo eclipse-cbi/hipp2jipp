@@ -11,6 +11,7 @@
 package org.eclipse.cbi.hipp2jipp;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
@@ -86,6 +87,18 @@ public class XslTransformerTest {
     @Test
     public void buildTest_query() {
         transformAndCompare("query", "build.hudson", "build");
+    }
+
+    @Test
+    public void buildTest_containsTimestampTag() {
+        String buildFile = TIMESTAMP_DIR + "/../buildWithTimestamp.xml";
+        assertTrue(TimestampConverter.containsTimestampTag(new File(buildFile)));
+    }
+
+    @Test
+    public void buildTest_containsTimestampTag_negative() {
+        String buildFile = TIMESTAMP_DIR + "/build.xml";
+        assertFalse(TimestampConverter.containsTimestampTag(new File(buildFile)));
     }
 
     @Test

@@ -30,6 +30,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -45,8 +46,12 @@ public class TimestampConverter {
 
     // TODO: check if timestamp tag already exists
     public static void convertBuildTimestamp(File file) {
-        HudsonConfigConverter.createBackupFile(file, ".bak2");
         System.out.println("Trying to fix missing build time stamp...");
+        if (containsTimestampTag(file)) {
+            System.out.println("File already contains a timestamp tag, skipping...");
+            return;
+        }
+        HudsonConfigConverter.createBackupFile(file, ".bak2");
         // System.out.println("File: " + file.getPath());
         // convert parent directory name to time stamp
         String parentDirName = file.getAbsoluteFile().getParentFile().getName();
@@ -157,5 +162,20 @@ public class TimestampConverter {
         }
     }
 
+    public static boolean containsTimestampTag(File file) {
+        try {
+            InputSource is = new InputSource(); 
+            is.setCharacterStream(new FileReader(file));
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(is);
+            Element root = doc.getDocumentElement();
+            NodeList timestamp = root.getElementsByTagName("timestamp");
+            return timestamp.getLength() > 0;
+        } catch (ParserConfigurationException | SAXException | IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
 }

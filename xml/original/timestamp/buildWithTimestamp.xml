@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causeBag class="linked-hash-map">
+        <entry>
+          <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
+          <int>1</int>
+        </entry>
+      </causeBag>
+    </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction>
+      <build class="build" reference="../../.."/>
+    </hudson.triggers.SCMTrigger_-BuildAction>
+    <hudson.scm.SCMRevisionState_-None/>
+    
+  </actions>
+  <number>1</number>
+  <result>FAILURE</result>
+  <duration>128885</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn/>
+  <workspace>/home/hudson/genie.kapua/.hudson/jobs/Develop/workspace</workspace>
+  <hudsonVersion>3.3.3</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+  <culprits/>
+  <timestamp>1480514160000</timestamp>
+  <startTime>1480514160005</startTime>
+</build>

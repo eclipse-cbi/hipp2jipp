@@ -38,6 +38,18 @@ public class HudsonConfigConverter {
 
     private static XslTransformer xslTransformer;
 
+    public static FilenameFilter excludedDirFilter = new FilenameFilter() {
+
+        @Override
+        public boolean accept(File dir, String name) {
+            return !name.startsWith("workspace") &&
+                    !"users".equalsIgnoreCase(name) &&
+                    !"archive".equalsIgnoreCase(name) &&
+                    !"config-history".equalsIgnoreCase(name) &&
+                    !"promotions".equalsIgnoreCase(name);
+        }
+    };
+
     @Option(name="-o",usage="output to this file",metaVar="OUTPUT")
     private File outputFile = null;
 
@@ -95,8 +107,8 @@ public class HudsonConfigConverter {
             } else {
                 xslTransformer.transform(inputFile, outputFile);
             }
-            if ("build.transformed.xml".equalsIgnoreCase(outputFile.getName())) {
-                // TimestampConverter.convertBuildTimestamp(outputFile);
+            if ("build".equalsIgnoreCase(rootNodeName)) {
+                TimestampConverter.convertBuildTimestamp(outputFile);
             }
             System.out.println("Done. File written: " + outputFile.getAbsolutePath());
         } else {
@@ -115,9 +127,8 @@ public class HudsonConfigConverter {
         return new File(inputFile.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(inputFile) + DEFAULT_TRANSFORMED_FILE_EXTENSION);
     }
 
-    private static void createBackupFile(File file) {
-        // creating backup of config.xml
-        File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(file) + DEFAULT_BACKUP_FILE_EXTENSION);
+    public static void createBackupFile(File file, String extension) {
+        File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(file) + extension);
         try {
             Files.copy(file.toPath(), backupFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -140,17 +151,7 @@ public class HudsonConfigConverter {
         if (file.canRead()) {
             if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
                 // do not search workspace, users and config-history dir
-                File[] list = file.listFiles(new FilenameFilter() {
-
-                    @Override
-                    public boolean accept(File dir, String name) {
-                        return !name.startsWith("workspace") &&
-                               !"users".equalsIgnoreCase(name) &&
-                               !"archive".equalsIgnoreCase(name) &&
-                               !"config-history".equalsIgnoreCase(name) &&
-                               !"promotions".equalsIgnoreCase(name);
-                    }
-                });
+                File[] list = file.listFiles(excludedDirFilter);
                 // System.out.println("Searching directory ... " + file.getAbsoluteFile());
                 for (File f : list) {
                     search(f);
@@ -171,10 +172,13 @@ public class HudsonConfigConverter {
     private static void convertFile(File file) {
         // only convert build.xml and config.xml files
         if ("build.xml".equalsIgnoreCase(file.getName()) || "config.xml".equalsIgnoreCase(file.getName())) {
-            createBackupFile(file);
+            createBackupFile(file, DEFAULT_BACKUP_FILE_EXTENSION);
             System.out.print("Converting " + file + "...");
             boolean successful = xslTransformer.transform(file);
             if (successful) {
+                if ("build.xml".equalsIgnoreCase(file.getName())) {
+                    TimestampConverter.convertBuildTimestamp(file);
+                }
                 System.out.println(" Done.");
             } else {
                 System.err.println(" Error.");

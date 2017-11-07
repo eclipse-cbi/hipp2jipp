@@ -14,6 +14,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -35,6 +38,7 @@ public class XslTransformerTest {
     private final static String ORIGINAL_DIR = "xml/original";
     private final static String REFERENCE_DIR = "xml/reference";
     private final static String TRANSFORM_OUTPUT_DIR = "xml/transformed";
+    private final static String TIMESTAMP_DIR = ORIGINAL_DIR + "/timestamp/2016-11-30_14-56-00";
 
     @BeforeClass
     public static void setUpBeforeClass() {
@@ -86,9 +90,40 @@ public class XslTransformerTest {
 
     @Test
     public void buildTest_timestamp() {
-        transformSingleFile("xml/original/timestamp/2016-11-30_14-56-00/build.xml", null, "build");
+        String buildFile = TIMESTAMP_DIR + "/build.xml";
+        transformSingleFile(buildFile, null, "build");
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(buildFile));
+        compareWithReferenceFile(TIMESTAMP_DIR + "/" + nameWithoutExtension + ".transformed_reference.xml", TIMESTAMP_DIR + "/" + nameWithoutExtension + ".transformed.xml");
     }
 
+    @Test
+    public void buildTest_timestamp_cli() {
+        String buildFile = TIMESTAMP_DIR + "/build.xml";
+        TimestampConverter.main(new String[]{buildFile});
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(buildFile));
+        compareWithReferenceFile(TIMESTAMP_DIR + "/" + nameWithoutExtension + ".transformed_reference.xml", TIMESTAMP_DIR + "/" + nameWithoutExtension + ".xml");
+        restoreTimestampBackup();
+    }
+
+    @Test
+    public void buildTest_timestamp_cli_dir() {
+        String buildFile = TIMESTAMP_DIR + "/build.xml";
+        TimestampConverter.main(new String[]{TIMESTAMP_DIR});
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(buildFile));
+        compareWithReferenceFile(TIMESTAMP_DIR + "/" + nameWithoutExtension + ".transformed_reference.xml", TIMESTAMP_DIR + "/" + nameWithoutExtension + ".xml");
+        restoreTimestampBackup();
+    }
+
+    private void restoreTimestampBackup() {
+        System.out.println("Restoring backup.");
+        File bak2 = new File(TIMESTAMP_DIR, "build.bak2");
+        File buildFile = new File(TIMESTAMP_DIR, "/build.xml");
+        if (bak2.exists()) {
+            restoreBackup(bak2, buildFile);
+        }
+        bak2.delete();
+    }
+    
     @Test
     public void configJobTest_kapua() {
         transformAndCompare("kapua", "config.job.hudson", "project");
@@ -258,10 +293,22 @@ public class XslTransformerTest {
         assertEquals(expectedXmlRootNodeName, xmlRootNodeName);
     }
 
+    private void restoreBackup(File backup, File file) {
+        try {
+            Files.copy(backup.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     private void compareWithReferenceFile(String fileName) {
+        compareWithReferenceFile(REFERENCE_DIR + "/" + fileName + ".transformed_reference.xml", TRANSFORM_OUTPUT_DIR + "/" + fileName + ".transformed.xml");
+    }
+
+    private void compareWithReferenceFile(String reference, String transformed) {
         // TODO: ignore whitespace
-        Source control = Input.fromFile(REFERENCE_DIR + "/" + fileName + ".transformed_reference.xml").build();
-        Source test = Input.fromFile(TRANSFORM_OUTPUT_DIR + "/" + fileName + ".transformed.xml").build();
+        Source control = Input.fromFile(reference).build();
+        Source test = Input.fromFile(transformed).build();
         DifferenceEngine diff = new DOMDifferenceEngine();
         diff.addDifferenceListener(new ComparisonListener() {
             public void comparisonPerformed(Comparison comparison, ComparisonResult outcome) {

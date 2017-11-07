@@ -13,6 +13,7 @@ package org.eclipse.cbi.hipp2jipp;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -42,10 +43,11 @@ import org.xml.sax.SAXException;
  */
 public class TimestampConverter {
 
+    // TODO: check if timestamp tag already exists
     public static void convertBuildTimestamp(File file) {
+        HudsonConfigConverter.createBackupFile(file, ".bak2");
         System.out.println("Trying to fix missing build time stamp...");
         // System.out.println("File: " + file.getPath());
-        // TODO: check if time stamp is already there
         // convert parent directory name to time stamp
         String parentDirName = file.getAbsoluteFile().getParentFile().getName();
         long epoch = convertTimestampToEpoch(parentDirName);
@@ -107,5 +109,53 @@ public class TimestampConverter {
             e.printStackTrace();
         }
     }
+
+    public static void main(String[] args) {
+        if (args == null || args.length < 1 || "".equals(args[0])) {
+            System.err.println("Please specify a file for timestamp conversion.");
+            System.exit(1);
+        }
+        File file = new File(args[0]);
+        if (!file.exists()) {
+            System.err.println("File " + args[0] +  " does not exist.");
+            System.exit(1);
+        } else {
+            if (file.isDirectory()) {
+                search(file);
+            } else {
+                convertBuildTimestamp(file);
+            }
+        }
+    }
+
+    /**
+     * Search recursively for build XMLs
+     * 
+     * Most likely the given directory will be the jobs or the Jenkins root
+     * directory. A few directories are excluded from the search like
+     * "workspace" or "archive".
+     * 
+     * @param file
+     *            directory
+     */
+    private static void search(File file) {
+        if (file.canRead()) {
+            if (file.isDirectory() && !Files.isSymbolicLink(file.toPath())) {
+                // do not search workspace, users and config-history dir
+                File[] list = file.listFiles(HudsonConfigConverter.excludedDirFilter);
+                // System.out.println("Searching directory ... " + file.getAbsoluteFile());
+                for (File f : list) {
+                    search(f);
+                }
+            } else {
+                if ("build.xml".equalsIgnoreCase(file.getName())) {
+                    convertBuildTimestamp(file);
+                }
+            }
+        } else {
+            System.out.println(file.getAbsoluteFile() + " -> Permission Denied");
+        }
+    }
+
 
 }

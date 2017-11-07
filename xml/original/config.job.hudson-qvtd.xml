@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>&lt;p&gt;Release stream: QVTd Mars build using Buckminster + Shell and Ant scripts to build.&lt;/p&gt;</description>
+  <project-properties class="java.util.concurrent.ConcurrentHashMap">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>5</daysToKeep>
+          <numToKeep>5</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-xvnc-Xvnc</string>
+      <external-property>
+        <originalValue class="hudson.plugins.xvnc.Xvnc">
+          <takeScreenshot>false</takeScreenshot>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Mailer</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Mailer">
+          <recipients>someone@somewhere.com</recipients>
+          <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+          <sendToIndividuals>false</sendToIndividuals>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-junit-JUnitResultArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.junit.JUnitResultArchiver">
+          <testResults>MMT-QVTd.test.results/**</testResults>
+          <keepLongStdio>false</keepLongStdio>
+          <testDataPublishers/>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList">
+          <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.ChoiceParameterDefinition>
+                <name>BUILD_TYPE</name>
+                <description>&lt;ul&gt;
+&lt;li&gt; N - Nightly build
+&lt;li&gt; I - Integration build
+&lt;li&gt; S - Stable build
+&lt;li&gt; R - Release build
+&lt;/ul&gt;</description>
+                <choices class="java.util.Arrays$ArrayList">
+                  <a class="string-array">
+                    <string>N</string>
+                    <string>I</string>
+                    <string>S</string>
+                    <string>R</string>
+                  </a>
+                </choices>
+              </hudson.model.ChoiceParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>BUILD_ALIAS</name>
+                <description>Set an alias like 0.12.0M2 and type = S to build a milestone.</description>
+                <defaultValue></defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>REFERENCE_REPOSITORY</name>
+                <description>A repository to compare to when determining changes in the generated artifacts</description>
+                <defaultValue>https://hudson.eclipse.org/ocl/job/qvtd-mars-master/lastSuccessfulBuild/artifact/MMT-QVTd.p2.repository/</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>SITE_SIGNING</name>
+                <description>Do the site signing process ? (Don&apos;t uncheck unless you want a faster build test without signing)</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>60</timeoutMinutes>
+          <failBuild>true</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>150</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>60</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-SCMTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.SCMTrigger">
+          <spec>0 */6 * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <command># window manager for UI tests
+metacity --replace --sm-disable &amp;
+
+chmod +x ${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-pre-buckminster.sh
+${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-pre-buckminster.sh
+# NB: This script contains some shell commands which prepare the build.properties file used by buckminster.
+# It will be called before buckminster commands execution. You may check its content at the following URL:
+# https://hudson.eclipse.org/ocl/job/qvtd-mars-master/ws/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-pre-buckminster.sh/*view*/</command>
+          </hudson.tasks.Shell>
+          <hudson.plugins.buckminster.EclipseBuckminsterBuilder>
+            <installationName>Buckminster 4.4</installationName>
+            <commands></commands>
+            <logLevel>info</logLevel>
+            <params>-Dcheckout.location=${WORKSPACE}
+-Dreference.repository=https://hudson.eclipse.org/ocl/job/${JOB_NAME}/lastSuccessfulBuild/artifact/MMT-QVTd.p2.repository/
+-XX:PermSize=128M
+-XX:MaxPermSize=256M
+-Xmx2g</params>
+            <targetPlatformName>None</targetPlatformName>
+            <userTemp></userTemp>
+            <userOutput></userOutput>
+            <userCommand>${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-buckminster.script</userCommand>
+            <userWorkspace>${WORKSPACE}/buildroot/buckminster.workspace</userWorkspace>
+            <globalPropertiesFile></globalPropertiesFile>
+            <equinoxLauncherArgs></equinoxLauncherArgs>
+          </hudson.plugins.buckminster.EclipseBuckminsterBuilder>
+          <hudson.tasks.Shell>
+            <command>chmod +x ${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-post-buckminster.sh
+${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-post-buckminster.sh
+# NB: This script contains some shell commands which will be extecuted prior to archive artifacts.
+# It will be called after buckminster commands execution. You may check its content at the following URL:
+# https://hudson.eclipse.org/ocl/job/qvtd-mars-master/ws/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-post-buckminster.sh/*view*/</command>
+          </hudson.tasks.Shell>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">JDK 1.7.0 Latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-ArtifactArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.ArtifactArchiver">
+          <artifacts>MMT-QVTd.*/**, publishroot/**, promote.properties</artifacts>
+          <compressionType>GZIP</compressionType>
+          <latestOnly>false</latestOnly>
+          <autoValidateFileMask>false</autoValidateFileMask>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>git</scheme>
+                  <path>/gitroot/mmt/org.eclipse.qvtd.git</path>
+                  <rawPath>/gitroot/mmt/org.eclipse.qvtd.git</rawPath>
+                  <port>-1</port>
+                  <host>git.eclipse.org</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir>org.eclipse.qvtd.git</relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <browser class="hudson.plugins.git.browser.GitWeb">
+            <url>http://git.eclipse.org/c/mmt/org.eclipse.qvtd.git/commit/</url>
+          </browser>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1405328083609</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+    <string>org-hudsonci-plugins-snapshotmonitor-WatchedDependenciesProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <configVersion>1</configVersion>
+    <remoteRepositories>
+      <RemoteConfig>
+        <name>origin</name>
+        <uris>
+          <org.eclipse.jgit.transport.URIish>
+            <scheme>git</scheme>
+            <path>/gitroot/mmt/org.eclipse.qvtd.git</path>
+            <rawPath>/gitroot/mmt/org.eclipse.qvtd.git</rawPath>
+            <port>-1</port>
+            <host>git.eclipse.org</host>
+          </org.eclipse.jgit.transport.URIish>
+        </uris>
+        <pushURIs/>
+        <fetch>
+          <org.eclipse.jgit.transport.RefSpec>
+            <force>true</force>
+            <wildcard>true</wildcard>
+            <srcName>refs/heads/*</srcName>
+            <dstName>refs/remotes/origin/*</dstName>
+          </org.eclipse.jgit.transport.RefSpec>
+        </fetch>
+        <push/>
+        <uploadpack>git-upload-pack</uploadpack>
+        <receivepack>git-receive-pack</receivepack>
+        <tagopt>AUTO_FOLLOW</tagopt>
+        <mirror>false</mirror>
+        <timeout>0</timeout>
+        <relativeTargetDir>org.eclipse.qvtd.git</relativeTargetDir>
+      </RemoteConfig>
+    </remoteRepositories>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>master</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <mergeOptions/>
+    <recursiveSubmodules>false</recursiveSubmodules>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <authorOrCommitter>false</authorOrCommitter>
+    <clean>false</clean>
+    <wipeOutWorkspace>false</wipeOutWorkspace>
+    <pruneBranches>false</pruneBranches>
+    <remotePoll>false</remotePoll>
+    <ignoreNotifyCommit>false</ignoreNotifyCommit>
+    <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+    <gitTool>Default</gitTool>
+    <browser class="hudson.plugins.git.browser.GitWeb">
+      <url>http://git.eclipse.org/c/mmt/org.eclipse.qvtd.git/commit/</url>
+    </browser>
+    <submoduleCfg class="list"/>
+    <excludedRegions></excludedRegions>
+    <excludedUsers></excludedUsers>
+    <gitConfigName></gitConfigName>
+    <gitConfigEmail></gitConfigEmail>
+    <skipTag>false</skipTag>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

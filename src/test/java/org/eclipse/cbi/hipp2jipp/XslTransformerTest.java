@@ -245,6 +245,14 @@ public class XslTransformerTest {
         transformAndCompare("jwt", "config.job.hudson", "project");
     }
 
+    /**
+     * Tests that Buckminster build step is transformed correctly
+     */
+    @Test
+    public void configJobTest_qvtd() {
+        transformAndCompare("qvtd", "config.job.hudson", "project");
+    }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

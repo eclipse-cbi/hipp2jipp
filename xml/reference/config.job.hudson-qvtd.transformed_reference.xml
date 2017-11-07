@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>&lt;p&gt;Release stream: QVTd Mars build using Buckminster + Shell and Ant scripts to build.&lt;/p&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>5</daysToKeep>
+        <numToKeep>5</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.ChoiceParameterDefinition>
+                <name>BUILD_TYPE</name>
+                <description>&lt;ul&gt;
+&lt;li&gt; N - Nightly build
+&lt;li&gt; I - Integration build
+&lt;li&gt; S - Stable build
+&lt;li&gt; R - Release build
+&lt;/ul&gt;</description>
+                <choices class="java.util.Arrays$ArrayList">
+                  <a class="string-array">
+                    <string>N</string>
+                    <string>I</string>
+                    <string>S</string>
+                    <string>R</string>
+                  </a>
+                </choices>
+              </hudson.model.ChoiceParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>BUILD_ALIAS</name>
+                <description>Set an alias like 0.12.0M2 and type = S to build a milestone.</description>
+                <defaultValue/>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>REFERENCE_REPOSITORY</name>
+                <description>A repository to compare to when determining changes in the generated artifacts</description>
+                <defaultValue>https://hudson.eclipse.org/ocl/job/qvtd-mars-master/lastSuccessfulBuild/artifact/MMT-QVTd.p2.repository/</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>SITE_SIGNING</name>
+                <description>Do the site signing process ? (Don't uncheck unless you want a faster build test without signing)</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>git://git.eclipse.org/gitroot/mmt/org.eclipse.qvtd.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>org.eclipse.qvtd.git</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+    </extensions>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>true</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.7.0-latest</jdk>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>0 */6 * * *</spec>
+    </hudson.triggers.SCMTrigger>
+  </triggers>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># window manager for UI tests
+metacity --replace --sm-disable &amp;
+
+chmod +x ${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-pre-buckminster.sh
+${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-pre-buckminster.sh
+# NB: This script contains some shell commands which prepare the build.properties file used by buckminster.
+# It will be called before buckminster commands execution. You may check its content at the following URL:
+# https://hudson.eclipse.org/ocl/job/qvtd-mars-master/ws/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-pre-buckminster.sh/*view*/</command>
+    </hudson.tasks.Shell>
+    <hudson.plugins.buckminster.EclipseBuckminsterBuilder>
+            <installationName>Buckminster 4.4</installationName>
+            <commands/>
+            <logLevel>info</logLevel>
+            <params>-Dcheckout.location=${WORKSPACE}
+-Dreference.repository=https://hudson.eclipse.org/ocl/job/${JOB_NAME}/lastSuccessfulBuild/artifact/MMT-QVTd.p2.repository/
+-XX:PermSize=128M
+-XX:MaxPermSize=256M
+-Xmx2g</params>
+            <targetPlatformName>None</targetPlatformName>
+            <userTemp/>
+            <userOutput/>
+            <userCommand>${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-buckminster.script</userCommand>
+            <userWorkspace>${WORKSPACE}/buildroot/buckminster.workspace</userWorkspace>
+            <globalPropertiesFile/>
+            <equinoxLauncherArgs/>
+          </hudson.plugins.buckminster.EclipseBuckminsterBuilder>
+    <hudson.tasks.Shell>
+      <command>chmod +x ${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-post-buckminster.sh
+${WORKSPACE}/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-post-buckminster.sh
+# NB: This script contains some shell commands which will be extecuted prior to archive artifacts.
+# It will be called after buckminster commands execution. You may check its content at the following URL:
+# https://hudson.eclipse.org/ocl/job/qvtd-mars-master/ws/org.eclipse.qvtd.git/releng/org.eclipse.qvtd.releng.buckminster/scripts/qvtd-post-buckminster.sh/*view*/</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>MMT-QVTd.test.results/**</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>MMT-QVTd.*/**, publishroot/**, promote.properties</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>60</timeoutMinutes>
+      </strategy>
+      <operationList>
+        <hudson.plugins.build__timeout.operations.FailOperation/>
+      </operationList>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+  </buildWrappers>
+</project>

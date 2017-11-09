@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<slave>
+      <name>hippcentos</name>
+      <description/>
+      <remoteFS>/opt/public/hipp/homes/genie.cbi</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher">
+        <host>hippcentos.eclipse.org</host>
+        <port>22</port>
+        <username/>
+        <password>2f42RG84wn5E5JNzoc6owg==</password>
+        <privatekey/>
+        <javaPath>/opt/public/common/jdk1.7.0-latest/bin/java</javaPath>
+        <jvmOptions/>
+      </launcher>
+      <label>centos</label>
+      <nodeProperties/>
+    </slave>

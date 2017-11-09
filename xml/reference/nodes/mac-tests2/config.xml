@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<slave>
+      <name>mac-tests2</name>
+      <description/>
+      <remoteFS>/Users/genie.cbi</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.plugins.sshslaves.SSHLauncher">
+        <host>mac-tests2</host>
+        <port>22</port>
+        <username>genie.cbi</username>
+        <password>2f42RG84wn5E5JNzoc6owg==</password>
+        <privatekey/>
+        <javaPath/>
+        <jvmOptions/>
+      </launcher>
+      <label/>
+      <nodeProperties>
+        <hudson.tools.ToolLocationNodeProperty>
+          <locations>
+            <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+              <type>org.hudsonci.maven.plugin.install.MavenInstallation$DescriptorImpl</type>
+              <name>apache-maven-latest</name>
+              <home>/shared/common/apache-maven-latest</home>
+            </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+            <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+              <type>hudson.plugins.git.GitTool$DescriptorImpl</type>
+              <name>Default</name>
+              <home>/usr/bin/git</home>
+            </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+            <hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+              <type>hudson.tasks.Ant$AntInstallation$DescriptorImpl</type>
+              <name>apache-ant-1.8.4</name>
+              <home>/shared/common/apache-ant-1.8.4</home>
+            </hudson.tools.ToolLocationNodeProperty_-ToolLocation>
+          </locations>
+        </hudson.tools.ToolLocationNodeProperty>
+        <hudson.slaves.EnvironmentVariablesNodeProperty>
+          <envVars serialization="custom">
+            <unserializable-parents/>
+            <tree-map>
+              <default>
+                <comparator class="hudson.util.CaseInsensitiveComparator"/>
+              </default>
+              <int>6</int>
+              <string>ANT_OPTS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*.eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*.eclipse.org"</string>
+              <string>JAVA_ARGS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*.eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*.eclipse.org"</string>
+              <string>JAVA_HOME</string>
+              <string>/Library/Java/JavaVirtualMachines/jdk1.8.0_40.jdk/Contents/Home</string>
+              <string>JVM_OPTS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*.eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*.eclipse.org"</string>
+              <string>MAVEN_OPTS</string>
+              <string>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts="172.30.206.*|*.eclipse.org" -Dftp.proxyHost=proxy.eclipse.org -Dftp.proxyPort=9898 -Dftp.nonProxyHosts="172.30.206.*|*.eclipse.org"</string>
+              <string>no_proxy</string>
+              <string>localhost,172.30.206.*,172.30.206.0,172.25.25.*,172.25.25.0,hudson.eclipse.org,127.0.0.1,download.eclipse.org</string>
+            </tree-map>
+          </envVars>
+        </hudson.slaves.EnvironmentVariablesNodeProperty>
+        <hudson.plugins.xvnc.NodePropertyImpl/>
+      </nodeProperties>
+    </slave>

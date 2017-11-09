@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<slave>
+      <offlineCause class="hudson.slaves.OfflineCause$LaunchFailed"/>
+      <name>external-sample</name>
+      <description>external slave example using SSH proxycommand and build.e.o</description>
+      <remoteFS>~</remoteFS>
+      <numExecutors>2</numExecutors>
+      <mode>EXCLUSIVE</mode>
+      <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
+      <launcher class="hudson.slaves.CommandLauncher">
+        <agentCommand>ssh -C -i /opt/public/hipp/homes/genie.cbi/.ssh/id_rsa.cbi user@external-slave "wget -qO slave.jar https://hudson.eclipse.org/cbi/jnlpJars/slave.jar ; java -jar slave.jar"</agentCommand>
+      </launcher>
+      <label/>
+      <nodeProperties/>
+    </slave>

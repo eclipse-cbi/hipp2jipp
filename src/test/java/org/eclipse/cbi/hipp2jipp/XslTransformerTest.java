@@ -14,8 +14,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
@@ -24,6 +26,7 @@ import java.util.Properties;
 
 import javax.xml.transform.Source;
 
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -40,10 +43,19 @@ public class XslTransformerTest {
     private final static String REFERENCE_DIR = "xml/reference";
     private final static String TRANSFORM_OUTPUT_DIR = "xml/transformed";
     private final static String TIMESTAMP_DIR = ORIGINAL_DIR + "/timestamp/2016-11-30_14-56-00";
+    private static PrintStream oldErrOut = null;
 
     @BeforeClass
     public static void setUpBeforeClass() {
         new File("xml/transformed/").mkdirs();
+    }
+    
+    @AfterClass
+    public static void after() {
+        // Fix err out in case an exception happens
+        if (oldErrOut != null) {
+            System.setErr(oldErrOut);
+        }
     }
 
     @Test
@@ -265,15 +277,54 @@ public class XslTransformerTest {
 
     @Test
     public void copyViewsTest_CLI() {
-        String inputFileName = "xml/original/config.main.jenkins-cbi.xml";
-        String outputFileName = "xml/transformed/config.main.jenkins-cbi.transformed.xml";
-        String configFile = "xml/original/config.main.hudson-cbi.xml";
+        String inputFileName = ORIGINAL_DIR +"/config.main.jenkins-cbi.xml";
+        String outputFileName = TRANSFORM_OUTPUT_DIR + "/config.main.jenkins-cbi.transformed.xml";
+        String configFile = ORIGINAL_DIR + "/config.main.hudson-cbi.xml";
         HudsonConfigConverter.main(new String[]{inputFileName, "-o", outputFileName, "-cv", configFile});
         String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(inputFileName));
         compareWithReferenceFile(nameWithoutExtension);
     }
 
+    @Test
+    public void copyNodesTest() {
+        File inputFile = new File(ORIGINAL_DIR, "config.main.hudson-cbi.xml");
+        NodeConverter.convert(inputFile, new File(TRANSFORM_OUTPUT_DIR));
+        checkNodes();
+    }
+
+    @Test
+    public void copyNodesTest_negative() {
+        oldErrOut = System.err;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        System.setErr(new PrintStream(baos));
+
+        // actual tests
+        File inputFile = new File(ORIGINAL_DIR, "config.main.hudson-kapua.xml");
+        NodeConverter.convert(inputFile);
+
+        System.setErr(oldErrOut);
+        String output = new String(baos.toByteArray());
+        System.out.println("Err Output: " + output);
+        assertTrue(output.contains("No slaves found"));
+    }
+
+    @Test
+    public void copyNodesTest_CLI() {
+        File inputFile = new File(ORIGINAL_DIR, "config.main.hudson-cbi.xml");
+        NodeConverter.main(new String[]{inputFile.getAbsolutePath(), TRANSFORM_OUTPUT_DIR});
+        checkNodes();
+    }
+
+
     /* Utilities */
+
+    private void checkNodes() {
+        String nodesRefDir = REFERENCE_DIR + "/nodes";
+        String nodesOutDir = TRANSFORM_OUTPUT_DIR + "/nodes";
+        compareWithReferenceFile(nodesRefDir + "/external-sample/config.xml", nodesOutDir + "/external-sample/config.xml");
+        compareWithReferenceFile(nodesRefDir + "/hippcentos/config.xml", nodesOutDir + "/hippcentos/config.xml");
+        compareWithReferenceFile(nodesRefDir + "/mac-tests2/config.xml", nodesOutDir + "/mac-tests2/config.xml");
+    }
 
     private void testCopyViews(String in, String configFile) {
         File inputFile = new File(ORIGINAL_DIR, in);

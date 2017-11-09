@@ -17,7 +17,12 @@ Backups of each transformed file will be created (e.g. config.bak).
 ### Converting Views
 
 If the Hudson server has views configured, the command line option ```-cv``` can be used to copy the views to the Jenkins main config:
-```java -cp hipp2jipp-<version>.jar org.eclipse.cbi.hipp2jipp.HudsonConfigConverter <JENKINS_HOME> -cv <PATH TO HUDSON MAIN CONFIG.XML>```
+```java -cp hipp2jipp-<version>.jar org.eclipse.cbi.hipp2jipp.HudsonConfigConverter <JENKINS_HOME> -cv <PATH_TO_HUDSON_MAIN_CONFIG.XML>```
+
+### Converting Nodes/Agents
+
+If the Hudson server has nodes/agents configured, the NodeConverter can be used to create the correct file structure for Jenkins:
+```java -cp hipp2jipp-<version>.jar org.eclipse.cbi.hipp2jipp.NodeConverter <PATH_TO_HUDSON_MAIN_CONFIG.XML> <JENKINS_HOME>```
 
 ## Known issues
 * Git SCM
@@ -31,8 +36,6 @@ If the Hudson server has views configured, the command line option ```-cv``` can
   * they should be converted to normal freestyle jobs first
 * Priority Sorter Plugin
   * "In [version] 3.x the option 'Allow priorities directly on Jobs' has been removed in favor of the Priority Strategy 'Take the priority from Property on the Job'." (https://wiki.jenkins.io/display/JENKINS/Priority+Sorter+Plugin)
-* Migration of the following features is not supported yet:
-  * Slave configs (can be copied from main config.xml to separate config.xml files in JENKINS_HOME/nodes/&lt;node name&gt;/)
 
 # Credits
 This tool was inspired by code from Marcel Schutte that he posted in the jenkins-ci Google group here:

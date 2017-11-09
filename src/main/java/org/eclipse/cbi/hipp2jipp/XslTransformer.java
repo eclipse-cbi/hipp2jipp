@@ -8,7 +8,6 @@
 * Contributors:
 *    Frederic Gurr (Eclipse Foundation) - initial implementation
 *******************************************************************************/
-
 package org.eclipse.cbi.hipp2jipp;
 
 import java.io.File;

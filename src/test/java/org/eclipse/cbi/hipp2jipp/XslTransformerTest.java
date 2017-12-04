@@ -270,6 +270,14 @@ public class XslTransformerTest {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");
 //    }
 
+    /**
+     * Tests that SCM URL with SSH is transformed correctly
+     */
+    @Test
+    public void configJobTest_hono() {
+        transformAndCompare("hono", "config.job.hudson", "project");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

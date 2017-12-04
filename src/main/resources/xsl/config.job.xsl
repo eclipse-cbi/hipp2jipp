@@ -382,6 +382,10 @@
                   <!-- TODO: concatenate strings? -->
                   <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/scheme/text()" />
                   <xsl:text>://</xsl:text>
+                  <xsl:if test="uris/org.eclipse.jgit.transport.URIish/user [text() != '']">
+                    <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/user/text()" />
+                    <xsl:text>@</xsl:text>
+                  </xsl:if>
                   <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/host/text()" />
                   <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
                 </xsl:otherwise>

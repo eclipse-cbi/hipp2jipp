@@ -17,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
@@ -63,9 +62,6 @@ public class HudsonConfigConverter {
     @Option(name="-o",usage="output to this file",metaVar="OUTPUT")
     private File outputFile = null;
 
-    @Option(name="-cv",usage="copy views from this Hudson config file",metaVar="FILE")
-    private File hudsonConfigFile = null;
-
     @Argument
     private List<String> arguments = new ArrayList<String>();
 
@@ -108,15 +104,9 @@ public class HudsonConfigConverter {
                 outputFile = getTransformedFileName(inputFile);
             }
 
+            xslTransformer.transform(inputFile, outputFile);
+
             String rootNodeName = XslTransformer.getXmlRootNodeName(inputFile);
-            if (hudsonConfigFile != null && "hudson".equalsIgnoreCase(rootNodeName)) {
-                // try to copy views from hudson config
-                Properties xslParameters = new Properties();
-                xslParameters.put("sourceFile", hudsonConfigFile.getAbsolutePath());
-                xslTransformer.transform(inputFile, outputFile, XslTransformer.XSL_DIR + "/copyViews.xsl", xslParameters);
-            } else {
-                xslTransformer.transform(inputFile, outputFile);
-            }
             if ("build".equalsIgnoreCase(rootNodeName)) {
                 TimestampConverter.convertBuildTimestamp(outputFile);
             }

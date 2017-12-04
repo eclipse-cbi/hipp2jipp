@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 /**
  * Converts node/agent configs from Hudson to Jenkins<br/>
  * <br/>
- * In Hudson, all node/agent configs is stored in the main config.xml.<br/>
+ * In Hudson, all node/agent configs are stored in the main config.xml.<br/>
  * In Jenkins, there is a "nodes" directory that contains a sub folder for<br/>
  * each node/agent. Each sub folder contains a config.xml with the node/agent<br/>
  * configuration.<br/>

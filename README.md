@@ -17,7 +17,7 @@ Backups of each transformed file will be created (e.g. config.bak).
 ### Converting Views
 
 If the Hudson server has views configured, the command line option ```-cv``` can be used to copy the views to the Jenkins main config:
-```java -cp hipp2jipp-<version>.jar org.eclipse.cbi.hipp2jipp.HudsonConfigConverter <JENKINS_HOME> -cv <PATH_TO_HUDSON_MAIN_CONFIG.XML>```
+```java -cp hipp2jipp-<version>.jar org.eclipse.cbi.hipp2jipp.ViewConverter <HUDSON_HOME> <JENKINS_HOME> [OUTPUT_FILE]```
 
 ### Converting Nodes/Agents
 

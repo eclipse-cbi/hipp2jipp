@@ -285,11 +285,15 @@ public class XslTransformerTest {
 
     @Test
     public void copyViewsTest_CLI() {
-        String inputFileName = ORIGINAL_DIR +"/config.main.jenkins-cbi.xml";
+        String hudsonConfigFile = ORIGINAL_DIR + "/config.main.hudson-cbi.xml";
+        String jenkinsConfigFileName = ORIGINAL_DIR +"/config.main.jenkins-cbi.xml";
         String outputFileName = TRANSFORM_OUTPUT_DIR + "/config.main.jenkins-cbi.transformed.xml";
-        String configFile = ORIGINAL_DIR + "/config.main.hudson-cbi.xml";
-        HudsonConfigConverter.main(new String[]{inputFileName, "-o", outputFileName, "-cv", configFile});
-        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(inputFileName));
+        File outputFile = new File(outputFileName);
+        if (outputFile.exists()) {
+            outputFile.delete();
+        }
+        ViewConverter.main(new String[]{hudsonConfigFile, jenkinsConfigFileName, outputFileName});
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(jenkinsConfigFileName));
         compareWithReferenceFile(nameWithoutExtension);
     }
 
@@ -308,7 +312,7 @@ public class XslTransformerTest {
 
         // actual tests
         File inputFile = new File(ORIGINAL_DIR, "config.main.hudson-kapua.xml");
-        NodeConverter.convert(inputFile);
+        NodeConverter.convert(inputFile, new File(TRANSFORM_OUTPUT_DIR));
 
         System.setErr(oldErrOut);
         String output = new String(baos.toByteArray());
@@ -338,6 +342,9 @@ public class XslTransformerTest {
         File inputFile = new File(ORIGINAL_DIR, in);
         String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(inputFile);
         File outputFile = new File(TRANSFORM_OUTPUT_DIR, nameWithoutExtension + HudsonConfigConverter.DEFAULT_TRANSFORMED_FILE_EXTENSION);
+        if (outputFile.exists()) {
+            outputFile.delete();
+        }
         String hudsonConfigFile = ORIGINAL_DIR + "/" + configFile;
         Properties xslParameters = new Properties();
         xslParameters.put("sourceFile", hudsonConfigFile);

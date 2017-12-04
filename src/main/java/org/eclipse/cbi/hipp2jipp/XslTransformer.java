@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Properties;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -51,11 +52,34 @@ public class XslTransformer {
 
     private TransformerFactory transformerFactory = TransformerFactory.newInstance();
 
+    /**
+     * Only called directly from ViewsConverter
+     * 
+     * @param inputFile
+     * @param outputFile
+     * @param xslFileName
+     * @param xslParameters
+     * @return
+     */
     public boolean transform(File inputFile, File outputFile, String xslFileName, Properties xslParameters) {
         InputStream is = null;
         OutputStream os = null;
+        boolean isSameFile = false;
+        File tempFile = null;
         try {
-            outputFile.createNewFile();
+            // create temp file if inputfile == outputfile
+            if (inputFile.equals(outputFile)) {
+                isSameFile = true;
+                tempFile = File.createTempFile(inputFile.getName(), "tmp", inputFile.getAbsoluteFile().getParentFile());
+                if (!tempFile.exists()) {
+                    System.err.println("Error during creation of temp file: " + tempFile.getAbsolutePath());
+                    return false;
+                }
+                outputFile = tempFile;
+            } else {
+                outputFile.createNewFile();
+            }
+            
             is = new FileInputStream(inputFile);
             os = new FileOutputStream(outputFile);
 
@@ -88,13 +112,32 @@ public class XslTransformer {
                 if (os != null) {
                     os.close();
                 }
+                if (tempFile != null) {
+                    tempFile.delete();
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        // Replace input file with temp file and delete temp file
+        if (isSameFile) {
+            try {
+                Files.copy(tempFile.toPath(), inputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            tempFile.delete();
+        }
         return true;
     }
 
+    /**
+     * Transform everything except views
+     * 
+     * @param inputFile
+     * @param outputFile
+     * @return
+     */
     public boolean transform(File inputFile, File outputFile) {
         String xslFileName = getXslFileName(inputFile);
         if (xslFileName == null) {
@@ -109,23 +152,7 @@ public class XslTransformer {
     }
 
     public boolean transform(File inputFile) {
-        try {
-            File tempFile = File.createTempFile(inputFile.getName(), "tmp", inputFile.getAbsoluteFile().getParentFile());
-            boolean successful = transform(inputFile, tempFile);
-            if (!successful) {
-                return false;
-            } else if (!tempFile.exists() || tempFile.length() == 0) {
-                System.err.println("Error during creation of temp file.");
-                return false;
-            }
-            inputFile.delete();
-            Files.copy(tempFile.toPath(), inputFile.toPath());
-            tempFile.delete();
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return true;
+        return transform(inputFile, inputFile);
     }
 
     public static String getXslFileName(File inputFile) {

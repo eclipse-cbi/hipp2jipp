@@ -285,16 +285,29 @@ public class XslTransformerTest {
 
     @Test
     public void copyViewsTest_CLI() {
-        String hudsonConfigFile = ORIGINAL_DIR + "/config.main.hudson-cbi.xml";
+        String hudsonConfigFileName = ORIGINAL_DIR + "/config.main.hudson-cbi.xml";
         String jenkinsConfigFileName = ORIGINAL_DIR +"/config.main.jenkins-cbi.xml";
         String outputFileName = TRANSFORM_OUTPUT_DIR + "/config.main.jenkins-cbi.transformed.xml";
         File outputFile = new File(outputFileName);
         if (outputFile.exists()) {
             outputFile.delete();
         }
-        ViewConverter.main(new String[]{hudsonConfigFile, jenkinsConfigFileName, outputFileName});
+        ViewConverter.main(new String[]{hudsonConfigFileName, jenkinsConfigFileName, outputFileName});
         String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(jenkinsConfigFileName));
         compareWithReferenceFile(nameWithoutExtension);
+    }
+
+    @Test
+    public void copyViewsTest_CLI2() {
+        String hudsonConfigPath = ORIGINAL_DIR + "/copyViews/.hudson";
+        String jenkinsConfigPath = ORIGINAL_DIR + "/copyViews/.jenkins";
+        String outputFileName = jenkinsConfigPath + "/config.transformed.xml";
+        ViewConverter.main(new String[]{hudsonConfigPath, jenkinsConfigPath, outputFileName});
+        compareWithReferenceFile(REFERENCE_DIR + "/config.main.jenkins-cbi.transformed_reference.xml", outputFileName);
+        
+        // clean up
+        new File(jenkinsConfigPath, "config.bak3").delete();
+        new File(outputFileName).delete();
     }
 
     @Test

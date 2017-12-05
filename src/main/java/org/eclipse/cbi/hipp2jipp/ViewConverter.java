@@ -39,55 +39,41 @@ public class ViewConverter {
         xslTransformer.transform(jenkinsConfig, outputFile, XslTransformer.XSL_DIR + "/copyViews.xsl", xslParameters);
     }
 
-    private static void checkFile(File file, String input) {
-        // if a dir is given, assume it's the parent dir
-        if (file.isDirectory()) {
-            System.out.println("Directory given, looking for " + file + "/config.xml ..." );
-            file = new File(file, "config.xml");
+    private static File getConfigFile(String[] args, int argPosition, String defaultConfigFile, String name) {
+        File configFile = null;
+        if (args == null || args.length < argPosition+1 || "".equals(args[argPosition])) {
+            configFile = new File(defaultConfigFile);
+            System.out.println("No " + name + " config file given, default is " + configFile + " ...");
+        } else {
+            configFile = new File(args[argPosition]);
+            System.out.println("Setting " + name + " config file to " + configFile);
         }
 
-        if (!file.exists()) {
-            System.err.println("File/directory " + input +  " does not exist.");
+        // if a dir is given, assume it's the parent dir
+        if (configFile.isDirectory()) {
+            System.out.println("Directory given, looking for " + configFile + "/config.xml ..." );
+            configFile = new File(configFile, "config.xml");
+        }
+
+        // check files
+        if (!configFile.exists()) {
+            System.err.println("File/directory " + configFile +  " does not exist.");
             System.err.println("Please specify either the path to the main config.xml or the path to the parent dir (e.g. Hudson home dir).");
             System.exit(1);
         } else {
-            System.out.println("Found " + file);
+            System.out.println("Found " + configFile);
         }
 
-        String rootNodeName = XslTransformer.getXmlRootNodeName(file);
+        String rootNodeName = XslTransformer.getXmlRootNodeName(configFile);
         if (!"hudson".equalsIgnoreCase(rootNodeName)) {
-            System.err.println("File " + file +  " does not have the correct XmlRootNodeName ('hudson')!");
+            System.err.println("File " + configFile +  " does not have the correct XmlRootNodeName ('hudson')!");
             System.exit(1);
         }
+        
+        return configFile;
     }
 
-    public static void main(String[] args) {
-        // TODO: usage
-        
-        // Hudson config file (optionally)
-        File hudsonConfigFile = null;
-        if (args == null || args.length < 1 || "".equals(args[0])) {
-            hudsonConfigFile = new File(DEFAULT_HUDSON_MAIN_CONFIG);
-            System.out.println("No Hudson config file given, default is " + hudsonConfigFile + " ...");
-        } else {
-            hudsonConfigFile = new File(args[0]);
-            System.out.println("Setting Hudson config file to " + hudsonConfigFile);
-        }
-
-        checkFile(hudsonConfigFile, args[0]);
-
-        // Jenkins config file (optionally)
-        File jenkinsConfigFile = null;
-        if (args == null || args.length < 2 || "".equals(args[1])) {
-            jenkinsConfigFile = new File (DEFAULT_JENKINS_MAIN_CONFIG);
-            System.out.println("No Jenkins config file given, default file is " + jenkinsConfigFile);
-        } else {
-            jenkinsConfigFile = new File(args[1]);
-            System.out.println("Setting Jenkins config file to " + jenkinsConfigFile);
-        }
-
-        checkFile(jenkinsConfigFile, args[1]);
-
+    private static File getOutputFile(String[] args) {
         // output file (optionally)
         File outputFile = null;
         if (args == null || args.length < 3 || "".equals(args[2])) {
@@ -101,9 +87,23 @@ public class ViewConverter {
             System.err.println("Please specify output file, not a directory.");
             System.exit(1);
         }
+        return outputFile;
+    }
 
+    public static void main(String[] args) {
+        // TODO: usage
+
+        // Hudson config file (optionally)
+        File hudsonConfigFile = getConfigFile(args, 0, DEFAULT_HUDSON_MAIN_CONFIG, "Hudson");
+
+        // Jenkins config file (optionally)
+        File jenkinsConfigFile = getConfigFile(args, 1, DEFAULT_JENKINS_MAIN_CONFIG, "Jenkins");
+
+        // Output file (optionally)
+        File outputFile = getOutputFile(args);
 
         xslTransformer = new XslTransformer();
         convert(hudsonConfigFile, jenkinsConfigFile, outputFile);
     }
+
 }

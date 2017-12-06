@@ -137,6 +137,17 @@ public class HudsonConfigConverter {
         // System.out.println("Created backup for " + file.getName() +".");
     }
 
+    public static void restoreFromBackupFile(File file, String extension) {
+        File backupFile = new File(file.getAbsoluteFile().getParentFile().getAbsolutePath(), getNameWithoutExtension(file) + extension);
+        try {
+            Files.copy(backupFile.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            backupFile.delete();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // System.out.println("Created backup for " + file.getName() +".");
+    }
+
     /**
      * Search recursively for job config and build XMLs
      * 

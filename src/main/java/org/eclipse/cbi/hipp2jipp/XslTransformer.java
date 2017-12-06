@@ -113,20 +113,19 @@ public class XslTransformer {
                     os.close();
                 }
                 if (tempFile != null) {
+                    // Replace input file with temp file and delete temp file
+                    if (isSameFile) {
+                        try {
+                            Files.copy(tempFile.toPath(), inputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     tempFile.delete();
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        }
-        // Replace input file with temp file and delete temp file
-        if (isSameFile) {
-            try {
-                Files.copy(tempFile.toPath(), inputFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            tempFile.delete();
         }
         return true;
     }

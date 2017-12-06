@@ -16,10 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -58,6 +55,19 @@ public class XslTransformerTest {
         }
     }
 
+    /**
+     * Check if temp file works
+     */
+    @Test
+    public void xslTransformerTest() {
+        XslTransformer xslTransformer = new XslTransformer();
+        File hudsonConfigFile = new File(ORIGINAL_DIR, "/config.job.hudson.xml");
+        HudsonConfigConverter.createBackupFile(hudsonConfigFile, ".tst");
+        xslTransformer.transform(hudsonConfigFile, hudsonConfigFile);
+        //TODO: add assertion
+        HudsonConfigConverter.restoreFromBackupFile(hudsonConfigFile, ".tst");
+    }
+
     @Test
     public void convertTimestampTest() {
         String timestamp = "2017-02-16_12-35-13";
@@ -69,9 +79,9 @@ public class XslTransformerTest {
 
     @Test
     public void getXmlRootNodeTest() {
-        String xmlRootNodeNameBuild = XslTransformer.getXmlRootNodeName(new File("xml/original", "build.hudson.xml"));
-        String xmlRootNodeNameConfigJob = XslTransformer.getXmlRootNodeName(new File("xml/original", "config.job.hudson.xml"));
-        String xmlRootNodeNameConfigMain = XslTransformer.getXmlRootNodeName(new File("xml/original", "config.main.hudson.xml"));
+        String xmlRootNodeNameBuild = XslTransformer.getXmlRootNodeName(new File(ORIGINAL_DIR, "build.hudson.xml"));
+        String xmlRootNodeNameConfigJob = XslTransformer.getXmlRootNodeName(new File(ORIGINAL_DIR, "config.job.hudson.xml"));
+        String xmlRootNodeNameConfigMain = XslTransformer.getXmlRootNodeName(new File(ORIGINAL_DIR, "config.main.hudson.xml"));
         
         assertEquals("build", xmlRootNodeNameBuild);
         assertEquals("project", xmlRootNodeNameConfigJob);
@@ -80,9 +90,9 @@ public class XslTransformerTest {
 
     @Test
     public void getXmlFileNameTest() {
-        String xslFileNameBuild = XslTransformer.getXslFileName(new File("xml/original", "build.hudson.xml"));
-        String xslFileNameConfigJob = XslTransformer.getXslFileName(new File("xml/original", "config.job.hudson.xml"));
-        String xslFileNameConfigMain = XslTransformer.getXslFileName(new File("xml/original", "config.main.hudson.xml"));
+        String xslFileNameBuild = XslTransformer.getXslFileName(new File(ORIGINAL_DIR, "build.hudson.xml"));
+        String xslFileNameConfigJob = XslTransformer.getXslFileName(new File(ORIGINAL_DIR, "config.job.hudson.xml"));
+        String xslFileNameConfigMain = XslTransformer.getXslFileName(new File(ORIGINAL_DIR, "config.main.hudson.xml"));
 //        String xslFileNameFoobar = XslTransformer.getXslFileName(new File("xml", "foobar.xml"));
         
         assertEquals("build.xsl", xslFileNameBuild);
@@ -123,32 +133,23 @@ public class XslTransformerTest {
 
     @Test
     public void buildTest_timestamp_cli() {
-        String buildFile = TIMESTAMP_DIR + "/build.xml";
-        TimestampConverter.main(new String[]{buildFile});
-        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(buildFile));
+        String buildFileName = TIMESTAMP_DIR + "/build.xml";
+        File buildFile = new File(buildFileName);
+        TimestampConverter.main(new String[]{buildFileName});
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(buildFile);
         compareWithReferenceFile(TIMESTAMP_DIR + "/" + nameWithoutExtension + ".transformed_reference.xml", TIMESTAMP_DIR + "/" + nameWithoutExtension + ".xml");
-        restoreTimestampBackup();
+        HudsonConfigConverter.restoreFromBackupFile(buildFile, ".bak2");
     }
 
     @Test
     public void buildTest_timestamp_cli_dir() {
-        String buildFile = TIMESTAMP_DIR + "/build.xml";
+        File buildFile = new File(TIMESTAMP_DIR, "build.xml");
         TimestampConverter.main(new String[]{TIMESTAMP_DIR});
-        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(buildFile));
+        String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(buildFile);
         compareWithReferenceFile(TIMESTAMP_DIR + "/" + nameWithoutExtension + ".transformed_reference.xml", TIMESTAMP_DIR + "/" + nameWithoutExtension + ".xml");
-        restoreTimestampBackup();
+        HudsonConfigConverter.restoreFromBackupFile(buildFile, ".bak2");
     }
 
-    private void restoreTimestampBackup() {
-        System.out.println("Restoring backup.");
-        File bak2 = new File(TIMESTAMP_DIR, "build.bak2");
-        File buildFile = new File(TIMESTAMP_DIR, "/build.xml");
-        if (bak2.exists()) {
-            restoreBackup(bak2, buildFile);
-        }
-        bak2.delete();
-    }
-    
     @Test
     public void configJobTest_kapua() {
         transformAndCompare("kapua", "config.job.hudson", "project");
@@ -311,6 +312,21 @@ public class XslTransformerTest {
     }
 
     @Test
+    public void copyViewsTest_CLI3() {
+        String jenkinsConfigPath = ORIGINAL_DIR + "/copyViews/.jenkins";
+        File jenkinsConfigFile = new File (jenkinsConfigPath, "config.xml");
+        HudsonConfigConverter.createBackupFile(jenkinsConfigFile, ".tst");
+        // change user dir for main method
+        String originalUserDir = System.getProperty("user.dir");
+        System.setProperty("user.dir", originalUserDir + "/xml/original/copyViews");
+        ViewConverter.main(new String[]{});
+        System.setProperty("user.dir", originalUserDir);
+        compareWithReferenceFile(REFERENCE_DIR + "/config.main.jenkins-cbi.transformed_reference.xml", jenkinsConfigPath + "/config.xml");
+        HudsonConfigConverter.restoreFromBackupFile(jenkinsConfigFile, ".tst");
+        new File (jenkinsConfigPath, "config.bak3").delete();
+    }
+
+    @Test
     public void copyNodesTest() {
         File inputFile = new File(ORIGINAL_DIR, "config.main.hudson-cbi.xml");
         NodeConverter.convert(inputFile, new File(TRANSFORM_OUTPUT_DIR));
@@ -391,14 +407,6 @@ public class XslTransformerTest {
         // check root node in transformed file
         String xmlRootNodeName = XslTransformer.getXmlRootNodeName(transformedFile);
         assertEquals(expectedXmlRootNodeName, xmlRootNodeName);
-    }
-
-    private void restoreBackup(File backup, File file) {
-        try {
-            Files.copy(backup.toPath(), file.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private void compareWithReferenceFile(String fileName) {

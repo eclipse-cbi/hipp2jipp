@@ -42,7 +42,7 @@ public class ViewConverter {
     private static File getConfigFile(String[] args, int argPosition, String defaultConfigFile, String name) {
         File configFile = null;
         if (args == null || args.length < argPosition+1 || "".equals(args[argPosition])) {
-            configFile = new File(defaultConfigFile);
+            configFile = new File(defaultConfigFile).getAbsoluteFile();
             System.out.println("No " + name + " config file given, default is " + configFile + " ...");
         } else {
             configFile = new File(args[argPosition]);
@@ -83,7 +83,7 @@ public class ViewConverter {
             System.out.println("Setting output file to " + outputFile);
         }
 
-        if (outputFile.isDirectory()) {
+        if (outputFile != null && outputFile.isDirectory()) {
             System.err.println("Please specify output file, not a directory.");
             System.exit(1);
         }

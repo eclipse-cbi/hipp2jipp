@@ -38,6 +38,7 @@
       <publishers>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher')]" />
         <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
+        <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-parameterizedtrigger')]" />
       </publishers>
       <buildWrappers>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]" />
@@ -87,7 +88,13 @@
       <xsl:when test="string = 'builders'">
         <xsl:apply-templates select="describable-list-property/originalValue"/>
       </xsl:when>
-      <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or starts-with(string/text(), 'hudson-triggers-') or contains(string/text(), 'Publisher') or contains(string/text(), 'Xvnc') or contains(string/text(), 'GerritTrigger') or contains(string/text(), 'TimestamperBuildWrapper')">
+      <xsl:when test="starts-with(string/text(), 'hudson-tasks-') or
+                      starts-with(string/text(), 'hudson-triggers-') or
+                      contains(string/text(), 'Publisher') or
+                      contains(string/text(), 'Xvnc') or
+                      contains(string/text(), 'GerritTrigger') or
+                      contains(string/text(), 'TimestamperBuildWrapper') or
+                      contains(string/text(), 'parameterizedtrigger')">
         <xsl:variable name="tagName">
           <xsl:value-of select="*/originalValue/@class" />
         </xsl:variable>
@@ -105,6 +112,17 @@
                       <xsl:text>BLUE</xsl:text>
                     </xsl:if>
                   </xsl:element>
+                </xsl:element>
+              </xsl:when>
+              <!-- special case for parameterizedtrigger-BuildTrigger -->
+              <xsl:when test="$tagName = 'hudson.plugins.parameterizedtrigger.BuildTrigger'">
+                <xsl:element name="configs">
+                  <xsl:for-each select="*/originalValue/configs/hudson.plugins.parameterizedtrigger.BuildTriggerConfig">
+                    <xsl:element name="hudson.plugins.parameterizedtrigger.BuildTriggerConfig">
+                      <xsl:apply-templates select="configs [@class='java.util.Collections$EmptyList']" />
+                      <xsl:copy-of select="* [name() != 'configs']" />
+                    </xsl:element>
+                  </xsl:for-each>
                 </xsl:element>
               </xsl:when>
               <xsl:otherwise>
@@ -128,6 +146,13 @@
         -->
       </xsl:otherwise>
     </xsl:choose>
+  </xsl:template>
+
+  <!-- Fix class -->
+  <xsl:template match="configs [@class='java.util.Collections$EmptyList']">
+    <xsl:element name="configs">
+      <xsl:attribute name="class">empty-list</xsl:attribute>
+    </xsl:element>
   </xsl:template>
 
   <!-- Filter out tags that exist in the XML, but are not set, by just doing nothing-->

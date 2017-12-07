@@ -266,6 +266,14 @@ public class XslTransformerTest {
         transformAndCompare("qvtd", "config.job.hudson", "project");
     }
 
+    /**
+     * Tests that parameterized trigger build step is transformed correctly
+     */
+    @Test
+    public void configJobTest_lyo() {
+        transformAndCompare("lyo", "config.job.hudson", "project");
+    }
+
 //    @Test
 //    public void configMainTest_kapua() {
 //        transformAndCompare("kapua", "config.main.hudson", "hudson");

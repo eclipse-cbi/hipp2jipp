@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
-  <xsl:template match="/project">
+  <xsl:template match="/project | /maven2-moduleset">
     <!--
     <xsl:message terminate="no">
       WARNING: Unmatched element:
       <xsl:value-of select="name()" />
     </xsl:message>
     -->
-    <project>
+    <xsl:variable name="rootName">
+      <xsl:copy-of select="name()" />
+    </xsl:variable>
+    <xsl:element name="{$rootName}">
       <xsl:apply-templates select="actions | description"/>
       <xsl:apply-templates select="keepDependencies"/>
       <properties>
@@ -32,14 +35,37 @@
       </triggers>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'concurrentBuild']"/>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'customWorkspace']"/>
+      <xsl:if test="/maven2-moduleset">
+        <!-- Matches for Maven job -->
+        <xsl:apply-templates select="rootModule"/>
+        <xsl:apply-templates select="goals"/>
+        <xsl:element name="mavenName">apache-maven-latest</xsl:element>
+        <xsl:apply-templates select="mavenOpts"/>
+        <xsl:apply-templates select="aggregatorStyleBuild"/>
+        <xsl:apply-templates select="incrementalBuild"/>
+        <xsl:apply-templates select="usePrivateRepository"/>
+        <xsl:apply-templates select="ignoreUpstremChanges"/>
+        <xsl:apply-templates select="archivingDisabled"/>
+        <xsl:apply-templates select="resolveDependencies"/>
+        <xsl:apply-templates select="processPlugins"/>
+        <xsl:apply-templates select="mavenValidationLevel"/>
+        <xsl:apply-templates select="reporters"/>
+      </xsl:if>
       <builders>
         <xsl:apply-templates select="project-properties/entry [string/text() = 'builders']" />
       </builders>
-      <publishers>
-        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher')]" />
-        <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
-        <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-parameterizedtrigger')]" />
-      </publishers>
+      <xsl:choose>
+        <xsl:when test="/maven2-moduleset">
+          <xsl:apply-templates select="publishers"/>
+        </xsl:when>
+        <xsl:otherwise>
+          <publishers>
+            <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher')]" />
+            <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
+            <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-parameterizedtrigger')]" />
+          </publishers>
+        </xsl:otherwise>
+       </xsl:choose>
       <buildWrappers>
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Xvnc')]" />
@@ -47,10 +73,17 @@
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'TimestamperBuildWrapper')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'LockWrapper')]"/>
       </buildWrappers>
-    </project>
+    </xsl:element>
   </xsl:template>
 
-  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | hudson.security.AuthorizationMatrixProperty | authToken">
+  <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding |
+                       hudson.security.AuthorizationMatrixProperty | authToken ">
+    <xsl:copy-of select="." />
+  </xsl:template>
+
+  <!-- Matches for Maven job -->
+  <xsl:template match="rootModule | goals | mavenOpts | aggregatorStyleBuild | incrementalBuild | usePrivateRepository | ignoreUpstremChanges | archivingDisabled |
+                       resolveDependencies | processPlugins | mavenValidationLevel | reporters | publishers">
     <xsl:copy-of select="." />
   </xsl:template>
 
@@ -68,7 +101,7 @@
   <xsl:template match="creationTime | cascadingChildrenNames | cascading-job-properties | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding | properties | cleanWorkspaceRequired | scm | concurrentBuild" />
   -->
 
-  <xsl:template match="/project/project-properties/entry">
+  <xsl:template match="/*/project-properties/entry">
     <!-- TODO: can this be improved? -->
     <xsl:choose>
       <xsl:when test="*/originalValue [@class = 'hudson.plugins.git.GitSCM']">
@@ -156,15 +189,15 @@
   </xsl:template>
 
   <!-- Filter out tags that exist in the XML, but are not set, by just doing nothing-->
-  <xsl:template match="/project/project-properties/entry [not(*/originalValue) and (*/propertyOverridden [text() = 'false'])]" />
+  <xsl:template match="/*/project-properties/entry [not(*/originalValue) and (*/propertyOverridden [text() = 'false'])]" />
 
   <!-- ParameterDefinitionProperties -->
-  <xsl:template match="/project/project-properties/entry [string/text() = 'parametersDefinitionProperties']">
+  <xsl:template match="/*/project-properties/entry [string/text() = 'parametersDefinitionProperties']">
     <xsl:copy-of select="*/originalValue/*" />
   </xsl:template>
 
   <!-- String, Int, Boolean, etc -->
-  <xsl:template match="/project/project-properties/entry [(*/originalValue/@class = 'string' or */originalValue/@class = 'int' or */originalValue/@class = 'boolean' or */originalValue/@class = '') and not(string/text() = 'cleanWorkspaceRequired')]">
+  <xsl:template match="/*/project-properties/entry [(*/originalValue/@class = 'string' or */originalValue/@class = 'int' or */originalValue/@class = 'boolean' or */originalValue/@class = '') and not(string/text() = 'cleanWorkspaceRequired')]">
     <xsl:variable name="tagName">
       <xsl:copy-of select="string/text()" />
     </xsl:variable>
@@ -174,7 +207,7 @@
   </xsl:template>
 
   <!-- LogRotator -->
-  <xsl:template match="/project/project-properties/entry [string/text() = 'logRotator' and log-rotator-property/originalValue/@class = 'hudson.tasks.LogRotator']">
+  <xsl:template match="/*/project-properties/entry [string/text() = 'logRotator' and log-rotator-property/originalValue/@class = 'hudson.tasks.LogRotator']">
     <xsl:element name="jenkins.model.BuildDiscarderProperty">
       <xsl:element name="strategy">
         <xsl:attribute name="class">
@@ -195,28 +228,28 @@
   </xsl:template>
 
   <!-- DiskUsage -->
-  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'DiskUsageProperty')]">
+  <xsl:template match="/*/project-properties/entry [contains(string/text(), 'DiskUsageProperty')]">
     <xsl:element name="hudson.plugins.disk__usage.DiskUsageProperty">
       <xsl:copy-of select="*/originalValue/*" />
     </xsl:element>
   </xsl:template>
 
   <!-- LockWrapper -->
-  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'LockWrapper')]">
+  <xsl:template match="/*/project-properties/entry [contains(string/text(), 'LockWrapper')]">
     <xsl:element name="hudson.plugins.locksandlatches.LockWrapper">
       <xsl:copy-of select="*/originalValue/*" />
     </xsl:element>
   </xsl:template>
 
   <!-- PromotedBuilds -->
-  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'promoted_builds')]">
+  <xsl:template match="/*/project-properties/entry [contains(string/text(), 'promoted_builds')]">
     <xsl:element name="hudson.plugins.promoted__builds.JobPropertyImpl">
       <xsl:copy-of select="*/originalValue/*" />
     </xsl:element>
   </xsl:template>
 
   <!-- JDK -->
-  <xsl:template match="/project/project-properties/entry [string/text() = 'jdk']">
+  <xsl:template match="/*/project-properties/entry [string/text() = 'jdk']">
     <xsl:element name="jdk">
       <xsl:if test="contains(*/originalValue/text(), '1.8')">
         <xsl:text>jdk1.8.0-latest</xsl:text>
@@ -235,7 +268,7 @@
 
   <!-- TODO: Externalize? -->
   <!-- BuildTimeOut -->
-  <xsl:template match="/project/project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper') and external-property/originalValue/@class = 'hudson.plugins.build_timeout.BuildTimeoutWrapper']">
+  <xsl:template match="/*/project-properties/entry [contains(string/text(), 'BuildTimeoutWrapper') and external-property/originalValue/@class = 'hudson.plugins.build_timeout.BuildTimeoutWrapper']">
     <xsl:element name="hudson.plugins.build__timeout.BuildTimeoutWrapper">
       <xsl:element name="strategy">
         <xsl:choose>
@@ -302,7 +335,7 @@
   </xsl:template>
 
   <!-- builders catch-all -->
-  <xsl:template match="/project/project-properties/entry [string/text() = 'builders']/describable-list-property/originalValue">
+  <xsl:template match="/*/project-properties/entry [string/text() = 'builders']/describable-list-property/originalValue">
     <xsl:for-each select="./*">
       <xsl:choose>
         <xsl:when test="name() = 'maven-builder' or name() = 'hudson.tasks.Shell' or name() = 'hudson.plugins.groovy.SystemGroovy'">

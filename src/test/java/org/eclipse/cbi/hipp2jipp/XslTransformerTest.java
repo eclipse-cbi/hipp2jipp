@@ -287,6 +287,14 @@ public class XslTransformerTest {
         transformAndCompare("hono", "config.job.hudson", "project");
     }
 
+    /**
+     * Tests that Maven job transformed correctly
+     */
+    @Test
+    public void configJobTest_gendoc() {
+        transformAndCompare("gendoc", "config.job.hudson", "maven2-moduleset");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

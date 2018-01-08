@@ -1,0 +1,232 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<maven2-moduleset>
+  <actions/>
+  <description>&lt;h2&gt;Build the last developed version of Gendoc (Incubation project) : &lt;/h2&gt;&#xd;
+&lt;br/&gt;&#xd;
+&lt;h3&gt;  Download last build as archive&#xd;
+&lt;a href=&quot;https://hudson.eclipse.org/gendoc/job/Gendoc-0.5-maintenance/ws/releng/org.eclipse.gendoc.update-site/target/org.eclipse.gendoc.incubation.update-site-0.5.0-SNAPSHOT.zip&quot;&gt;org.eclipse.gendoc.incubation.update-site-0.5.0-SNAPSHOT.zip&lt;/a&gt;&#xd;
+&lt;/h3&gt;</description>
+  <project-properties class="java.util.concurrent.ConcurrentHashMap">
+    <entry>
+      <string>blockBuildWhenDownstreamBuilding</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>5</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>scmCheckoutRetryCount</string>
+      <integer-property>
+        <propertyOverridden>false</propertyOverridden>
+      </integer-property>
+    </entry>
+    <entry>
+      <string>blockBuildWhenUpstreamBuilding</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>cleanWorkspaceRequired</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList"/>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>quietPeriod</string>
+      <integer-property>
+        <propertyOverridden>false</propertyOverridden>
+      </integer-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-BuildTrigger</string>
+      <external-property>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-SCMTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.SCMTrigger">
+          <spec>*/5 * * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">JDK 1.7.0 Latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>concurrentBuild</string>
+      <boolean-property>
+        <originalValue class="boolean">false</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>appointedNode</string>
+      <base-property>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>http</scheme>
+                  <path>/gitroot/gendoc/org.eclipse.gendoc.git</path>
+                  <rawPath>/gitroot/gendoc/org.eclipse.gendoc.git</rawPath>
+                  <port>-1</port>
+                  <host>git.eclipse.org</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>0.5-maintenance</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-TimerTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.TimerTrigger">
+          <spec>0 1 * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1434028579832</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+  <rootModule>
+    <groupId>org.eclipse.gendoc</groupId>
+    <artifactId>parent</artifactId>
+  </rootModule>
+  <goals>clean install</goals>
+  <mavenOpts>-Dhttp.proxyHost=proxy.eclipse.org -Dhttp.proxyPort=9898 -Dhttps.proxyHost=proxy.eclipse.org -Dhttps.proxyPort=9898 -Dhttp.nonProxyHosts=172.30.206.*|download.eclipse.org -Dhttps.nonProxyHosts=172.30.206.*|download.eclipse.org</mavenOpts>
+  <aggregatorStyleBuild>true</aggregatorStyleBuild>
+  <incrementalBuild>false</incrementalBuild>
+  <usePrivateRepository>false</usePrivateRepository>
+  <ignoreUpstremChanges>false</ignoreUpstremChanges>
+  <archivingDisabled>false</archivingDisabled>
+  <resolveDependencies>false</resolveDependencies>
+  <processPlugins>false</processPlugins>
+  <mavenValidationLevel>-1</mavenValidationLevel>
+  <reporters>
+    <hudson.maven.reporters.MavenMailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.maven.reporters.MavenMailer>
+  </reporters>
+  <publishers>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>releng/org.eclipse.gendoc.update-site/target/*.zip</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers/>
+</maven2-moduleset>

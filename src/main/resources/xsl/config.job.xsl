@@ -60,7 +60,8 @@
         </xsl:when>
         <xsl:otherwise>
           <publishers>
-            <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher')]" />
+            <!-- fix duplicate AggregatedTestResultPublisher entry -->
+            <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher') and not(contains(string/text(), 'AggregatedTestResultPublisher'))]" />
             <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
             <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-parameterizedtrigger')]" />
             <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-ws_cleanup')]" />

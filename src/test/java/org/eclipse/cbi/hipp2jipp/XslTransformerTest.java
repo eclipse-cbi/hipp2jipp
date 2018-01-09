@@ -303,6 +303,14 @@ public class XslTransformerTest {
         transformAndCompareFreestyleJob("xtext1", "config.job.hudson");
     }
 
+    /**
+     * Tests that "AggregatedTestResultPublisher" does not appear twice
+     */
+    @Test
+    public void configJobTest_xtext2() {
+        transformAndCompareFreestyleJob("xtext2", "config.job.hudson");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

@@ -311,6 +311,14 @@ public class XslTransformerTest {
         transformAndCompareFreestyleJob("xtext2", "config.job.hudson");
     }
 
+    /**
+     * Tests that parameter in "Trigger parameterized build on other projects" is not missing
+     */
+    @Test
+    public void configJobTest_xtext3() {
+        transformAndCompareFreestyleJob("xtext3", "config.job.hudson");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

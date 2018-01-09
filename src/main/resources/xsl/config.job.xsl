@@ -155,7 +155,7 @@
                   <xsl:for-each select="*/originalValue/configs/hudson.plugins.parameterizedtrigger.BuildTriggerConfig">
                     <xsl:element name="hudson.plugins.parameterizedtrigger.BuildTriggerConfig">
                       <xsl:apply-templates select="configs [@class='java.util.Collections$EmptyList']" />
-                      <xsl:copy-of select="* [name() != 'configs']" />
+                      <xsl:copy-of select="* [not(@class='java.util.Collections$EmptyList')]" />
                     </xsl:element>
                   </xsl:for-each>
                 </xsl:element>

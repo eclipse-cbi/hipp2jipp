@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>10</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Mailer</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Mailer">
+          <recipients>someone@somewhere.com</recipients>
+          <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+          <sendToIndividuals>false</sendToIndividuals>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList">
+          <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>ORG_GRADLE_PROJECT_OSSPUB_VERSION</name>
+                <description>The Xtext version</description>
+                <defaultValue>2.14.0-SNAPSHOT</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>ORG_GRADLE_PROJECT_OSSPUB_SIGN_JARS</name>
+                <description>Whether to sign jars using the Eclipse web service</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>ORG_GRADLE_PROJECT_OSSPUB_PACK_JARS</name>
+                <description>Whether to pack jars using pack200</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.plugins.gradle.Gradle>
+            <disabled>false</disabled>
+            <description>Run Gradle publishing script</description>
+            <switches>--stacktrace --refresh-dependencies -Posspub.userMavenSettings=$HOME/.m2/settings-deploy.xml -Psigning.secretKeyRingFile=$HOME/.gnupg/secring.gpg -Psigning.keyId=D1AE0CFD</switches>
+            <tasks>clean publishMavenXtext publishEclipseXtext</tasks>
+            <rootBuildScriptDir></rootBuildScriptDir>
+            <buildFile></buildFile>
+            <useWrapper>true</useWrapper>
+            <makeExecutable>true</makeExecutable>
+            <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+            <useWorkspaceAsHome>false</useWorkspaceAsHome>
+          </hudson.plugins.gradle.Gradle>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">JDK 1.8.0 Latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-ArtifactArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.ArtifactArchiver">
+          <artifacts>build-result/**</artifacts>
+          <compressionType>GZIP</compressionType>
+          <latestOnly>false</latestOnly>
+          <autoValidateFileMask>false</autoValidateFileMask>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-parameterizedtrigger-BuildTrigger</string>
+      <external-property>
+        <originalValue class="hudson.plugins.parameterizedtrigger.BuildTrigger">
+          <configs>
+            <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+              <configs>
+                <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+                  <properties>JOB_TO_DEPLOY=xtext-snapshots</properties>
+                </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              </configs>
+              <projects>common-deploy</projects>
+              <condition>SUCCESS</condition>
+              <triggerWithNoParameters>false</triggerWithNoParameters>
+            </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          </configs>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>https</scheme>
+                  <path>/TypeFox/publishing.git</path>
+                  <rawPath>/TypeFox/publishing.git</rawPath>
+                  <port>-1</port>
+                  <host>github.com</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>false</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-TimerTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.TimerTrigger">
+          <spec>50 21 * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1476779047973</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>com-coravy-hudson-plugins-github-GithubProjectProperty</string>
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

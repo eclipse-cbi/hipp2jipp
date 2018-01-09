@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description/>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>ORG_GRADLE_PROJECT_OSSPUB_VERSION</name>
+                <description>The Xtext version</description>
+                <defaultValue>2.14.0-SNAPSHOT</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>ORG_GRADLE_PROJECT_OSSPUB_SIGN_JARS</name>
+                <description>Whether to sign jars using the Eclipse web service</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>ORG_GRADLE_PROJECT_OSSPUB_PACK_JARS</name>
+                <description>Whether to pack jars using pack200</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>https://github.com/TypeFox/publishing.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers>
+    <hudson.triggers.TimerTrigger>
+      <spec>50 21 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <builders>
+    <hudson.plugins.gradle.Gradle>
+            <disabled>false</disabled>
+            <description>Run Gradle publishing script</description>
+            <switches>--stacktrace --refresh-dependencies -Posspub.userMavenSettings=$HOME/.m2/settings-deploy.xml -Psigning.secretKeyRingFile=$HOME/.gnupg/secring.gpg -Psigning.keyId=D1AE0CFD</switches>
+            <tasks>clean publishMavenXtext publishEclipseXtext</tasks>
+            <rootBuildScriptDir/>
+            <buildFile/>
+            <useWrapper>true</useWrapper>
+            <makeExecutable>true</makeExecutable>
+            <fromRootBuildScriptDir>true</fromRootBuildScriptDir>
+            <useWorkspaceAsHome>false</useWorkspaceAsHome>
+          </hudson.plugins.gradle.Gradle>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>build-result/**</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+    <hudson.plugins.parameterizedtrigger.BuildTrigger>
+      <configs>
+        <hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+          <configs>
+                <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+                  <properties>JOB_TO_DEPLOY=xtext-snapshots</properties>
+                </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+              </configs>
+          <projects>common-deploy</projects>
+          <condition>SUCCESS</condition>
+          <triggerWithNoParameters>false</triggerWithNoParameters>
+        </hudson.plugins.parameterizedtrigger.BuildTriggerConfig>
+      </configs>
+    </hudson.plugins.parameterizedtrigger.BuildTrigger>
+  </publishers>
+  <buildWrappers/>
+</project>

@@ -152,62 +152,62 @@ public class XslTransformerTest {
 
     @Test
     public void configJobTest_kapua() {
-        transformAndCompare("kapua", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("kapua", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_query() {
-        transformAndCompare("query", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("query", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_transaction() {
-        transformAndCompare("transaction", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("transaction", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_packagedrone() {
-        transformAndCompare("package-drone", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("package-drone", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_jgit1() {
-        transformAndCompare("jgit1", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("jgit1", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_jgit2() {
-        transformAndCompare("jgit2", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("jgit2", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_jgit3() {
-        transformAndCompare("jgit3", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("jgit3", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_app4mc() {
-        transformAndCompare("app4mc", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("app4mc", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_cbi1() {
-        transformAndCompare("cbi1", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("cbi1", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_cbi2() {
-        transformAndCompare("cbi2", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("cbi2", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_cbi3() {
-        transformAndCompare("cbi3", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("cbi3", "config.job.hudson");
     }
 
     @Test
     public void configJobTest_cbi4() {
-        transformAndCompare("cbi4", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("cbi4", "config.job.hudson");
     }
 
     /**
@@ -215,7 +215,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_omr() {
-        transformAndCompare("omr", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("omr", "config.job.hudson");
     }
 
     /**
@@ -223,7 +223,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_kura1() {
-        transformAndCompare("kura1", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("kura1", "config.job.hudson");
     }
 
     /**
@@ -231,7 +231,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_kura2() {
-        transformAndCompare("kura2", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("kura2", "config.job.hudson");
     }
 
     /**
@@ -239,7 +239,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_simrel1() {
-        transformAndCompare("simrel1", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("simrel1", "config.job.hudson");
     }
 
     /**
@@ -247,7 +247,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_simrel2() {
-        transformAndCompare("simrel2", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("simrel2", "config.job.hudson");
     }
 
     /**
@@ -255,7 +255,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_jwt() {
-        transformAndCompare("jwt", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("jwt", "config.job.hudson");
     }
 
     /**
@@ -263,7 +263,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_qvtd() {
-        transformAndCompare("qvtd", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("qvtd", "config.job.hudson");
     }
 
     /**
@@ -271,12 +271,12 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_lyo() {
-        transformAndCompare("lyo", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("lyo", "config.job.hudson");
     }
 
 //    @Test
 //    public void configMainTest_kapua() {
-//        transformAndCompare("kapua", "config.main.hudson", "hudson");
+//        transformAndCompareFreestyleJob("kapua", "config.main.hudson", "hudson");
 //    }
 
     /**
@@ -284,15 +284,23 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_hono() {
-        transformAndCompare("hono", "config.job.hudson", "project");
+        transformAndCompareFreestyleJob("hono", "config.job.hudson");
     }
 
     /**
-     * Tests that Maven job transformed correctly
+     * Tests that Maven jobs are transformed correctly
      */
     @Test
     public void configJobTest_gendoc() {
         transformAndCompare("gendoc", "config.job.hudson", "maven2-moduleset");
+    }
+
+    /**
+     * Tests that "Delete workspace when build is done" option is transformed correctly
+     */
+    @Test
+    public void configJobTest_xtext1() {
+        transformAndCompareFreestyleJob("xtext1", "config.job.hudson");
     }
 
     @Test
@@ -395,6 +403,10 @@ public class XslTransformerTest {
         xslParameters.put("sourceFile", hudsonConfigFile);
         new XslTransformer().transform(inputFile, outputFile, XslTransformer.XSL_DIR + "/copyViews.xsl", xslParameters);
         compareWithReferenceFile(nameWithoutExtension);
+    }
+
+    private void transformAndCompareFreestyleJob(String name, String prefix) {
+        transformAndCompare(name, prefix, "project");
     }
 
     //TODO: simplify

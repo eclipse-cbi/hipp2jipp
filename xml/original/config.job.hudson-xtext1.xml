@@ -1,0 +1,344 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>&lt;h3&gt;MWE playground branch&lt;/h3&gt;</description>
+  <project-properties class="concurrent-hash-map">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>10</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>5</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-xvnc-Xvnc</string>
+      <external-property>
+        <originalValue class="hudson.plugins.xvnc.Xvnc">
+          <takeScreenshot>false</takeScreenshot>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Mailer</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Mailer">
+          <recipients>someone@somewhere.com</recipients>
+          <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+          <sendToIndividuals>false</sendToIndividuals>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-junit-JUnitResultArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.junit.JUnitResultArchiver">
+          <testResults>git-repo/tests/**/target/surefire-reports/*.xml</testResults>
+          <keepLongStdio>false</keepLongStdio>
+          <testDataPublishers/>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Fingerprinter</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Fingerprinter">
+          <targets></targets>
+          <recordBuildArtifacts>true</recordBuildArtifacts>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList">
+          <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.ChoiceParameterDefinition>
+                <name>BUILD_TYPE</name>
+                <description>Build type (Nightly,Stable,Release)</description>
+                <choices class="java.util.Arrays$ArrayList">
+                  <a class="string-array">
+                    <string>N</string>
+                    <string>S</string>
+                    <string>R</string>
+                  </a>
+                </choices>
+              </hudson.model.ChoiceParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>BUILD_ALIAS</name>
+                <description>set an alias like 1.0.1M6 and type = S to build a milestone
+set an alias like 1.0.1 and type = R to build a release</description>
+                <defaultValue></defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>120</timeoutMinutes>
+          <failBuild>false</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>150</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>60</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description></description>
+            <command>rm -rf build-result/
+mkdir -p build-result/downloads/
+mkdir -p build-result/javadoc/
+cp -r git-repo/maven/.mvn .</command>
+          </hudson.tasks.Shell>
+          <maven-builder>
+            <disabled>false</disabled>
+            <description></description>
+            <config>
+              <installationId>Maven 3.3.9</installationId>
+              <goals>clean verify</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>true</privateTmpdir>
+              <pomFile>git-repo/maven/org.eclipse.emf.mwe2.parent/pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="sign.skip" value="false"/>
+                  <entry name="testFailureIgnore" value="true"/>
+                </entries>
+              </properties>
+              <errors>true</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>NEVER</failMode>
+              <makeMode>NONE</makeMode>
+              <settingsId>e23a0b6a-ab36-4ea3-8d97-c6ce7ba3db90</settingsId>
+              <globalSettingsId>d225a74b-a80d-4e77-b979-2a8318cb8d3f</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+          <hudson.tasks.Shell>
+            <disabled>false</disabled>
+            <description></description>
+            <command>mv git-repo/maven/org.eclipse.emf.mwe2.repository/target/repository/*.properties build-result/
+mv git-repo/maven/org.eclipse.emf.mwe2.repository/target/repository build-result/p2.repository
+mv git-repo/maven/org.eclipse.emf.mwe2.repository/target/emft-mwe-*.zip build-result/downloads/
+
+mv git-repo/maven/org.eclipse.emf.mwe2.repository/promoter.ant build-result/
+
+#mv git-repo/maven/org.eclipse.emf.mwe2.parent/target/org.eclipse.emf.mwe2.parent-*-javadoc.jar build-result/javadoc/javadoc.zip</command>
+          </hudson.tasks.Shell>
+          <hudson.plugins.parameterizedtrigger.TriggerBuilder>
+            <disabled>false</disabled>
+            <configs>
+              <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+                <configs>
+                  <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+                    <properties>JOB_TO_DEPLOY=${JOB_NAME}</properties>
+                  </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
+                </configs>
+                <projects>simrel-tests</projects>
+                <condition>ALWAYS</condition>
+                <triggerWithNoParameters>false</triggerWithNoParameters>
+                <buildAllNodesWithLabel>false</buildAllNodesWithLabel>
+              </hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
+            </configs>
+          </hudson.plugins.parameterizedtrigger.TriggerBuilder>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-SCMTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.SCMTrigger">
+          <spec>*/3 * * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-ws_cleanup-WsCleanup</string>
+      <external-property>
+        <originalValue class="hudson.plugins.ws_cleanup.WsCleanup">
+          <patterns>
+            <hudson.plugins.ws__cleanup.Pattern>
+              <pattern>git-repo/**</pattern>
+              <type>EXCLUDE</type>
+            </hudson.plugins.ws__cleanup.Pattern>
+            <hudson.plugins.ws__cleanup.Pattern>
+              <pattern>.maven/repo/**</pattern>
+              <type>EXCLUDE</type>
+            </hudson.plugins.ws__cleanup.Pattern>
+          </patterns>
+          <deleteDirs>true</deleteDirs>
+          <skipWhenFailed>true</skipWhenFailed>
+          <notFailBuild>true</notFailBuild>
+          <cleanupMatrixParent>false</cleanupMatrixParent>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">JDK 1.7.0 Latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-ArtifactArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.ArtifactArchiver">
+          <artifacts>build-result/**</artifacts>
+          <compressionType>GZIP</compressionType>
+          <latestOnly>false</latestOnly>
+          <autoValidateFileMask>false</autoValidateFileMask>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-timestamper-TimestamperBuildWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.timestamper.TimestamperBuildWrapper"/>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>false</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>git</scheme>
+                  <path>/gitroot/emf/org.eclipse.mwe.git/</path>
+                  <rawPath>/gitroot/emf/org.eclipse.mwe.git/</rawPath>
+                  <port>-1</port>
+                  <host>git.eclipse.org</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir>git-repo/</relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>master</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>true</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>true</pruneBranches>
+          <remotePoll>true</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <browser class="hudson.plugins.git.browser.CGit">
+            <url>http://git.eclipse.org/c/emf/org.eclipse.mwe.git/</url>
+          </browser>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>false</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1489659661452</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+    <string>com-coravy-hudson-plugins-github-GithubProjectProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

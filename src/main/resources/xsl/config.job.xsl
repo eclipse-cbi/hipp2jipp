@@ -63,6 +63,7 @@
             <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'Publisher')]" />
             <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-tasks-')]" />
             <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-parameterizedtrigger')]" />
+            <xsl:apply-templates select="project-properties/entry [starts-with(string/text(), 'hudson-plugins-ws_cleanup')]" />
           </publishers>
         </xsl:otherwise>
        </xsl:choose>
@@ -263,6 +264,13 @@
       <xsl:if test="contains(*/originalValue/text(), '1.5')">
         <xsl:text>jdk1.5.0-latest</xsl:text>
       </xsl:if>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- "Delete workspace when build is done" -->
+  <xsl:template match="/*/project-properties/entry [starts-with(string/text(), 'hudson-plugins-ws_cleanup')]">
+    <xsl:element name="hudson.plugins.ws__cleanup.WsCleanup">
+      <xsl:copy-of select="*/originalValue/*" />
     </xsl:element>
   </xsl:template>
 

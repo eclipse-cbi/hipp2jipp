@@ -163,7 +163,7 @@ public class XslTransformer {
         String xslFileName = "";
         if ("build".equalsIgnoreCase(rootNodeName)) {
             xslFileName = BUILD_XSL;
-        } else if ("project".equalsIgnoreCase(rootNodeName) || "maven2-moduleset".equalsIgnoreCase(rootNodeName)) {
+        } else if ("project".equalsIgnoreCase(rootNodeName) || "maven2-moduleset".equalsIgnoreCase(rootNodeName) || "matrix-project".equalsIgnoreCase(rootNodeName)) {
             xslFileName = JOB_CONFIG_XSL;
         } else if ("hudson".equalsIgnoreCase(rootNodeName)) {
             xslFileName = GENERAL_CONFIG_XSL;

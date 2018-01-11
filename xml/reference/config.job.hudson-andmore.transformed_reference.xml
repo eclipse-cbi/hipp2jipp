@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?><matrix-project>
+  <actions/>
+  <description>Tests the installation of Andmore as a plugin on top of different versions of the EPP packages.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+  </properties>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk/>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <axes>
+    <hudson.matrix.TextAxis>
+            <name>epp</name>
+            <values>
+              <string>java</string>
+              <string>jee</string>
+              <string>cpp</string>
+            </values>
+          </hudson.matrix.TextAxis>
+    <hudson.matrix.JDKAxis>
+            <name>jdk</name>
+            <values>
+              <string>jdk1.8.0-latest</string>
+            </values>
+          </hudson.matrix.JDKAxis>
+    <hudson.matrix.TextAxis>
+            <name>release</name>
+            <values>
+              <string>neon-2</string>
+              <string>oxygen-M4</string>
+            </values>
+          </hudson.matrix.TextAxis>
+  </axes>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>release_parts=(${release//-/ })
+release_name=${release_parts[0]}
+release_update=${release_parts[1]}
+
+# Clean the workspace
+rm -rf *
+
+# Extract the EPP distro
+tar xf /home/data/httpd/download.eclipse.org/technology/epp/downloads/release/$release_name/$release_update/eclipse-$epp-$release-linux-gtk-x86_64.tar.gz
+    
+# Call p2 director to install the Andmore features
+eclipse/eclipse -noSplash -application org.eclipse.equinox.p2.director -repository file:/home/data/httpd/download.eclipse.org/andmore/nightly,file:/home/data/httpd/download.eclipse.org/releases/$release_name -installIU org.eclipse.andmore.android.basic.feature.feature.group,org.eclipse.andmore.ndk.feature.feature.group,org.eclipse.andmore.hierarchyviewer.feature.feature.group,org.eclipse.andmore.traceview.feature.feature.group,org.eclipse.andmore.gldebugger.feature.feature.group
+
+# Clean the workspace
+rm -rf *</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.tasks.Mailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.locksandlatches.LockWrapper/>
+  </buildWrappers>
+</matrix-project>

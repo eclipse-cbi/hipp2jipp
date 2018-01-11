@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="2.0">
 
-  <xsl:template match="/project | /maven2-moduleset">
+  <xsl:template match="/project | /maven2-moduleset | /matrix-project">
     <!--
     <xsl:message terminate="no">
       WARNING: Unmatched element:
@@ -34,6 +34,11 @@
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'GerritTrigger')]"/>
       </triggers>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'concurrentBuild']"/>
+      <xsl:if test="/matrix-project">
+        <axes>
+          <xsl:apply-templates select="project-properties/entry [string/text() = 'axes']"/>
+        </axes>
+      </xsl:if>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'customWorkspace']"/>
       <xsl:if test="/maven2-moduleset">
         <!-- Matches for Maven job -->
@@ -195,6 +200,11 @@
 
   <!-- ParameterDefinitionProperties -->
   <xsl:template match="/*/project-properties/entry [string/text() = 'parametersDefinitionProperties']">
+    <xsl:copy-of select="*/originalValue/*" />
+  </xsl:template>
+
+  <!-- Matrix project axes -->
+  <xsl:template match="/*/project-properties/entry [string/text() = 'axes']">
     <xsl:copy-of select="*/originalValue/*" />
   </xsl:template>
 

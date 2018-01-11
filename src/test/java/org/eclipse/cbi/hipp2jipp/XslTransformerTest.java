@@ -319,6 +319,14 @@ public class XslTransformerTest {
         transformAndCompareFreestyleJob("xtext3");
     }
 
+    /**
+     * Tests that matrix jobs are transformed correctly 
+     */
+    @Test
+    public void configJobTest_andmore() {
+        transformAndCompare("andmore", "config.job.hudson", "matrix-project");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

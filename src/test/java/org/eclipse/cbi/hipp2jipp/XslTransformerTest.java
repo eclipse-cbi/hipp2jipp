@@ -152,62 +152,62 @@ public class XslTransformerTest {
 
     @Test
     public void configJobTest_kapua() {
-        transformAndCompareFreestyleJob("kapua", "config.job.hudson");
+        transformAndCompareFreestyleJob("kapua");
     }
 
     @Test
     public void configJobTest_query() {
-        transformAndCompareFreestyleJob("query", "config.job.hudson");
+        transformAndCompareFreestyleJob("query");
     }
 
     @Test
     public void configJobTest_transaction() {
-        transformAndCompareFreestyleJob("transaction", "config.job.hudson");
+        transformAndCompareFreestyleJob("transaction");
     }
 
     @Test
     public void configJobTest_packagedrone() {
-        transformAndCompareFreestyleJob("package-drone", "config.job.hudson");
+        transformAndCompareFreestyleJob("package-drone");
     }
 
     @Test
     public void configJobTest_jgit1() {
-        transformAndCompareFreestyleJob("jgit1", "config.job.hudson");
+        transformAndCompareFreestyleJob("jgit1");
     }
 
     @Test
     public void configJobTest_jgit2() {
-        transformAndCompareFreestyleJob("jgit2", "config.job.hudson");
+        transformAndCompareFreestyleJob("jgit2");
     }
 
     @Test
     public void configJobTest_jgit3() {
-        transformAndCompareFreestyleJob("jgit3", "config.job.hudson");
+        transformAndCompareFreestyleJob("jgit3");
     }
 
     @Test
     public void configJobTest_app4mc() {
-        transformAndCompareFreestyleJob("app4mc", "config.job.hudson");
+        transformAndCompareFreestyleJob("app4mc");
     }
 
     @Test
     public void configJobTest_cbi1() {
-        transformAndCompareFreestyleJob("cbi1", "config.job.hudson");
+        transformAndCompareFreestyleJob("cbi1");
     }
 
     @Test
     public void configJobTest_cbi2() {
-        transformAndCompareFreestyleJob("cbi2", "config.job.hudson");
+        transformAndCompareFreestyleJob("cbi2");
     }
 
     @Test
     public void configJobTest_cbi3() {
-        transformAndCompareFreestyleJob("cbi3", "config.job.hudson");
+        transformAndCompareFreestyleJob("cbi3");
     }
 
     @Test
     public void configJobTest_cbi4() {
-        transformAndCompareFreestyleJob("cbi4", "config.job.hudson");
+        transformAndCompareFreestyleJob("cbi4");
     }
 
     /**
@@ -215,7 +215,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_omr() {
-        transformAndCompareFreestyleJob("omr", "config.job.hudson");
+        transformAndCompareFreestyleJob("omr");
     }
 
     /**
@@ -223,7 +223,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_kura1() {
-        transformAndCompareFreestyleJob("kura1", "config.job.hudson");
+        transformAndCompareFreestyleJob("kura1");
     }
 
     /**
@@ -231,7 +231,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_kura2() {
-        transformAndCompareFreestyleJob("kura2", "config.job.hudson");
+        transformAndCompareFreestyleJob("kura2");
     }
 
     /**
@@ -239,7 +239,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_simrel1() {
-        transformAndCompareFreestyleJob("simrel1", "config.job.hudson");
+        transformAndCompareFreestyleJob("simrel1");
     }
 
     /**
@@ -247,7 +247,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_simrel2() {
-        transformAndCompareFreestyleJob("simrel2", "config.job.hudson");
+        transformAndCompareFreestyleJob("simrel2");
     }
 
     /**
@@ -255,7 +255,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_jwt() {
-        transformAndCompareFreestyleJob("jwt", "config.job.hudson");
+        transformAndCompareFreestyleJob("jwt");
     }
 
     /**
@@ -263,7 +263,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_qvtd() {
-        transformAndCompareFreestyleJob("qvtd", "config.job.hudson");
+        transformAndCompareFreestyleJob("qvtd");
     }
 
     /**
@@ -271,7 +271,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_lyo() {
-        transformAndCompareFreestyleJob("lyo", "config.job.hudson");
+        transformAndCompareFreestyleJob("lyo");
     }
 
 //    @Test
@@ -284,7 +284,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_hono() {
-        transformAndCompareFreestyleJob("hono", "config.job.hudson");
+        transformAndCompareFreestyleJob("hono");
     }
 
     /**
@@ -300,7 +300,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_xtext1() {
-        transformAndCompareFreestyleJob("xtext1", "config.job.hudson");
+        transformAndCompareFreestyleJob("xtext1");
     }
 
     /**
@@ -308,7 +308,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_xtext2() {
-        transformAndCompareFreestyleJob("xtext2", "config.job.hudson");
+        transformAndCompareFreestyleJob("xtext2");
     }
 
     /**
@@ -316,7 +316,7 @@ public class XslTransformerTest {
      */
     @Test
     public void configJobTest_xtext3() {
-        transformAndCompareFreestyleJob("xtext3", "config.job.hudson");
+        transformAndCompareFreestyleJob("xtext3");
     }
 
     @Test
@@ -421,8 +421,8 @@ public class XslTransformerTest {
         compareWithReferenceFile(nameWithoutExtension);
     }
 
-    private void transformAndCompareFreestyleJob(String name, String prefix) {
-        transformAndCompare(name, prefix, "project");
+    private void transformAndCompareFreestyleJob(String name) {
+        transformAndCompare(name, "config.job.hudson", "project");
     }
 
     //TODO: simplify

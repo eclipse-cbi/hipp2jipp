@@ -1,0 +1,366 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<matrix-project>
+  <actions/>
+  <description>&lt;p&gt;This job is responsible for populating the following update sites with maintenance versions of Code Recommenders: &lt;a href=&quot;http://download.eclipse.org/recommenders/updates/maintenance-head/&quot;&gt;maintenance-head&lt;/a&gt;, &lt;a href=&quot;http://download.eclipse.org/recommenders/updates/maintenance-milestones/&quot;&gt;maintenance-milestones&lt;/a&gt;, and &lt;a href=&quot;http://download.eclipse.org/recommenders/updates/stable/&quot;&gt;stable&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This job also deploys &lt;em&gt;release&lt;/em&gt; and &lt;em&gt;snapshot&lt;/em&gt; Maven artifacts to &lt;a href=&quot;https://repo.eclipse.org/content/groups/recommenders/&quot;&gt;repo.eclipse.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Moreover, this job &lt;strong&gt;may&lt;/strong&gt; populate the update sites for both the current and the maintenance simultaneous release.&lt;/p&gt;</description>
+  <project-properties class="java.util.concurrent.ConcurrentHashMap">
+    <entry>
+      <string>hudson-plugins-checkstyle-CheckStylePublisher</string>
+      <external-property>
+        <originalValue class="hudson.plugins.checkstyle.CheckStylePublisher">
+          <healthy></healthy>
+          <unHealthy></unHealthy>
+          <thresholdLimit>low</thresholdLimit>
+          <pluginName>[CHECKSTYLE] </pluginName>
+          <defaultEncoding></defaultEncoding>
+          <canRunOnFailed>false</canRunOnFailed>
+          <useStableBuildAsReference>false</useStableBuildAsReference>
+          <useDeltaValues>false</useDeltaValues>
+          <thresholds>
+            <unstableTotalAll></unstableTotalAll>
+            <unstableTotalHigh></unstableTotalHigh>
+            <unstableTotalNormal></unstableTotalNormal>
+            <unstableTotalLow></unstableTotalLow>
+            <failedTotalAll></failedTotalAll>
+            <failedTotalHigh></failedTotalHigh>
+            <failedTotalNormal></failedTotalNormal>
+            <failedTotalLow></failedTotalLow>
+          </thresholds>
+          <shouldDetectModules>false</shouldDetectModules>
+          <dontComputeNew>true</dontComputeNew>
+          <doNotResolveRelativePaths>false</doNotResolveRelativePaths>
+          <pattern></pattern>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>-1</daysToKeep>
+          <numToKeep>10</numToKeep>
+          <artifactDaysToKeep>7</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-promoted_builds-JobPropertyImpl</string>
+      <base-property>
+        <originalValue class="hudson.plugins.promoted_builds.JobPropertyImpl">
+          <activeProcessNames>
+            <string>milestones</string>
+            <string>current-simrel</string>
+            <string>maintenance-simrel</string>
+            <string>head</string>
+            <string>stable</string>
+          </activeProcessNames>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-xvnc-Xvnc</string>
+      <external-property>
+        <originalValue class="hudson.plugins.xvnc.Xvnc">
+          <takeScreenshot>false</takeScreenshot>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>axes</string>
+      <axis-list-property>
+        <originalValue class="hudson.matrix.AxisList">
+          <hudson.matrix.TextAxis>
+            <name>simrel</name>
+            <values>
+              <string>mars</string>
+              <string>neon</string>
+              <string>oxygen</string>
+              <string>photon</string>
+            </values>
+          </hudson.matrix.TextAxis>
+          <hudson.matrix.TextAxis>
+            <name>toolchain</name>
+            <values>
+              <string>JavaSE-1.7</string>
+              <string>JavaSE-1.8</string>
+            </values>
+          </hudson.matrix.TextAxis>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </axis-list-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Mailer</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Mailer">
+          <recipients>someone@somewhere.com</recipients>
+          <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+          <sendToIndividuals>true</sendToIndividuals>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>combinationFilter</string>
+      <string-property>
+        <originalValue class="string">((simrel == &quot;mars&quot;) &amp;&amp; toolchain == &quot;JavaSE-1.7&quot;) || ((simrel == &quot;neon&quot; || simrel == &quot;oxygen&quot; || simrel == &quot;photon&quot;) &amp;&amp; toolchain == &quot;JavaSE-1.8&quot;)</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-junit-JUnitResultArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.junit.JUnitResultArchiver">
+          <testResults>**/target/surefire-reports/*.xml</testResults>
+          <keepLongStdio>false</keepLongStdio>
+          <testDataPublishers/>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>parametersDefinitionProperties</string>
+      <copy-write-list-property>
+        <originalValue class="hudson.util.CopyOnWriteList">
+          <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>CURRENT_SIMREL</name>
+                <description>The simultaneous release that is currently heading for its first release. (Until 2018-06-27, this will be &lt;em&gt;photon&lt;/em&gt;.)</description>
+                <defaultValue>photon</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>CURRENT_TOOLCHAIN</name>
+                <description>The toolchain required for the current simultaneous release.</description>
+                <defaultValue>JavaSE-1.8</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>MAINTENANCE_SIMREL</name>
+                <description>The simultaneous release that is currently in maintenance mode, i.e., which is supplied with service releases. (Until the final &lt;em&gt;photon&lt;/em&gt; RC, this will be &lt;em&gt;oxygen&lt;/em&gt;.)</description>
+                <defaultValue>oxygen</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>MAINTENANCE_TOOLCHAIN</name>
+                <description>The toolchain required for the maintenance simultaneous release.</description>
+                <defaultValue>JavaSE-1.8</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </copy-write-list-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>3</timeoutMinutes>
+          <failBuild>false</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>300</timeoutPercentage>
+          <timeoutType>elastic</timeoutType>
+          <timeoutMinutesElasticDefault>60</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-SCMTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.SCMTrigger">
+          <spec>0-59/5 * * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <command># Manual implementation of the &quot;Clean after checkout&quot; option of the Hudson Git plugin.
+# See &lt;https://bugs.eclipse.org/bugs/show_bug.cgi?id=464597&gt;.
+git clean -fdx -e .maven/</command>
+          </hudson.tasks.Shell>
+          <hudson.tasks.Shell>
+            <command># Ensure that a window manager is running.
+# See &lt;https://bugs.eclipse.org/bugs/show_bug.cgi?id=387721&gt;
+
+ICEWM_PRIVCFG=&quot;$WORKSPACE/.icewm/&quot; icewm --no-configure &amp;</command>
+          </hudson.tasks.Shell>
+          <maven-builder>
+            <config>
+              <installationId>apache-maven-latest</installationId>
+              <goals>clean deploy</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>true</privateTmpdir>
+              <pomFile>pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="tycho.disableP2Mirrors" value="true"/>
+                  <entry name="installAtEnd" value="true"/>
+                  <entry name="deployAtEnd" value="true"/>
+                  <entry name="tycho.localArtifacts" value="ignore"/>
+                  <entry name="retryFailedDeploymentCount" value="10"/>
+                  <entry name="updateSitePrefix" value="maintenance-"/>
+                </entries>
+              </properties>
+              <errors>true</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>build-server</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>STRICT</checksumMode>
+              <failMode>AT_END</failMode>
+              <makeMode>NONE</makeMode>
+              <mavenOpts>-Xmx1024m -XX:MaxPermSize=128m</mavenOpts>
+              <settingsId>NONE</settingsId>
+              <globalSettingsId>970a9fe1-b930-4efa-a285-15e6ed12490e</globalSettingsId>
+              <toolChainsId>NONE</toolChainsId>
+            </config>
+          </maven-builder>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-ArtifactArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.ArtifactArchiver">
+          <artifacts>repositories/*/target/repository/**, target/jacoco.exec</artifacts>
+          <compressionType>GZIP</compressionType>
+          <latestOnly>false</latestOnly>
+          <autoValidateFileMask>false</autoValidateFileMask>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>touchStoneResultCondition</string>
+      <result-property>
+        <originalValue class="hudson.model.Result">
+          <name>SUCCESS</name>
+          <ordinal>0</ordinal>
+          <color>GREEN</color>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </result-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>git</scheme>
+                  <path>/gitroot/recommenders/org.eclipse.recommenders.git</path>
+                  <rawPath>/gitroot/recommenders/org.eclipse.recommenders.git</rawPath>
+                  <port>-1</port>
+                  <host>git.eclipse.org</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>maintenance</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>false</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>false</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-TimerTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.TimerTrigger">
+          <spec># Run a daily sanity build, in particular to check whether all upstream update sites are still working for us.
+0 0 * * *</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1437057571740</creationTime>
+  <properties/>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-promoted_builds-JobPropertyImpl</string>
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+  <axes/>
+  <runSequentially>false</runSequentially>
+  <configSubmit>false</configSubmit>
+</matrix-project>

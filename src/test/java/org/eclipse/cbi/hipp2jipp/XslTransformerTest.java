@@ -327,6 +327,14 @@ public class XslTransformerTest {
         transformAndCompare("andmore", "config.job.hudson", "matrix-project");
     }
 
+    /**
+     * Tests that combination filters are transformed correctly 
+     */
+    @Test
+    public void configJobTest_recommenders() {
+        transformAndCompare("recommenders", "config.job.hudson", "matrix-project");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?><matrix-project>
+  <actions/>
+  <description>&lt;p&gt;This job is responsible for populating the following update sites with maintenance versions of Code Recommenders: &lt;a href="http://download.eclipse.org/recommenders/updates/maintenance-head/"&gt;maintenance-head&lt;/a&gt;, &lt;a href="http://download.eclipse.org/recommenders/updates/maintenance-milestones/"&gt;maintenance-milestones&lt;/a&gt;, and &lt;a href="http://download.eclipse.org/recommenders/updates/stable/"&gt;stable&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;This job also deploys &lt;em&gt;release&lt;/em&gt; and &lt;em&gt;snapshot&lt;/em&gt; Maven artifacts to &lt;a href="https://repo.eclipse.org/content/groups/recommenders/"&gt;repo.eclipse.org&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Moreover, this job &lt;strong&gt;may&lt;/strong&gt; populate the update sites for both the current and the maintenance simultaneous release.&lt;/p&gt;</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>10</numToKeep>
+        <artifactDaysToKeep>7</artifactDaysToKeep>
+        <artifactNumToKeep>-1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.plugins.promoted__builds.JobPropertyImpl>
+      <activeProcessNames>
+            <string>milestones</string>
+            <string>current-simrel</string>
+            <string>maintenance-simrel</string>
+            <string>head</string>
+            <string>stable</string>
+          </activeProcessNames>
+    </hudson.plugins.promoted__builds.JobPropertyImpl>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.StringParameterDefinition>
+                <name>CURRENT_SIMREL</name>
+                <description>The simultaneous release that is currently heading for its first release. (Until 2018-06-27, this will be &lt;em&gt;photon&lt;/em&gt;.)</description>
+                <defaultValue>photon</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>CURRENT_TOOLCHAIN</name>
+                <description>The toolchain required for the current simultaneous release.</description>
+                <defaultValue>JavaSE-1.8</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>MAINTENANCE_SIMREL</name>
+                <description>The simultaneous release that is currently in maintenance mode, i.e., which is supplied with service releases. (Until the final &lt;em&gt;photon&lt;/em&gt; RC, this will be &lt;em&gt;oxygen&lt;/em&gt;.)</description>
+                <defaultValue>oxygen</defaultValue>
+              </hudson.model.StringParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>MAINTENANCE_TOOLCHAIN</name>
+                <description>The toolchain required for the maintenance simultaneous release.</description>
+                <defaultValue>JavaSE-1.8</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>+refs/heads/*:refs/remotes/origin/*</refspec>
+        <url>git://git.eclipse.org/gitroot/recommenders/org.eclipse.recommenders.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>maintenance</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions/>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers>
+    <hudson.triggers.SCMTrigger>
+      <spec>0-59/5 * * * *</spec>
+    </hudson.triggers.SCMTrigger>
+    <hudson.triggers.TimerTrigger>
+      <spec># Run a daily sanity build, in particular to check whether all upstream update sites are still working for us.
+0 0 * * *</spec>
+    </hudson.triggers.TimerTrigger>
+  </triggers>
+  <axes>
+    <hudson.matrix.TextAxis>
+            <name>simrel</name>
+            <values>
+              <string>mars</string>
+              <string>neon</string>
+              <string>oxygen</string>
+              <string>photon</string>
+            </values>
+          </hudson.matrix.TextAxis>
+    <hudson.matrix.TextAxis>
+            <name>toolchain</name>
+            <values>
+              <string>JavaSE-1.7</string>
+              <string>JavaSE-1.8</string>
+            </values>
+          </hudson.matrix.TextAxis>
+  </axes>
+  <combinationFilter>((simrel == "mars") &amp;&amp; toolchain == "JavaSE-1.7") || ((simrel == "neon" || simrel == "oxygen" || simrel == "photon") &amp;&amp; toolchain == "JavaSE-1.8")</combinationFilter>
+  <builders>
+    <hudson.tasks.Shell>
+      <command># Manual implementation of the "Clean after checkout" option of the Hudson Git plugin.
+# See &lt;https://bugs.eclipse.org/bugs/show_bug.cgi?id=464597&gt;.
+git clean -fdx -e .maven/</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Shell>
+      <command># Ensure that a window manager is running.
+# See &lt;https://bugs.eclipse.org/bugs/show_bug.cgi?id=387721&gt;
+
+ICEWM_PRIVCFG="$WORKSPACE/.icewm/" icewm --no-configure &amp;</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>clean deploy -Pbuild-server</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-Xmx1024m -XX:MaxPermSize=128m</jvmOptions>
+      <pom>pom.xml</pom>
+      <properties>tycho.disableP2Mirrors=true
+installAtEnd=true
+deployAtEnd=true
+tycho.localArtifacts=ignore
+retryFailedDeploymentCount=10
+updateSitePrefix=maintenance-
+</properties>
+      <usePrivateRepository>true</usePrivateRepository>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <hudson.plugins.checkstyle.CheckStylePublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[CHECKSTYLE] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll/>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>true</dontComputeNew>
+      <doNotResolveRelativePaths>false</doNotResolveRelativePaths>
+      <pattern/>
+    </hudson.plugins.checkstyle.CheckStylePublisher>
+    <hudson.tasks.Mailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>true</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>**/target/surefire-reports/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>repositories/*/target/repository/**, target/jacoco.exec</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.ElasticTimeOutStrategy">
+        <timeoutPercentage>300</timeoutPercentage>
+        <timeoutMinutesElasticDefault>60</timeoutMinutesElasticDefault>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+  </buildWrappers>
+</matrix-project>

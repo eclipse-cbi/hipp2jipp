@@ -38,6 +38,7 @@
         <axes>
           <xsl:apply-templates select="project-properties/entry [string/text() = 'axes']"/>
         </axes>
+        <xsl:apply-templates select="project-properties/entry [string/text() = 'combinationFilter']"/>
       </xsl:if>
       <xsl:apply-templates select="project-properties/entry [string/text() = 'customWorkspace']"/>
       <xsl:if test="/maven2-moduleset">
@@ -206,6 +207,13 @@
   <!-- Matrix project axes -->
   <xsl:template match="/*/project-properties/entry [string/text() = 'axes']">
     <xsl:copy-of select="*/originalValue/*" />
+  </xsl:template>
+
+  <!-- Combination filter -->
+  <xsl:template match="/*/project-properties/entry [string/text() = 'combinationFilter']">
+    <xsl:element name="combinationFilter">
+      <xsl:copy-of select="*/originalValue/text()" />
+    </xsl:element>
   </xsl:template>
 
   <!-- String, Int, Boolean, etc -->

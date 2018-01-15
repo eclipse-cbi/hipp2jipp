@@ -180,4 +180,12 @@ updateSitePrefix=maintenance-
       <takeScreenshot>false</takeScreenshot>
     </hudson.plugins.xvnc.Xvnc>
   </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <touchStoneResultCondition>
+      <name>SUCCESS</name>
+      <ordinal>0</ordinal>
+      <color>GREEN</color>
+    </touchStoneResultCondition>
+  </executionStrategy>
 </matrix-project>

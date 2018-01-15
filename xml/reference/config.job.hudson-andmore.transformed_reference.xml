@@ -52,6 +52,7 @@
             </values>
           </hudson.matrix.TextAxis>
   </axes>
+  <combinationFilter/>
   <builders>
     <hudson.tasks.Shell>
       <command>release_parts=(${release//-/ })
@@ -81,4 +82,9 @@ rm -rf *</command>
   <buildWrappers>
     <hudson.plugins.locksandlatches.LockWrapper/>
   </buildWrappers>
+  <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+    <runSequentially>false</runSequentially>
+    <touchStoneCombinationFilter/>
+    <touchStoneResultCondition/>
+  </executionStrategy>
 </matrix-project>

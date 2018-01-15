@@ -335,6 +335,14 @@ public class XslTransformerTest {
         transformAndCompare("recommenders", "config.job.hudson", "matrix-project");
     }
 
+    /**
+     * Tests that "Execute touchstone builds first" is transformed correctly 
+     */
+    @Test
+    public void configJobTest_recommenders2() {
+        transformAndCompare("recommenders2", "config.job.hudson", "matrix-project");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

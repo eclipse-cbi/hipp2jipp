@@ -81,6 +81,13 @@
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'TimestamperBuildWrapper')]" />
         <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'LockWrapper')]"/>
       </buildWrappers>
+      <xsl:if test="/matrix-project">
+      <executionStrategy class="hudson.matrix.DefaultMatrixExecutionStrategyImpl">
+        <xsl:apply-templates select="runSequentially"/>
+        <xsl:apply-templates select="project-properties/entry [string/text() = 'touchStoneCombinationFilter']"/>
+        <xsl:apply-templates select="project-properties/entry [string/text() = 'touchStoneResultCondition']"/>
+      </executionStrategy>
+      </xsl:if>
     </xsl:element>
   </xsl:template>
 
@@ -92,6 +99,11 @@
   <!-- Matches for Maven job -->
   <xsl:template match="rootModule | goals | mavenOpts | aggregatorStyleBuild | incrementalBuild | usePrivateRepository | ignoreUpstremChanges | archivingDisabled |
                        resolveDependencies | processPlugins | mavenValidationLevel | reporters | publishers">
+    <xsl:copy-of select="." />
+  </xsl:template>
+
+  <!-- Matches for Matrix job -->
+  <xsl:template match="runSequentially">
     <xsl:copy-of select="." />
   </xsl:template>
 
@@ -213,6 +225,20 @@
   <xsl:template match="/*/project-properties/entry [string/text() = 'combinationFilter']">
     <xsl:element name="combinationFilter">
       <xsl:copy-of select="*/originalValue/text()" />
+    </xsl:element>
+  </xsl:template>
+
+  <!-- Touchstone combination filter -->
+  <xsl:template match="/*/project-properties/entry [string/text() = 'touchStoneCombinationFilter']">
+    <xsl:element name="touchStoneCombinationFilter">
+      <xsl:copy-of select="*/originalValue/text()" />
+    </xsl:element>
+  </xsl:template>
+
+  <!-- Touchstone result condition -->
+  <xsl:template match="/*/project-properties/entry [string/text() = 'touchStoneResultCondition']">
+    <xsl:element name="touchStoneResultCondition">
+      <xsl:copy-of select="*/originalValue/*" />
     </xsl:element>
   </xsl:template>
 

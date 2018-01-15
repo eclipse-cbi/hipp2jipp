@@ -485,22 +485,19 @@
               </xsl:choose>
             </refspec>
             <url>
-              <xsl:choose>
-                <xsl:when test="uris/org.eclipse.jgit.transport.URIish [not(scheme)]">
-                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
-                </xsl:when>
-                <xsl:otherwise>
-                  <!-- TODO: concatenate strings? -->
-                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/scheme/text()" />
-                  <xsl:text>://</xsl:text>
-                  <xsl:if test="uris/org.eclipse.jgit.transport.URIish/user [text() != '']">
-                    <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/user/text()" />
-                    <xsl:text>@</xsl:text>
-                  </xsl:if>
-                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/host/text()" />
-                  <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
-                </xsl:otherwise>
-              </xsl:choose>
+              <xsl:if test="uris/org.eclipse.jgit.transport.URIish/scheme">
+                <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/scheme/text()" />
+                <xsl:text>://</xsl:text>
+              </xsl:if>
+              <xsl:if test="uris/org.eclipse.jgit.transport.URIish/user [text() != '']">
+                <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/user/text()" />
+                <xsl:text>@</xsl:text>
+              </xsl:if>
+              <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/host/text()" />
+              <xsl:if test="uris/org.eclipse.jgit.transport.URIish/path [substring(text(),1,1) != '/']">
+                  <xsl:text>:</xsl:text>
+              </xsl:if>
+              <xsl:value-of select="uris/org.eclipse.jgit.transport.URIish/path/text()" />
             </url>
           </xsl:element>
         </xsl:for-each>

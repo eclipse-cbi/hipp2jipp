@@ -343,6 +343,14 @@ public class XslTransformerTest {
         transformAndCompare("recommenders2", "config.job.hudson", "matrix-project");
     }
 
+    /**
+     * Tests Git SCM URL is transformed correctly 
+     */
+    @Test
+    public void configJobTest_collections() {
+        transformAndCompareFreestyleJob("collections");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

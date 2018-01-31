@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <actions/>
+  <description>MoDisco build using Tycho, monitoring Git every 3 hrs for changes.</description>
+  <keepDependencies>false</keepDependencies>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+    <jenkins.model.BuildDiscarderProperty>
+      <strategy class="hudson.tasks.LogRotator">
+        <daysToKeep>60</daysToKeep>
+        <numToKeep>50</numToKeep>
+        <artifactDaysToKeep>-1</artifactDaysToKeep>
+        <artifactNumToKeep>1</artifactNumToKeep>
+      </strategy>
+    </jenkins.model.BuildDiscarderProperty>
+    <hudson.plugins.disk__usage.DiskUsageProperty/>
+    <hudson.model.ParametersDefinitionProperty>
+            <parameterDefinitions>
+              <hudson.model.BooleanParameterDefinition>
+                <name>SIGN_UPDATE_SITE</name>
+                <description>Whether to sign the artifacts (takes almost one hour). Not required for nightly builds.</description>
+                <defaultValue>false</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>SKIP_TESTS</name>
+                <description>Whether to skip JUnit tests.</description>
+                <defaultValue>true</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+              <hudson.model.BooleanParameterDefinition>
+                <name>SKIP_QUALITY_ANALYSIS</name>
+                <description/>
+                <defaultValue>false</defaultValue>
+              </hudson.model.BooleanParameterDefinition>
+              <hudson.model.StringParameterDefinition>
+                <name>GERRIT_REFSPEC</name>
+                <description/>
+                <defaultValue>refs/heads/maintenance-0.12</defaultValue>
+              </hudson.model.StringParameterDefinition>
+            </parameterDefinitions>
+          </hudson.model.ParametersDefinitionProperty>
+  </properties>
+  <scm class="hudson.plugins.git.GitSCM">
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <name>origin</name>
+        <refspec>$GERRIT_REFSPEC</refspec>
+        <url>/gitroot/modisco/org.eclipse.modisco.git</url>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>**</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+        <relativeTargetDir>org.eclipse.modisco.build</relativeTargetDir>
+      </hudson.plugins.git.extensions.impl.RelativeTargetDirectory>
+      <hudson.plugins.git.extensions.impl.BuildChooserSetting>
+        <buildChooser class="com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTriggerBuildChooser">
+          <separator>#</separator>
+        </buildChooser>
+      </hudson.plugins.git.extensions.impl.BuildChooserSetting>
+    </extensions>
+  </scm>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <jdk>jdk1.8.0-latest</jdk>
+  <triggers>
+    <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+      <spec/>
+      <gerritProjects>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+              <compareType>ANT</compareType>
+              <pattern>modisco/org.eclipse.modisco</pattern>
+              <branches>
+                <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+                  <compareType>REG_EXP</compareType>
+                  <pattern>.*maintenance-0\.12.*</pattern>
+                </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.Branch>
+              </branches>
+            </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.data.GerritProject>
+          </gerritProjects>
+      <gerritBuildUnstableVerifiedValue>-1</gerritBuildUnstableVerifiedValue>
+      <silentMode>false</silentMode>
+      <escapeQuotes>true</escapeQuotes>
+      <buildStartMessage/>
+      <buildFailureMessage/>
+      <buildSuccessfulMessage/>
+      <buildUnstableMessage/>
+      <buildNotBuiltMessage/>
+      <buildUnsuccessfulFilepath/>
+      <customUrl/>
+      <triggerOnEvents>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginPatchsetCreatedEvent/>
+            <com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.events.PluginDraftPublishedEvent/>
+          </triggerOnEvents>
+      <dynamicTriggerConfiguration>false</dynamicTriggerConfiguration>
+      <triggerConfigURL/>
+      <triggerInformationAction/>
+    </com.sonyericsson.hudson.plugins.gerrit.trigger.hudsontrigger.GerritTrigger>
+  </triggers>
+  <concurrentBuild>true</concurrentBuild>
+  <builders>
+    <hudson.tasks.Shell>
+      <command>sh -xe org.eclipse.modisco.build/org.eclipse.modisco.releng.tycho/releasetrain/build.sh</command>
+    </hudson.tasks.Shell>
+    <hudson.tasks.Maven>
+      <targets>compile
+-e
+-U -Ppom-configure</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>$WORKSPACE/org.eclipse.emf.facet.releng/org.eclipse.emf.facet.releng.tycho.util/pom.xml</pom>
+      <properties>org.eclipse.emf.facet.releng.tycho.util.configure.productRevision=${SVN_REVISION_1}
+org.eclipse.emf.facet.releng.tycho.util.configure.parentArtifact=org.eclipse.modisco.build
+org.eclipse.emf.facet.releng.tycho.util.configure.generateDependencies.aggrDir=${WORKSPACE}/org.eclipse.simrel.build
+WORKSPACE=${WORKSPACE}
+org.eclipse.emf.facet.releng.tycho.util.configure.relengProperties=${WORKSPACE}/org.eclipse.modisco.build/org.eclipse.modisco.releng.tycho/helios/releng.properties
+</properties>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>verify -e</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions>-XX:PermSize=256m -XX:MaxPermSize=512m</jvmOptions>
+      <pom>$WORKSPACE/org.eclipse.modisco.build/pom.xml</pom>
+      <properties>product.signing.directory=/home/data/httpd/download-staging.priv/modeling/mdt/modisco/signingN
+continueOnFail=true
+eclipse.p2.mirrors=false
+</properties>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Maven>
+      <targets>process-resources -e -P pom-finalize</targets>
+      <mavenName>apache-maven-latest</mavenName>
+      <jvmOptions/>
+      <pom>$WORKSPACE/org.eclipse.emf.facet.releng/org.eclipse.emf.facet.releng.tycho.util/pom.xml</pom>
+      <properties/>
+      <usePrivateRepository>false</usePrivateRepository>
+    </hudson.tasks.Maven>
+    <hudson.tasks.Shell>
+      <command>echo Cleaning the workspace
+find $WORKSPACE -mindepth 3 -name __target__ -exec rm -rf {} \; -depth
+rm -rf releng/__target__
+rm -rf org.eclipse.modisco.releasetrain/org.*
+rm -rv .maven
+echo Cleaning finished</command>
+    </hudson.tasks.Shell>
+  </builders>
+  <publishers>
+    <hudson.plugins.dry.DryPublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[DRY] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll>1846</unstableTotalAll>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>true</dontComputeNew>
+      <doNotResolveRelativePaths>false</doNotResolveRelativePaths>
+      <pattern>org.eclipse.modisco.build/__target__/**/cpd.xml</pattern>
+      <highThreshold>50</highThreshold>
+      <normalThreshold>25</normalThreshold>
+    </hudson.plugins.dry.DryPublisher>
+    <hudson.plugins.checkstyle.CheckStylePublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[CHECKSTYLE] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll>192991</unstableTotalAll>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>true</dontComputeNew>
+      <doNotResolveRelativePaths>false</doNotResolveRelativePaths>
+      <pattern>org.eclipse.modisco.build/__target__/**/checkstyle-result.xml</pattern>
+    </hudson.plugins.checkstyle.CheckStylePublisher>
+    <hudson.plugins.pmd.PmdPublisher>
+      <healthy/>
+      <unHealthy/>
+      <thresholdLimit>low</thresholdLimit>
+      <pluginName>[PMD] </pluginName>
+      <defaultEncoding/>
+      <canRunOnFailed>false</canRunOnFailed>
+      <useStableBuildAsReference>false</useStableBuildAsReference>
+      <useDeltaValues>false</useDeltaValues>
+      <thresholds>
+            <unstableTotalAll>171245</unstableTotalAll>
+            <unstableTotalHigh/>
+            <unstableTotalNormal/>
+            <unstableTotalLow/>
+            <failedTotalAll/>
+            <failedTotalHigh/>
+            <failedTotalNormal/>
+            <failedTotalLow/>
+          </thresholds>
+      <shouldDetectModules>false</shouldDetectModules>
+      <dontComputeNew>true</dontComputeNew>
+      <doNotResolveRelativePaths>true</doNotResolveRelativePaths>
+      <pattern>org.eclipse.modisco.build/__target__/**/pmd.xml</pattern>
+    </hudson.plugins.pmd.PmdPublisher>
+    <hudson.tasks.Mailer>
+      <recipients>someone@somewhere.com</recipients>
+      <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+      <sendToIndividuals>false</sendToIndividuals>
+    </hudson.tasks.Mailer>
+    <hudson.tasks.junit.JUnitResultArchiver>
+      <testResults>org.eclipse.modisco.build/__target__/testresults/xml/*.xml</testResults>
+      <keepLongStdio>false</keepLongStdio>
+      <testDataPublishers/>
+    </hudson.tasks.junit.JUnitResultArchiver>
+    <hudson.tasks.ArtifactArchiver>
+      <artifacts>org.eclipse.modisco.build/__target__/org.eclipse.modisco.build.zip</artifacts>
+      <compressionType>GZIP</compressionType>
+      <latestOnly>false</latestOnly>
+      <autoValidateFileMask>false</autoValidateFileMask>
+    </hudson.tasks.ArtifactArchiver>
+  </publishers>
+  <buildWrappers>
+    <hudson.plugins.build__timeout.BuildTimeoutWrapper>
+      <strategy class="hudson.plugins.build_timeout.impl.AbsoluteTimeOutStrategy">
+        <timeoutMinutes>150</timeoutMinutes>
+      </strategy>
+      <operationList/>
+    </hudson.plugins.build__timeout.BuildTimeoutWrapper>
+    <hudson.plugins.xvnc.Xvnc>
+      <takeScreenshot>false</takeScreenshot>
+    </hudson.plugins.xvnc.Xvnc>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup>
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter/>
+      <externalDelete/>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
+</project>

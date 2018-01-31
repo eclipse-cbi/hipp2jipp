@@ -351,6 +351,14 @@ public class XslTransformerTest {
         transformAndCompareFreestyleJob("collections");
     }
 
+    /**
+     * Tests that Checkstyle, PMD and DRY post-build actions are transformed correctly 
+     */
+    @Test
+    public void configJobTest_modisco() {
+        transformAndCompareFreestyleJob("modisco");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

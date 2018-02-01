@@ -16,7 +16,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
@@ -109,6 +112,18 @@ public class XslTransformerTest {
     @Test
     public void buildTest_query() {
         transformAndCompare("query", "build.hudson", "build");
+    }
+
+    @Test
+    public void buildTest_dirigible_MavenBuild() {
+        String fileName = "build.hudson.MavenBuild-dirigible";
+        transformSingleFile(ORIGINAL_DIR + "/" + fileName + ".xml", TRANSFORM_OUTPUT_DIR, "hudson.maven.MavenBuild", false);
+    }
+
+    @Test
+    public void buildTest_dirigible_MavenModuleSetBuild() {
+        String fileName = "build.hudson.MavenModuleSetBuild-dirigible";
+        transformSingleFile(ORIGINAL_DIR + "/" + fileName + ".xml", TRANSFORM_OUTPUT_DIR, "hudson.maven.MavenModuleSetBuild", false);
     }
 
     @Test
@@ -436,6 +451,27 @@ public class XslTransformerTest {
         checkNodes();
     }
 
+    /**
+     * Tests that promotion configs are converted correctly
+     */
+    @Test
+    public void promotionsTest() {
+        File startDir = new File(TRANSFORM_OUTPUT_DIR, "promotions/epp-logging.head");
+        File backupDir = new File(ORIGINAL_DIR, "promotions/epp-logging.head");
+        //clean dirs
+        if (startDir.exists()) {
+            startDir.delete();
+        }
+        copyFolder(backupDir, startDir);
+        HudsonConfigConverter.main(new String[]{startDir.getAbsolutePath(), TRANSFORM_OUTPUT_DIR});
+
+        String promotionsRefDir = REFERENCE_DIR + "/promotions/epp-logging.head/promotions";
+        String promotionsOutDir = TRANSFORM_OUTPUT_DIR + "/promotions/epp-logging.head/promotions";
+        compareWithReferenceFile(promotionsRefDir + "/head/config.xml", promotionsOutDir + "/head/config.xml");
+        compareWithReferenceFile(promotionsRefDir + "/milestones/config.xml", promotionsOutDir + "/milestones/config.xml");
+        compareWithReferenceFile(promotionsRefDir + "/stable/config.xml", promotionsOutDir + "/stable/config.xml");
+    }
+
 
     /* Utilities */
 
@@ -473,6 +509,10 @@ public class XslTransformerTest {
     }
 
     private void transformSingleFile(String inputFileName, String outputDirName, String expectedXmlRootNodeName) {
+        transformSingleFile(inputFileName, outputDirName, expectedXmlRootNodeName, true);
+    }
+
+    private void transformSingleFile(String inputFileName, String outputDirName, String expectedXmlRootNodeName, boolean fileShouldExist) {
         String nameWithoutExtension = HudsonConfigConverter.getNameWithoutExtension(new File(inputFileName));
         // delete old file before transforming
         File outputDir = null;
@@ -486,11 +526,13 @@ public class XslTransformerTest {
             transformedFile.delete();
         }
         HudsonConfigConverter.main(new String[]{inputFileName, "-o", transformedFile.getAbsolutePath()});
-        assertTrue(transformedFile.exists());
-        
-        // check root node in transformed file
-        String xmlRootNodeName = XslTransformer.getXmlRootNodeName(transformedFile);
-        assertEquals(expectedXmlRootNodeName, xmlRootNodeName);
+        assertEquals(fileShouldExist, transformedFile.exists());
+
+        if (fileShouldExist) {
+            // check root node in transformed file
+            String xmlRootNodeName = XslTransformer.getXmlRootNodeName(transformedFile);
+            assertEquals(expectedXmlRootNodeName, xmlRootNodeName);
+        }
     }
 
     private void compareWithReferenceFile(String fileName) {
@@ -509,6 +551,25 @@ public class XslTransformerTest {
             }
         });
         diff.compare(control, test);
+    }
+
+    public static void copyFolder(File src, File dest) {
+        if(src.isDirectory()){
+            //if directory not exists, create it
+            if(!dest.exists()){
+               dest.mkdirs();
+            }
+            for (String file : src.list()) {
+               //recursive copy
+               copyFolder(new File(src, file), new File(dest, file));
+            }
+        }else{
+            try {
+              Files.copy(src.toPath(), dest.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException e) {
+              e.printStackTrace();
+            }
+        }
     }
 
 }

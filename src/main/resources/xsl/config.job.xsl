@@ -91,6 +91,42 @@
     </xsl:element>
   </xsl:template>
 
+  <!-- Promotion config  -->
+  <xsl:template match="/hudson.plugins.promoted__builds.PromotionProcess">
+    <xsl:variable name="rootName">
+      <xsl:copy-of select="name()" />
+    </xsl:variable>
+    <xsl:element name="{$rootName}">
+      <xsl:apply-templates select="keepDependencies"/>
+      <properties>
+        <xsl:apply-templates select="properties/hudson.security.AuthorizationMatrixProperty"/>
+        <xsl:apply-templates select="project-properties/entry [string/text() = 'logRotator']"/>
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'DiskUsageProperty')]"/>
+        <xsl:apply-templates select="project-properties/entry [contains(string/text(), 'promoted_builds')]"/>
+        <xsl:apply-templates select="project-properties/entry [string/text() = 'parametersDefinitionProperties']"/>
+      </properties>
+      <xsl:apply-templates select="project-properties/entry [string/text() = 'scm']"/>
+      <xsl:apply-templates select="project-properties/entry [string/text() = 'quietPeriod']"/>
+      <xsl:apply-templates select="project-properties/entry [string/text() = 'scmCheckoutRetryCount']"/>
+      <xsl:apply-templates select="scm"/>
+      <xsl:apply-templates select="canRoam"/>
+      <xsl:apply-templates select="disabled"/>
+      <xsl:apply-templates select="blockBuildWhenDownstreamBuilding"/>
+      <xsl:apply-templates select="blockBuildWhenUpstreamBuilding"/>
+      <triggers/>
+      <xsl:apply-templates select="project-properties/entry [string/text() = 'concurrentBuild']"/>
+      <xsl:apply-templates select="conditions"/>
+      <xsl:apply-templates select="icon"/>
+      <xsl:apply-templates select="isVisible"/>
+      <xsl:apply-templates select="buildSteps"/>
+    </xsl:element>
+  </xsl:template>
+
+  <!-- Matches for Promotions config -->
+  <xsl:template match="scm | conditions | icon | isVisible | buildSteps">
+    <xsl:copy-of select="." />
+  </xsl:template>
+
   <xsl:template match="actions | description | keepDependencies | disabled | canRoam | blockBuildWhenDownstreamBuilding | blockBuildWhenUpstreamBuilding |
                        hudson.security.AuthorizationMatrixProperty | authToken ">
     <xsl:copy-of select="." />

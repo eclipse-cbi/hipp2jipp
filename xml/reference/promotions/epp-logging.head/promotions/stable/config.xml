@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?><hudson.plugins.promoted__builds.PromotionProcess>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.scm.NullSCM" reference="../project-properties/entry[7]/scm-property/originalValue"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <conditions>
+    <hudson.plugins.promoted__builds.conditions.ManualCondition>
+      <users>ROLE_TECHNOLOGY.PACKAGING	</users>
+      <parameterDefinitions/>
+    </hudson.plugins.promoted__builds.conditions.ManualCondition>
+  </conditions>
+  <icon>star-gold</icon>
+  <buildSteps>
+    <hudson.plugins.promoted__builds.KeepBuildForeverAction/>
+    <hudson.tasks.Shell>
+      <command>${WORKSPACE}/releng/tools/hudson/publish-repository.sh mars stable download.eclipse.org/technology/epp/logging/stable/</command>
+    </hudson.tasks.Shell>
+  </buildSteps>
+</hudson.plugins.promoted__builds.PromotionProcess>

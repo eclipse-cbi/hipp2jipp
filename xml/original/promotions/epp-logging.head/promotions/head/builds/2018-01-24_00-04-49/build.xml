@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<hudson.plugins.promoted__builds.Promotion>
+  <actions>
+    <hudson.plugins.promoted__builds.PromotionTargetAction>
+      <jobName>epp-logging.head</jobName>
+      <number>1302</number>
+    </hudson.plugins.promoted__builds.PromotionTargetAction>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.model.Cause_-LegacyCodeCause>
+          <stackTrace>
+            <trace>hudson.model.Cause$LegacyCodeCause.&lt;init&gt;(Cause.java:83)</trace>
+            <trace>hudson.plugins.promoted_builds.PromotionProcess.considerPromotion2(PromotionProcess.java:273)</trace>
+            <trace>hudson.plugins.promoted_builds.conditions.SelfPromotionCondition$RunListenerImpl.onCompleted(SelfPromotionCondition.java:88)</trace>
+            <trace>hudson.plugins.promoted_builds.conditions.SelfPromotionCondition$RunListenerImpl.onCompleted(SelfPromotionCondition.java:74)</trace>
+            <trace>hudson.model.listeners.RunListener.fireCompleted(RunListener.java:145)</trace>
+            <trace>hudson.model.Run.run(Run.java:1439)</trace>
+            <trace>hudson.model.FreeStyleBuild.run(FreeStyleBuild.java:40)</trace>
+            <trace>hudson.model.ResourceController.execute(ResourceController.java:82)</trace>
+            <trace>hudson.model.Executor.run(Executor.java:137)</trace>
+          </stackTrace>
+        </hudson.model.Cause_-LegacyCodeCause>
+      </causes>
+    </hudson.model.CauseAction>
+    <hudson.plugins.disk__usage.BuildDiskUsageAction>
+      <diskUsage>
+        <buildUsage>31439</buildUsage>
+        <wsUsage>0</wsUsage>
+      </diskUsage>
+      <build class="hudson.plugins.promoted_builds.Promotion" reference="../../.."/>
+    </hudson.plugins.disk__usage.BuildDiskUsageAction>
+  </actions>
+  <number>1122</number>
+  <result>SUCCESS</result>
+  <duration>133103</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/home/hudson/genie.packaging/.hudson/jobs/epp-logging.head/workspace</workspace>
+  <hudsonVersion>3.0.1-b2</hudsonVersion>
+  <scm class="hudson.scm.NullChangeLogParser"/>
+  <culprits/>
+</hudson.plugins.promoted__builds.Promotion>

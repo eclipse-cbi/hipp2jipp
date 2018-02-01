@@ -1,0 +1,1980 @@
+Started by timer
+Checkout:workspace / /home/hudson/genie.packaging/.hudson/jobs/epp-logging.head/workspace - hudson.remoting.LocalChannel@43cb0816
+Using strategy: Default
+Last Built Revision: Revision 535c67017021be65206b76435bd8778f3b08bf60 (origin/master)
+Checkout:workspace / /home/hudson/genie.packaging/.hudson/jobs/epp-logging.head/workspace - hudson.remoting.LocalChannel@43cb0816
+Fetching changes from the remote Git repository
+Fetching upstream changes from /gitroot/epp/org.eclipse.epp.logging.git
+Commencing build of Revision 535c67017021be65206b76435bd8778f3b08bf60 (origin/master)
+Checking out Revision 535c67017021be65206b76435bd8778f3b08bf60 (origin/master)
+Starting xvnc
+[workspace] $ Xvnc :411 -geometry 1024x768 -depth 24 -ac -SecurityTypes none -noreset
+[workspace] $ /bin/sh -xe /tmp/hudson3733433277831311526.sh
++ metacity --replace --sm-disable
+/tmp/hudson3733433277831311526.sh: line 2: metacity: command not found
+[INFO] Using Maven 3 installation: apache-maven-latest
+[INFO] Checking Maven 3 installation environment
+[workspace] $ /shared/common/apache-maven-latest/bin/mvn --help
+[INFO] Checking Maven 3 installation version
+[INFO] Detected Maven 3 installation version: 3.5.2
+
+Xvnc TigerVNC 1.4.1 - built ??? ?? ???? ??:??:??
+Copyright (C) 1999-2013 TigerVNC Team and many others (see README.txt)
+See http://www.tigervnc.org for information on TigerVNC.
+Underlying X server release 11502000, The X.Org Foundation
+
+Initializing built-in extension VNC-EXTENSION
+Initializing built-in extension Generic Event Extension
+Initializing built-in extension SHAPE
+Initializing built-in extension MIT-SHM
+Initializing built-in extension XInputExtension
+Initializing built-in extension XTEST
+Initializing built-in extension BIG-REQUESTS
+Initializing built-in extension SYNC
+Initializing built-in extension XKEYBOARD
+Initializing built-in extension XC-MISC
+Initializing built-in extension XFIXES
+Initializing built-in extension RENDER
+Initializing built-in extension RANDR
+Initializing built-in extension COMPOSITE
+Initializing built-in extension DAMAGE
+Initializing built-in extension MIT-SCREEN-SAVER
+Initializing built-in extension DOUBLE-BUFFER
+Initializing built-in extension RECORD
+Initializing built-in extension DPMS
+Initializing built-in extension Present
+Initializing built-in extension X-Resource
+Initializing built-in extension XVideo
+Initializing built-in extension XVideo-MotionCompensation
+Initializing built-in extension GLX
+
+Wed Jan 24 00:01:17 2018
+ vncext:      VNC extension running!
+ vncext:      Listening for VNC connections on all interface(s), port 6311
+ vncext:      created VNC server for screen 0
+[workspace] $ /shared/common/apache-maven-latest/bin/mvn clean install -V -B -e -Dtycho.disableP2Mirrors=true -Dtycho.localArtifacts=ignore -Dmaven.ext.class.path=/home/hudson/genie.packaging/.hudson/maven/slavebundle/resources:/home/hudson/genie.packaging/.hudson/maven/slavebundle/lib/maven3-eventspy-3.1.jar:/home/hudson/genie.packaging/.hudson/war/webapp/WEB-INF/lib/hudson-remoting-3.0.0.jar -Dhudson.eventspy.port=40251 -f pom.xml -P build-server
+[DEBUG] Waiting for connection on port: 40251
+[dix] Could not init font path element /usr/share/fonts/TTF/, removing from list!
+[dix] Could not init font path element /usr/share/fonts/OTF/, removing from list!
+Apache Maven 3.5.2 (138edd61fd100ec658bfa2d307c43b76940a5d7d; 2017-10-18T03:58:13-04:00)
+Maven home: /shared/common/apache-maven-latest
+Java version: 1.8.0_131, vendor: Oracle Corporation
+Java home: /opt/public/common/jdk1.8.0_131/jre
+Default locale: en_US, platform encoding: UTF-8
+OS name: "linux", version: "3.12.51-52.39-default", arch: "i386", family: "unix"
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/home/hudson/genie.packaging/.hudson/maven/slavebundle/lib/maven3-eventspy-runtime.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/shared/common/apache-maven-latest/lib/maven-slf4j-provider-3.5.2.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+[DEBUG] Connected to remote
+[INFO] Error stacktraces are turned on.
+[WARN] o.h.m.e.EventSpyProcessor - Unhandled event: org.apache.maven.toolchain.building.DefaultToolchainsBuildingRequest@101b1c (org.apache.maven.toolchain.building.DefaultToolchainsBuildingRequest)
+[WARN] o.h.m.e.EventSpyProcessor - Unhandled event: org.apache.maven.toolchain.building.DefaultToolchainsBuildingRequest@101b1c (org.apache.maven.toolchain.building.DefaultToolchainsBuildingRequest)
+[INFO] Scanning for projects...
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[WARNING] No explicit target runtime environment configuration. Build is platform dependent.
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:head:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/pom.xml
+[INFO] Fetching p2.index from http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1a-201710090410/
+[INFO] Fetching p2.index from http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1a-201710090410/
+[INFO] Adding repository http://download.eclipse.org/eclipse/updates/4.7/R-4.7.1a-201710090410
+[INFO] Fetching p2.index from http://download.eclipse.org/modeling/emf/emf/updates/2.13/
+[INFO] Fetching p2.index from http://download.eclipse.org/modeling/emf/emf/updates/2.13/
+[INFO] Adding repository http://download.eclipse.org/modeling/emf/emf/updates/2.13
+[INFO] Fetching p2.index from http://download.eclipse.org/mylyn/snapshots/weekly/
+[INFO] Fetching p2.index from http://download.eclipse.org/mylyn/snapshots/weekly/
+[INFO] Adding repository http://download.eclipse.org/mylyn/snapshots/weekly
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops/M20170818183741/repository/
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops/M20170818183741/repository/
+[INFO] Adding repository http://download.eclipse.org/tools/orbit/downloads/drops/M20170818183741/repository
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops2/M20170818183741/repository/
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops2/M20170818183741/repository/
+[INFO] Adding repository http://download.eclipse.org/technology/swtbot/releases/2.2.1
+[INFO] Fetching p2.index from http://download.eclipse.org/cbi/updates/license/
+[INFO] Fetching p2.index from http://download.eclipse.org/cbi/updates/license/
+[INFO] Adding repository http://download.eclipse.org/cbi/updates/license
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:head:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:head:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:milestones:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:milestones:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:milestones:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:stable:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:stable:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:stable:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.core:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.core:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.core:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.core.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.core.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.core.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide.tests:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide.manual:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide.manual:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.ide.manual:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.3rd.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.3rd.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.3rd.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.sdk.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.sdk.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.sdk.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.tests.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.tests.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:org.eclipse.epp.logging.aeri.tests.feature:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:aeri.ide:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:aeri.ide:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:aeri.ide:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:aeri.rcp:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:aeri.rcp:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:aeri.rcp:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/pom.xml
+[INFO] Computing target platform for MavenProject: org.eclipse.epp.logging:aeri.rcp.silent:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/pom.xml
+[INFO] Resolving dependencies of MavenProject: org.eclipse.epp.logging:aeri.rcp.silent:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/pom.xml
+[INFO] Resolving class path of MavenProject: org.eclipse.epp.logging:aeri.rcp.silent:2.0.7-SNAPSHOT @ /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/pom.xml
+[WARNING] The project org.eclipse.epp.logging:org.eclipse.epp.logging:pom:2.0.7-SNAPSHOT uses prerequisites which is only intended for maven-plugin projects but not for non maven-plugin projects. For such purposes you should use the maven-enforcer-plugin. See https://maven.apache.org/enforcer/enforcer-rules/requireMavenVersion.html
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Build Order:
+[INFO] 
+[INFO] org.eclipse.epp.logging
+[INFO] releng
+[INFO] coding-conventions
+[INFO] licenses
+[INFO] targets
+[INFO] Target Definition for Eclipse Neon (4.6)
+[INFO] Target Definition for Eclipse Oxygen (4.7)
+[INFO] repositories
+[INFO] bundles
+[INFO] org.eclipse.epp.logging.aeri.core
+[INFO] org.eclipse.epp.logging.aeri.ide
+[INFO] features
+[INFO] org.eclipse.epp.logging.aeri.feature
+[INFO] org.eclipse.epp.logging.3rd.feature
+[INFO] tests
+[INFO] org.eclipse.epp.logging.aeri.tests
+[INFO] org.eclipse.epp.logging.aeri.ide.manual
+[INFO] org.eclipse.epp.logging.aeri.tests.feature
+[INFO] EPP Logging Head Update Site
+[INFO] EPP Logging Milestones Update Site
+[INFO] EPP Logging Stable Update Site
+[INFO] org.eclipse.epp.logging.aeri.core.tests
+[INFO] org.eclipse.epp.logging.aeri.ide.tests
+[INFO] org.eclipse.epp.logging.sdk.feature
+[INFO] examples
+[INFO] aeri.ide
+[INFO] aeri.rcp
+[INFO] aeri.rcp.silent
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ org.eclipse.epp.logging ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging/2.0.7-SNAPSHOT/org.eclipse.epp.logging-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building releng 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ releng ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ releng ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ releng ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ releng ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/releng/2.0.7-SNAPSHOT/releng-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building coding-conventions 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ coding-conventions ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/releng/coding-conventions/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ coding-conventions ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ coding-conventions ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ coding-conventions ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ coding-conventions ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/coding-conventions/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ coding-conventions ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ coding-conventions ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.5:jar (default-jar) @ coding-conventions ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/releng/coding-conventions/target/coding-conventions-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ coding-conventions ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ coding-conventions ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/coding-conventions/target/coding-conventions-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/coding-conventions/2.0.7-SNAPSHOT/coding-conventions-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/coding-conventions/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/coding-conventions/2.0.7-SNAPSHOT/coding-conventions-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building licenses 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ licenses ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/releng/licenses/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ licenses ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ licenses ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 3 resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:compile (default-compile) @ licenses ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ licenses ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/licenses/src/test/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:3.2:testCompile (default-testCompile) @ licenses ---
+[INFO] No sources to compile
+[INFO] 
+[INFO] --- maven-surefire-plugin:2.18.1:test (default-test) @ licenses ---
+[INFO] No tests to run.
+[INFO] 
+[INFO] --- maven-jar-plugin:2.5:jar (default-jar) @ licenses ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/releng/licenses/target/licenses-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ licenses ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ licenses ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/licenses/target/licenses-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/licenses/2.0.7-SNAPSHOT/licenses-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/licenses/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/licenses/2.0.7-SNAPSHOT/licenses-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building targets 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ targets ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ targets ---
+[INFO] 
+[INFO] --- target-platform-validation-plugin:1.0.0:validate-target-platform (validate-target-platform) @ targets ---
+[INFO] No targetFiles configured. Skipping execution.
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ targets ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ targets ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/targets/2.0.7-SNAPSHOT/targets-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Target Definition for Eclipse Neon (4.6) 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ neon ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ neon ---
+[INFO] 
+[INFO] --- target-platform-validation-plugin:1.0.0:validate-target-platform (validate-target-platform) @ neon ---
+[INFO] Validating /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/neon/neon.target...
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/neon/201705151400/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/neon/201705151400/
+[INFO] Adding repository http://download.eclipse.org/releases/neon/201705151400
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops/R20170307180635/repository/
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops/R20170307180635/repository/
+[INFO] Adding repository http://download.eclipse.org/tools/orbit/downloads/drops/R20170307180635/repository
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops2/R20170307180635/repository/
+[INFO] Fetching p2.index from http://download.eclipse.org/tools/orbit/downloads/drops2/R20170307180635/repository/
+[INFO] OK!
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-target-definition (default-package-target-definition) @ neon ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ neon ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ neon ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/neon/neon.target to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/neon/2.0.7-SNAPSHOT/neon-2.0.7-SNAPSHOT.target
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/neon/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/neon/2.0.7-SNAPSHOT/neon-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Target Definition for Eclipse Oxygen (4.7) 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ oxygen ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ oxygen ---
+[INFO] 
+[INFO] --- target-platform-validation-plugin:1.0.0:validate-target-platform (validate-target-platform) @ oxygen ---
+[INFO] Validating /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/oxygen/oxygen.target...
+[INFO] OK!
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-target-definition (default-package-target-definition) @ oxygen ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ oxygen ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ oxygen ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/oxygen/oxygen.target to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/oxygen/2.0.7-SNAPSHOT/oxygen-2.0.7-SNAPSHOT.target
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/targets/oxygen/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/oxygen/2.0.7-SNAPSHOT/oxygen-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building repositories 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ repositories ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ repositories ---
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.5:process (process-repository-resources) @ repositories ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (resources) @ repositories ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ repositories ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ repositories ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/repositories/2.0.7-SNAPSHOT/repositories-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building bundles 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ bundles ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/bundles/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ bundles ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-about-html) @ bundles ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (enforce-bytecode-version) @ bundles ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ bundles ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ bundles ---
+[INFO] 
+[INFO] --- tycho-pack200a-plugin:1.0.0:normalize (pack200-normalize) @ bundles ---
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ bundles ---
+[INFO] 
+[INFO] --- tycho-pack200b-plugin:1.0.0:pack (pack200-pack) @ bundles ---
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ bundles ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ bundles ---
+[INFO] 
+[INFO] --- maven-license-plugin:1.9.0:check (check-license-headers) @ bundles ---
+[INFO] Checking licenses...
+[WARNING] Property 'strictCheck' is not enabled. Please consider adding <strictCheck>true</strictCheck> in your pom.xml file.
+[WARNING] See http://code.google.com/p/maven-license-plugin/wiki/Configuration for more information.
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ bundles ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ bundles ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/bundles/2.0.7-SNAPSHOT/bundles-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.core 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-about-html) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (enforce-bytecode-version) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- tycho-eclipserun-plugin:1.0.0:eclipse-run (generate-sources) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/
+[INFO] Adding repository http://download.eclipse.org/releases/mars
+[INFO] Fetching p2.index from http://download.eclipse.org/technology/epp/packages/mars/
+[INFO] Fetching p2.index from http://download.eclipse.org/technology/epp/packages/mars/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/201506241002/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/201506241002/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/201510021000/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/201510021000/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/201602261000/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/mars/201602261000/
+[INFO] Toolchain in tycho-eclipserun-plugin: JDK[/opt/public/common/jdk1.7.0-latest/jre]
+[INFO] Expected eclipse log file: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/eclipserun-work/data/.metadata/.log
+[INFO] Command line:
+	[/opt/public/common/jdk1.7.0-latest/jre/bin/java, -jar, /opt/public/hipp/homes/genie.packaging/.m2/repository/p2/osgi/bundle/org.eclipse.equinox.launcher/1.3.100.v20150511-1540/org.eclipse.equinox.launcher-1.3.100.v20150511-1540.jar, -install, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/eclipserun-work, -configuration, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/eclipserun-work/configuration, -data, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/../workspace, -application, org.eclipse.emf.codegen.ecore.Generator, -projects, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/../, -model, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/models/aeri.genmodel]
+>>> Generating /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/models/aeri.genmodel
+>>  Examining project 'org.eclipse.epp.logging.aeri.core'
+>>  Refreshing '/org.eclipse.epp.logging.aeri.core'.
+>>  Opening 'org.eclipse.epp.logging.aeri.core'.
+>>  Generating code
+>>  Generating packages
+>>  Generating model plugin.properties
+>>  Generating file /org.eclipse.epp.logging.aeri.core/plugin.properties
+>>  Opening folder /org.eclipse.epp.logging.aeri.core
+>>  Examining old /org.eclipse.epp.logging.aeri.core/plugin.properties
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/plugin.properties
+>>  Generating model build.properties
+>>  Generating model plugin.properties
+>>  Generating file /org.eclipse.epp.logging.aeri.core/build.properties
+>>  Opening folder /org.eclipse.epp.logging.aeri.core
+>>  Generating model plugin.xml
+>>  Generating file /org.eclipse.epp.logging.aeri.core/plugin.xml
+>>  Opening folder /org.eclipse.epp.logging.aeri.core
+>>  Examining old /org.eclipse.epp.logging.aeri.core/plugin.xml
+>>  Generating package ModelPackage
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IModelPackage
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IModelPackage.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IModelPackage.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.ModelPackageImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ModelPackageImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ModelPackageImpl.java
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IModelFactory
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IModelFactory.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IModelFactory.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.ModelFactoryImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ModelFactoryImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ModelFactoryImpl.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.util.ModelSwitch
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/util/ModelSwitch.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/util
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/util/ModelSwitch.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.util.ModelAdapterFactory
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/util/ModelAdapterFactory.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/util
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/util/ModelAdapterFactory.java
+>>  Generating Report
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IReport
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IReport.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IReport.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.ReportImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ReportImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ReportImpl.java
+>>  Generating Bundle
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IBundle
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IBundle.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IBundle.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.BundleImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/BundleImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/BundleImpl.java
+>>  Generating Status
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IStatus
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IStatus.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IStatus.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.StatusImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StatusImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StatusImpl.java
+>>  Generating Throwable
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IThrowable
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IThrowable.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IThrowable.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.ThrowableImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ThrowableImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ThrowableImpl.java
+>>  Generating Stack Trace Element
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IStackTraceElement
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IStackTraceElement.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IStackTraceElement.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.StackTraceElementImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StackTraceElementImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StackTraceElementImpl.java
+>>  Generating User Settings
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IUserSettings
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IUserSettings.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IUserSettings.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.UserSettingsImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/UserSettingsImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/UserSettingsImpl.java
+>>  Generating System Settings
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.ISystemSettings
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ISystemSettings.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ISystemSettings.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.SystemSettingsImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/SystemSettingsImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/SystemSettingsImpl.java
+>>  Generating Link
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.ILink
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ILink.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ILink.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.LinkImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/LinkImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/LinkImpl.java
+>>  Generating Problem State
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.IProblemState
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IProblemState.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/IProblemState.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.ProblemStateImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ProblemStateImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/ProblemStateImpl.java
+>>  Generating Send Options
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.ISendOptions
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ISendOptions.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ISendOptions.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.SendOptionsImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/SendOptionsImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/SendOptionsImpl.java
+>>  Generating String To Link Map
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.StringToLinkMapImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StringToLinkMapImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StringToLinkMapImpl.java
+>>  Generating Linkable
+>>  Generating Java interface org.eclipse.epp.logging.aeri.core.ILinkable
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ILinkable.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ILinkable.java
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.LinkableImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/LinkableImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/LinkableImpl.java
+>>  Generating String To String Map
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.impl.StringToStringMapImpl
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StringToStringMapImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/impl/StringToStringMapImpl.java
+>>  Generating Send Mode
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.SendMode
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/SendMode.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/SendMode.java
+>>  Generating Reset Send Mode
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.ResetSendMode
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ResetSendMode.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ResetSendMode.java
+>>  Generating Severity
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.Severity
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/Severity.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/Severity.java
+>>  Generating Problem Status
+>>  Generating Java class org.eclipse.epp.logging.aeri.core.ProblemStatus
+>>  Generating /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ProblemStatus.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf/org/eclipse/epp/logging/aeri/core
+>>  Preparing new /org.eclipse.epp.logging.aeri.core/target/generated-sources/emf//org/eclipse/epp/logging/aeri/core/ProblemStatus.java
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ org.eclipse.epp.logging.aeri.core ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 66 source files to /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/classes
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- tycho-pack200a-plugin:1.0.0:normalize (pack200-normalize) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Pack200 normalizing jar /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- tycho-pack200b-plugin:1.0.0:pack (pack200-pack) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Pack200 packing jar /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- maven-license-plugin:1.9.0:check (check-license-headers) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Checking licenses...
+[WARNING] Property 'strictCheck' is not enabled. Please consider adding <strictCheck>true</strictCheck> in your pom.xml file.
+[WARNING] See http://code.google.com/p/maven-license-plugin/wiki/Configuration for more information.
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-sources.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-sources.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT.jar.pack.gz to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-pack200.jar.pack.gz
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.core/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.core ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.ide 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-about-html) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (enforce-bytecode-version) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- tycho-eclipserun-plugin:1.0.0:eclipse-run (generate-sources) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Toolchain in tycho-eclipserun-plugin: JDK[/opt/public/common/jdk1.7.0-latest/jre]
+[INFO] Expected eclipse log file: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/eclipserun-work/data/.metadata/.log
+[INFO] Command line:
+	[/opt/public/common/jdk1.7.0-latest/jre/bin/java, -jar, /opt/public/hipp/homes/genie.packaging/.m2/repository/p2/osgi/bundle/org.eclipse.equinox.launcher/1.3.100.v20150511-1540/org.eclipse.equinox.launcher-1.3.100.v20150511-1540.jar, -install, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/eclipserun-work, -configuration, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/eclipserun-work/configuration, -data, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/../workspace, -application, org.eclipse.emf.codegen.ecore.Generator, -projects, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/../, -model, /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/models/aeri.ide.genmodel]
+>>> Generating /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/models/aeri.ide.genmodel
+>>  Examining project 'org.eclipse.epp.logging.aeri.ide'
+>>  Refreshing '/org.eclipse.epp.logging.aeri.ide'.
+>>  Opening 'org.eclipse.epp.logging.aeri.ide'.
+>>  Generating code
+>>  Generating packages
+>>  Generating model plugin.properties
+>>  Generating file /org.eclipse.epp.logging.aeri.ide/plugin.properties
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide
+>>  Examining old /org.eclipse.epp.logging.aeri.ide/plugin.properties
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/plugin.properties
+>>  Generating model build.properties
+>>  Generating model plugin.properties
+>>  Generating file /org.eclipse.epp.logging.aeri.ide/build.properties
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide
+>>  Generating model plugin.xml
+>>  Generating file /org.eclipse.epp.logging.aeri.ide/plugin.xml
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide
+>>  Examining old /org.eclipse.epp.logging.aeri.ide/plugin.xml
+>>  Generating package IdePackage
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.IIdePackage
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IIdePackage.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IIdePackage.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.IdePackageImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/IdePackageImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/IdePackageImpl.java
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.IIdeFactory
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IIdeFactory.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IIdeFactory.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.IdeFactoryImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/IdeFactoryImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/IdeFactoryImpl.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.util.IdeSwitch
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/util/IdeSwitch.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/util
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/util/IdeSwitch.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.util.IdeAdapterFactory
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/util/IdeAdapterFactory.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/util
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/util/IdeAdapterFactory.java
+>>  Generating Log Events Queue
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.ILogEventsQueue
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/ILogEventsQueue.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/ILogEventsQueue.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.LogEventsQueueImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/LogEventsQueueImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/LogEventsQueueImpl.java
+>>  Generating Log Event Group
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.ILogEventGroup
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/ILogEventGroup.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/ILogEventGroup.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.LogEventGroupImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/LogEventGroupImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/LogEventGroupImpl.java
+>>  Generating Log Event
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.ILogEvent
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/ILogEvent.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/ILogEvent.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.LogEventImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/LogEventImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/LogEventImpl.java
+>>  Generating Internal Input
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.IInternalInput
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IInternalInput.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IInternalInput.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.InternalInputImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/InternalInputImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/InternalInputImpl.java
+>>  Generating Server Descriptor
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.IServerDescriptor
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IServerDescriptor.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IServerDescriptor.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.ServerDescriptorImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/ServerDescriptorImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/ServerDescriptorImpl.java
+>>  Generating Processor Descriptor
+>>  Generating Java interface org.eclipse.epp.internal.logging.aeri.ide.IProcessorDescriptor
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IProcessorDescriptor.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/IProcessorDescriptor.java
+>>  Generating Java class org.eclipse.epp.internal.logging.aeri.ide.impl.ProcessorDescriptorImpl
+>>  Generating /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/ProcessorDescriptorImpl.java
+>>  Opening folder /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf/org/eclipse/epp/internal/logging/aeri/ide/impl
+>>  Preparing new /org.eclipse.epp.logging.aeri.ide/target/generated-sources/emf//org/eclipse/epp/internal/logging/aeri/ide/impl/ProcessorDescriptorImpl.java
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ org.eclipse.epp.logging.aeri.ide ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 113 source files to /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/classes
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Signature checking is skipped.
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- tycho-pack200a-plugin:1.0.0:normalize (pack200-normalize) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Pack200 normalizing jar /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- tycho-pack200b-plugin:1.0.0:pack (pack200-pack) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Pack200 packing jar /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- maven-license-plugin:1.9.0:check (check-license-headers) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Checking licenses...
+[WARNING] Property 'strictCheck' is not enabled. Please consider adding <strictCheck>true</strictCheck> in your pom.xml file.
+[WARNING] See http://code.google.com/p/maven-license-plugin/wiki/Configuration for more information.
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-sources.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-sources.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT.jar.pack.gz to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-pack200.jar.pack.gz
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/bundles/org.eclipse.epp.logging.aeri.ide/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.ide ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building features 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ features ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ features ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-feature-properties) @ features ---
+[INFO] Skipping Rule Enforcement.
+[INFO] 
+[INFO] --- tycho-source-feature-plugin:1.0.0:source-feature (generate-source-feature) @ features ---
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ features ---
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ features ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ features ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ features ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/features/2.0.7-SNAPSHOT/features-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.feature 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-feature-properties) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-feature (default-package-feature) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:feature-p2-metadata (default-feature-p2-metadata) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- tycho-source-feature-plugin:1.0.0:source-feature (generate-source-feature) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT-sources-feature.jar
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT.jar
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT-sources-feature.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT-sources-feature.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT-sources-feature.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.feature/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.feature ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.3rd.feature 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-feature-properties) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-feature (default-package-feature) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:feature-p2-metadata (default-feature-p2-metadata) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- tycho-source-feature-plugin:1.0.0:source-feature (generate-source-feature) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT-sources-feature.jar
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT.jar
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT-sources-feature.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.3rd.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.3rd.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT-sources-feature.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.3rd.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT-sources-feature.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.3rd.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.3rd.feature/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.3rd.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.3rd.feature-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.3rd.feature ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building tests 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ tests ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/tests/target
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ tests ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (prepare-agent) @ tests ---
+[INFO] argLine set to -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ tests ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ tests ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ tests ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ tests ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ tests ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/tests/2.0.7-SNAPSHOT/tests-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.tests 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (prepare-agent) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] argLine set to -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/workspace/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 2 resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ org.eclipse.epp.logging.aeri.tests ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 9 source files to /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/classes
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT-sources.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT-sources.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.tests/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.tests ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.ide.manual 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (prepare-agent) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] argLine set to -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/workspace/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 2 source files to /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/classes
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.manual/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.manual/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT-sources.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.manual/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT-sources.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.manual/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.manual/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.manual/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.manual-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.ide.manual ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.tests.feature 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-feature-properties) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-feature (default-package-feature) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/target/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:feature-p2-metadata (default-feature-p2-metadata) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- tycho-source-feature-plugin:1.0.0:source-feature (generate-source-feature) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/target/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/target/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.aeri.tests.feature/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.tests.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.tests.feature-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.tests.feature ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EPP Logging Head Update Site 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ head ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ head ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ head ---
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean-1) @ head ---
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.5:process (process-repository-resources) @ head ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ head ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (resources) @ head ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ head ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:publish-products (default-publish-products) @ head ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:publish-categories (default-publish-categories) @ head ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:attach-artifacts (default-attach-artifacts) @ head ---
+[INFO] 
+[INFO] --- tycho-p2-repository-plugin:1.0.0:assemble-repository (default-assemble-repository) @ head ---
+[INFO] Copying resources from /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target/classes to /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target/repository
+[INFO] 
+[INFO] --- tycho-p2-repository-plugin:1.0.0:archive-repository (default-archive-repository) @ head ---
+[INFO] Building zip: /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target/head-2.0.7-SNAPSHOT.zip
+[INFO] 
+[INFO] --- tycho-eclipserun-plugin:1.0.0:eclipse-run (add-p2-mirrors-url-property) @ head ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ head ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ head ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target/head-2.0.7-SNAPSHOT.zip to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/head/2.0.7-SNAPSHOT/head-2.0.7-SNAPSHOT.zip
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/head/2.0.7-SNAPSHOT/head-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/head/2.0.7-SNAPSHOT/head-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/head/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/head/2.0.7-SNAPSHOT/head-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ head ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EPP Logging Milestones Update Site 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ milestones ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ milestones ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ milestones ---
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean-1) @ milestones ---
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.5:process (process-repository-resources) @ milestones ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ milestones ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (resources) @ milestones ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ milestones ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:publish-products (default-publish-products) @ milestones ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:publish-categories (default-publish-categories) @ milestones ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:attach-artifacts (default-attach-artifacts) @ milestones ---
+[INFO] 
+[INFO] --- tycho-p2-repository-plugin:1.0.0:assemble-repository (default-assemble-repository) @ milestones ---
+[INFO] Copying resources from /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/classes to /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/repository
+[INFO] 
+[INFO] --- tycho-p2-repository-plugin:1.0.0:archive-repository (default-archive-repository) @ milestones ---
+[INFO] Building zip: /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/milestones-2.0.7-SNAPSHOT.zip
+[INFO] 
+[INFO] --- tycho-eclipserun-plugin:1.0.0:eclipse-run (add-p2-mirrors-url-property) @ milestones ---
+[INFO] Adding repository http://download.eclipse.org/webtools/releng/repository
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/
+[INFO] Adding repository http://download.eclipse.org/releases/luna
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201406250900/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201406250900/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201409261001/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201409261001/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201501121000/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201501121000/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201502271000/
+[INFO] Fetching p2.index from http://download.eclipse.org/releases/luna/201502271000/
+[INFO] Toolchain in tycho-eclipserun-plugin: JDK[/opt/public/common/jdk1.7.0-latest/jre]
+[INFO] Expected eclipse log file: /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/eclipserun-work/data/.metadata/.log
+[INFO] Command line:
+	[/opt/public/common/jdk1.7.0-latest/jre/bin/java, -DartifactRepoDirectory=/jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/repository, -Dp2MirrorsURL=http://www.eclipse.org/downloads/download.php?file=/technology/epp/logging/milestones&format=xml, -DstatsTrackedArtifacts=org.eclipse.epp.logging.aeri.feature, -DstatsArtifactsSuffix=-2.0.7-SNAPSHOT, -jar, /opt/public/hipp/homes/genie.packaging/.m2/repository/p2/osgi/bundle/org.eclipse.equinox.launcher/1.3.0.v20140415-2008/org.eclipse.equinox.launcher-1.3.0.v20140415-2008.jar, -install, /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/eclipserun-work, -configuration, /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/eclipserun-work/configuration, -application, org.eclipse.wtp.releng.tools.addRepoProperties]
+	INFO: artifact repository directory set from 'artifactRepoDirectory': /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/repository
+	INFO: metadata repository directory set from 'metadataRepoDirectory': null
+	INFO: No metadata repository was specified. If desired, set the system property 'metadataRepoDirectory'.
+	INFO: the artifact repository had existing name: EPP Logging Milestones Update Site
+	INFO: p2ArtifactRepositoryName value set from 'p2ArtifactRepositoryName': null
+	INFO: p2ArtifactRepositoryName was not specified. Any existing values not changed.
+	INFO: the repository had no existing mirrorURL
+	INFO: mirror URL value set from 'p2MirrorsURL': http://www.eclipse.org/downloads/download.php?file=/technology/epp/logging/milestones&format=xml
+	INFO: the repository had no existing statsURI
+	INFO: stats URI value set from 'p2StatsURI': null
+	INFO: p2StatsURI was not specified. Any existing values not changed.
+	INFO: Artifact stats processing: 1 were requested for tagging.
+	INFO: org.eclipse.epp.logging.aeri.feature		org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT
+	INFO: set download.stats property for: canonical: org.eclipse.update.feature,org.eclipse.epp.logging.aeri.feature,2.0.7.v20170906-1327
+	INFO:                              to:  org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT
+	INFO: repository rewritten
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ milestones ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ milestones ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/milestones-2.0.7-SNAPSHOT.zip to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/milestones/2.0.7-SNAPSHOT/milestones-2.0.7-SNAPSHOT.zip
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/milestones/2.0.7-SNAPSHOT/milestones-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/milestones/2.0.7-SNAPSHOT/milestones-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/milestones/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/milestones/2.0.7-SNAPSHOT/milestones-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ milestones ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building EPP Logging Stable Update Site 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ stable ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ stable ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ stable ---
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean-1) @ stable ---
+[INFO] 
+[INFO] --- maven-remote-resources-plugin:1.5:process (process-repository-resources) @ stable ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ stable ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (resources) @ stable ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/resources
+[INFO] Copying 1 resource
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ stable ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:publish-products (default-publish-products) @ stable ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:publish-categories (default-publish-categories) @ stable ---
+[INFO] 
+[INFO] --- tycho-p2-publisher-plugin:1.0.0:attach-artifacts (default-attach-artifacts) @ stable ---
+[INFO] 
+[INFO] --- tycho-p2-repository-plugin:1.0.0:assemble-repository (default-assemble-repository) @ stable ---
+[INFO] Copying resources from /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/classes to /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/repository
+[INFO] 
+[INFO] --- tycho-p2-repository-plugin:1.0.0:archive-repository (default-archive-repository) @ stable ---
+[INFO] Building zip: /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/stable-2.0.7-SNAPSHOT.zip
+[INFO] 
+[INFO] --- tycho-eclipserun-plugin:1.0.0:eclipse-run (add-p2-mirrors-url-property) @ stable ---
+[INFO] Toolchain in tycho-eclipserun-plugin: JDK[/opt/public/common/jdk1.7.0-latest/jre]
+[INFO] Expected eclipse log file: /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/eclipserun-work/data/.metadata/.log
+[INFO] Command line:
+	[/opt/public/common/jdk1.7.0-latest/jre/bin/java, -DartifactRepoDirectory=/jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/repository, -Dp2MirrorsURL=http://www.eclipse.org/downloads/download.php?file=/technology/epp/logging/stable&format=xml, -DstatsTrackedArtifacts=org.eclipse.epp.logging.aeri.feature, -DstatsArtifactsSuffix=-2.0.7-SNAPSHOT, -jar, /opt/public/hipp/homes/genie.packaging/.m2/repository/p2/osgi/bundle/org.eclipse.equinox.launcher/1.3.0.v20140415-2008/org.eclipse.equinox.launcher-1.3.0.v20140415-2008.jar, -install, /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/eclipserun-work, -configuration, /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/eclipserun-work/configuration, -application, org.eclipse.wtp.releng.tools.addRepoProperties]
+	INFO: artifact repository directory set from 'artifactRepoDirectory': /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/repository
+	INFO: metadata repository directory set from 'metadataRepoDirectory': null
+	INFO: No metadata repository was specified. If desired, set the system property 'metadataRepoDirectory'.
+	INFO: the artifact repository had existing name: EPP Logging Stable Update Site
+	INFO: p2ArtifactRepositoryName value set from 'p2ArtifactRepositoryName': null
+	INFO: p2ArtifactRepositoryName was not specified. Any existing values not changed.
+	INFO: the repository had no existing mirrorURL
+	INFO: mirror URL value set from 'p2MirrorsURL': http://www.eclipse.org/downloads/download.php?file=/technology/epp/logging/stable&format=xml
+	INFO: the repository had no existing statsURI
+	INFO: stats URI value set from 'p2StatsURI': null
+	INFO: p2StatsURI was not specified. Any existing values not changed.
+	INFO: Artifact stats processing: 1 were requested for tagging.
+	INFO: org.eclipse.epp.logging.aeri.feature		org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT
+	INFO: set download.stats property for: canonical: org.eclipse.update.feature,org.eclipse.epp.logging.aeri.feature,2.0.7.v20170906-1327
+	INFO:                              to:  org.eclipse.epp.logging.aeri.feature-2.0.7-SNAPSHOT
+	INFO: repository rewritten
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ stable ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ stable ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/stable-2.0.7-SNAPSHOT.zip to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/stable/2.0.7-SNAPSHOT/stable-2.0.7-SNAPSHOT.zip
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/stable/2.0.7-SNAPSHOT/stable-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/stable/2.0.7-SNAPSHOT/stable-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/releng/repositories/stable/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/stable/2.0.7-SNAPSHOT/stable-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ stable ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.core.tests 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (prepare-agent) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] tycho.testArgLine set to -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/workspace/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ org.eclipse.epp.logging.aeri.core.tests ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 19 source files to /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/classes
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- tycho-surefire-plugin:1.0.0:test (default-test) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Expected eclipse log file: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/work/data/.metadata/.log
+[INFO] Command line:
+	[/opt/public/common/jdk1.8.0_131/jre/bin/java, -Dosgi.noShutdown=false, -Dosgi.os=linux, -Dosgi.ws=gtk, -Dosgi.arch=x86, -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/workspace/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*, -XX:MaxPermSize=128m, -Dosgi.clean=true, -Dorg.eclipse.swtbot.screenshots.dir=/jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/screenshots, -jar, /opt/public/hipp/homes/genie.packaging/.m2/repository/p2/osgi/bundle/org.eclipse.equinox.launcher/1.4.0.v20161219-1356/org.eclipse.equinox.launcher-1.4.0.v20161219-1356.jar, -data, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/work/data, -install, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/work, -configuration, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/work/configuration, -application, org.eclipse.tycho.surefire.osgibooter.headlesstest, -testproperties, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/surefire.properties]
+Java HotSpot(TM) Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.043 sec - in org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest
+testPureStrictTrue(org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest)  Time elapsed: 0.011 sec
+testExactPackageStrictFalse(org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest)  Time elapsed: 0.001 sec
+testSubpackageOutOfScopeStrictFalse(org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest)  Time elapsed: 0 sec
+testStrictFalse(org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest)  Time elapsed: 0 sec
+testStrictTrue(org.eclipse.epp.logging.aeri.core.filters.AcceptedPackagesFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.RecentlySeenFilterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 sec - in org.eclipse.epp.logging.aeri.core.filters.RecentlySeenFilterTest
+testRecentlySeenFilterTimeout(org.eclipse.epp.logging.aeri.core.filters.RecentlySeenFilterTest)  Time elapsed: 0.071 sec
+testRecentlySeenFilterDebug(org.eclipse.epp.logging.aeri.core.filters.RecentlySeenFilterTest)  Time elapsed: 0 sec
+testRecentlySeenFilter(org.eclipse.epp.logging.aeri.core.filters.RecentlySeenFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.StatusFiltersTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in org.eclipse.epp.logging.aeri.core.filters.StatusFiltersTest
+testSystemPropertyDisabled(org.eclipse.epp.logging.aeri.core.filters.StatusFiltersTest)  Time elapsed: 0 sec
+testSystemEnabledFilterIgnore(org.eclipse.epp.logging.aeri.core.filters.StatusFiltersTest)  Time elapsed: 0 sec
+testNeverButRestart(org.eclipse.epp.logging.aeri.core.filters.StatusFiltersTest)  Time elapsed: 0 sec
+testSystemEnabledFilterAsk(org.eclipse.epp.logging.aeri.core.filters.StatusFiltersTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.094 sec - in org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest
+testError(org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest)  Time elapsed: 0.079 sec
+testInfo(org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest)  Time elapsed: 0.004 sec
+testOk(org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest)  Time elapsed: 0.003 sec
+testWarning(org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest)  Time elapsed: 0.003 sec
+testCancel(org.eclipse.epp.logging.aeri.core.filters.NoErrorStatusFilterTest)  Time elapsed: 0.003 sec
+Running org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.018 sec - in org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest
+test[0](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest)  Time elapsed: 0.009 sec
+test[1](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest)  Time elapsed: 0 sec
+test[2](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest)  Time elapsed: 0 sec
+test[3](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest)  Time elapsed: 0 sec
+test[4](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest)  Time elapsed: 0 sec
+test[5](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFromStringTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest
+Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.006 sec - in org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest
+test[exact](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0.001 sec
+test[exact-different-ns](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0 sec
+test[ends-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0 sec
+test[starts-with-wildcard and ends-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0 sec
+test[starts-with-wildcard and ends-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0 sec
+test[starts-with and ends-with](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0 sec
+test[wildcards middle](org.eclipse.epp.logging.aeri.core.filters.AcceptedPluginsFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFilterTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFilterTest
+testIgnorePatternPredicateOkStatus(org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFilterTest)  Time elapsed: 0.001 sec
+testIgnorePatternPredicateIgnore(org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFilterTest)  Time elapsed: 0 sec
+testIgnorePatternPredicateMultiStatusAny(org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFilterTest)  Time elapsed: 0 sec
+testIgnorePatternPredicateMultiStatusFirst(org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.EclipseBuildIdFilterTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.002 sec - in org.eclipse.epp.logging.aeri.core.filters.EclipseBuildIdFilterTest
+testBuildIdPresent(org.eclipse.epp.logging.aeri.core.filters.EclipseBuildIdFilterTest)  Time elapsed: 0.001 sec
+testBuildIdNotPresent(org.eclipse.epp.logging.aeri.core.filters.EclipseBuildIdFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest
+test[exact](org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest)  Time elapsed: 0.001 sec
+test[ends-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest)  Time elapsed: 0 sec
+test[ends-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest)  Time elapsed: 0 sec
+test[no-match ends-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest)  Time elapsed: 0 sec
+test[middle-with-wildcard](org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest)  Time elapsed: 0 sec
+test[middle-with-wildcard-2](org.eclipse.epp.logging.aeri.core.filters.AcceptedProductsFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.SystemEnabledFilterTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in org.eclipse.epp.logging.aeri.core.filters.SystemEnabledFilterTest
+testNewPresent(org.eclipse.epp.logging.aeri.core.filters.SystemEnabledFilterTest)  Time elapsed: 0 sec
+testNewFalsePresent(org.eclipse.epp.logging.aeri.core.filters.SystemEnabledFilterTest)  Time elapsed: 0 sec
+testOldPresent(org.eclipse.epp.logging.aeri.core.filters.SystemEnabledFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.007 sec - in org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest
+test[disabled-valid](org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest)  Time elapsed: 0.005 sec
+test[disabled-invalid](org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest)  Time elapsed: 0 sec
+test[disabled-nofreeze](org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest)  Time elapsed: 0 sec
+test[enabled-valid](org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest)  Time elapsed: 0 sec
+test[enabled-invalid](org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest)  Time elapsed: 0 sec
+test[enabled-nofreeze](org.eclipse.epp.logging.aeri.core.filters.AcceptFreezeFilterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest
+Tests run: 21, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.012 sec - in org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest
+test[0](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0.001 sec
+test[1](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[2](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[3](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[4](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[5](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[6](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0.001 sec
+test[7](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[8](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[9](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[10](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[11](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[12](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[13](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[14](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[15](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0.001 sec
+test[16](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[17](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[18](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[19](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+test[20](org.eclipse.epp.logging.aeri.core.filters.StatusIgnorePatternMatchingTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.util.ReportsTest
+Tests run: 24, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.182 sec - in org.eclipse.epp.logging.aeri.core.util.ReportsTest
+testFingerprint(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.119 sec
+testAnonymizeIStackTraceElementDtoWhitelistedClassnames(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.002 sec
+testClearEventMessage(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.01 sec
+testAnonymizeIStackTraceElementWhitelistedMethodname(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testMultistatusMainStacktracesNotFiltered(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.003 sec
+testAnonymizeThrowableDtoClassname(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testPrettyPrintSkipsNullException(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.005 sec
+testPrettyPrintNullSafe1(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testPrettyPrintNullSafe2(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testPrettyPrintNullSafe3(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testCausedByContainsCoreExceptionWithStatus(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.003 sec
+testAnonymizeIStackTraceElementMethodname(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testMultistatus(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.004 sec
+testFingerprintNested(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.002 sec
+testMultistatusChildFilteringHandlesEmptyStacktrace(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.001 sec
+testAnonymizeIStackTraceElementDtoClassnames(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.001 sec
+testDetachMultistatusFromCoreException(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.004 sec
+testDeclaringClassToNull(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+testMultistatusDuplicateChildFiltering(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.001 sec
+testClearThrowableMessage(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.001 sec
+testCoreExceptionHandling(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.001 sec
+testDetachMultipleMultistatusFromCoreException(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.015 sec
+testCausedByContainsCoreExceptionWithMultistatus(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0.005 sec
+testAnonymizeThrowableDtoWhitelistedClassname(org.eclipse.epp.logging.aeri.core.util.ReportsTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.util.LogListenerTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.042 sec - in org.eclipse.epp.logging.aeri.core.util.LogListenerTest
+testLogStatus(org.eclipse.epp.logging.aeri.core.util.LogListenerTest)  Time elapsed: 0.023 sec
+testNullSafe(org.eclipse.epp.logging.aeri.core.util.LogListenerTest)  Time elapsed: 0.002 sec
+testFilterStatus(org.eclipse.epp.logging.aeri.core.util.LogListenerTest)  Time elapsed: 0.003 sec
+testDisableSystem(org.eclipse.epp.logging.aeri.core.util.LogListenerTest)  Time elapsed: 0.002 sec
+testMultistatusChildrenPreserved(org.eclipse.epp.logging.aeri.core.util.LogListenerTest)  Time elapsed: 0.005 sec
+testExceptionInsert(org.eclipse.epp.logging.aeri.core.util.LogListenerTest)  Time elapsed: 0.002 sec
+Running org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest
+test[0](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[1](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[2](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[3](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[4](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[5](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[6](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[7](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[8](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[9](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[10](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+test[11](org.eclipse.epp.logging.aeri.core.util.WildcardRegexConverterTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.util.VisitorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.001 sec - in org.eclipse.epp.logging.aeri.core.util.VisitorTest
+testNullSafe(org.eclipse.epp.logging.aeri.core.util.VisitorTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.logging.aeri.core.StandInStacktraceProviderTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.001 sec - in org.eclipse.epp.logging.aeri.core.StandInStacktraceProviderTest
+org.eclipse.epp.logging.aeri.core.StandInStacktraceProviderTest skipped
+Running org.eclipse.epp.logging.aeri.core.ModelFactoryTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.001 sec - in org.eclipse.epp.logging.aeri.core.ModelFactoryTest
+testStringToListConversionImplemented(org.eclipse.epp.logging.aeri.core.ModelFactoryTest) skipped
+
+Results :
+
+Tests run: 117, Failures: 0, Errors: 0, Skipped: 2
+
+[INFO] All tests passed!
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT-sources.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT-sources.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.core.tests/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.core.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.core.tests-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.core.tests ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.aeri.ide.tests 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- jacoco-maven-plugin:0.7.2.201409121644:prepare-agent (prepare-agent) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] tycho.testArgLine set to -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/workspace/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 19 source files to /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/classes
+[INFO] 
+[INFO] --- animal-sniffer-maven-plugin:1.15:check (check-signature) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Checking unresolved references to org.codehaus.mojo.signature:java18:1.0
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/src/test/resources
+[INFO] 
+[INFO] --- tycho-source-plugin:1.0.0:plugin-source (attach-source) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT-sources.jar
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- tycho-surefire-plugin:1.0.0:test (default-test) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Expected eclipse log file: /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/work/data/.metadata/.log
+[INFO] Command line:
+	[/opt/public/common/jdk1.8.0_131/jre/bin/java, -Dosgi.noShutdown=false, -Dosgi.os=linux, -Dosgi.ws=gtk, -Dosgi.arch=x86, -javaagent:/opt/public/hipp/homes/genie.packaging/.m2/repository/org/jacoco/org.jacoco.agent/0.7.2.201409121644/org.jacoco.agent-0.7.2.201409121644-runtime.jar=destfile=/jobs/genie.packaging/epp-logging.head/workspace/target/jacoco.exec,append=true,includes=org.eclipse.epp.logging.*, -XX:MaxPermSize=128m, -Dosgi.clean=true, -Dorg.eclipse.swtbot.screenshots.dir=/jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/screenshots, -jar, /opt/public/hipp/homes/genie.packaging/.m2/repository/p2/osgi/bundle/org.eclipse.equinox.launcher/1.4.0.v20161219-1356/org.eclipse.equinox.launcher-1.4.0.v20161219-1356.jar, -data, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/work/data, -install, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/work, -configuration, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/work/configuration, -application, org.eclipse.tycho.surefire.osgibooter.headlesstest, -testproperties, /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/surefire.properties]
+Java HotSpot(TM) Server VM warning: ignoring option MaxPermSize=128m; support was removed in 8.0
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.eclipse.epp.internal.logging.aeri.ide.server.mars.LocalReportsHistoryTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.284 sec - in org.eclipse.epp.internal.logging.aeri.ide.server.mars.LocalReportsHistoryTest
+testHistoryRunningPredicateTrue(org.eclipse.epp.internal.logging.aeri.ide.server.mars.LocalReportsHistoryTest)  Time elapsed: 0.221 sec
+testHistoryNotRunning(org.eclipse.epp.internal.logging.aeri.ide.server.mars.LocalReportsHistoryTest)  Time elapsed: 0 sec
+testSkipSeenStatuses(org.eclipse.epp.internal.logging.aeri.ide.server.mars.LocalReportsHistoryTest)  Time elapsed: 0.043 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.server.mars.ServerConnectionTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.215 sec - in org.eclipse.epp.internal.logging.aeri.ide.server.mars.ServerConnectionTest
+testMessagesContainLink(org.eclipse.epp.internal.logging.aeri.ide.server.mars.ServerConnectionTest)  Time elapsed: 0.212 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.server.mars.EclipseRemoteConfigurationLiveTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.001 sec - in org.eclipse.epp.internal.logging.aeri.ide.server.mars.EclipseRemoteConfigurationLiveTest
+org.eclipse.epp.internal.logging.aeri.ide.server.mars.EclipseRemoteConfigurationLiveTest skipped
+Running org.eclipse.epp.internal.logging.aeri.ide.server.mars.StatusesFingerprintTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.011 sec - in org.eclipse.epp.internal.logging.aeri.ide.server.mars.StatusesFingerprintTest
+testFingerprintMatch[0](org.eclipse.epp.internal.logging.aeri.ide.server.mars.StatusesFingerprintTest)  Time elapsed: 0.004 sec
+testFingerprintMatch[1](org.eclipse.epp.internal.logging.aeri.ide.server.mars.StatusesFingerprintTest)  Time elapsed: 0 sec
+testFingerprintMatch[2](org.eclipse.epp.internal.logging.aeri.ide.server.mars.StatusesFingerprintTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.017 sec - in org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest
+testNeedinfo2a(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0.003 sec
+testNeedinfo2b(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0.001 sec
+test2a(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0 sec
+test2b(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0 sec
+test(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0.011 sec
+test1(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0 sec
+test3(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0 sec
+test4(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0 sec
+test5(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0 sec
+testNeedinfo2(org.eclipse.epp.internal.logging.aeri.ide.server.mars.IoTest)  Time elapsed: 0.001 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest
+Tests run: 16, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.419 sec - in org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest
+testProcessorEnabled[0](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.178 sec
+testProcessorEnabled[1](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.019 sec
+testProcessorEnabled[2](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.016 sec
+testProcessorEnabled[3](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.014 sec
+testProcessorEnabled[4](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.018 sec
+testProcessorEnabled[5](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.016 sec
+testProcessorEnabled[6](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.016 sec
+testProcessorEnabled[7](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.016 sec
+testProcessorEnabled[8](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.016 sec
+testProcessorEnabled[9](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.016 sec
+testProcessorEnabled[10](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.024 sec
+testProcessorEnabled[11](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.012 sec
+testProcessorEnabled[12](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.012 sec
+testProcessorEnabled[13](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.014 sec
+testProcessorEnabled[14](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.012 sec
+testProcessorEnabled[15](org.eclipse.epp.internal.logging.aeri.ide.IDEWorkflowTest)  Time elapsed: 0.012 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.processors.PlatformDetailsSectionProcessorsTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.013 sec - in org.eclipse.epp.internal.logging.aeri.ide.processors.PlatformDetailsSectionProcessorsTest
+testCanContribute[0](org.eclipse.epp.internal.logging.aeri.ide.processors.PlatformDetailsSectionProcessorsTest)  Time elapsed: 0.003 sec
+testCanContribute[1](org.eclipse.epp.internal.logging.aeri.ide.processors.PlatformDetailsSectionProcessorsTest)  Time elapsed: 0.001 sec
+testCanContribute[2](org.eclipse.epp.internal.logging.aeri.ide.processors.PlatformDetailsSectionProcessorsTest)  Time elapsed: 0 sec
+testCanContribute[3](org.eclipse.epp.internal.logging.aeri.ide.processors.PlatformDetailsSectionProcessorsTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest
+Tests run: 13, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 sec - in org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest
+test[0](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0.003 sec
+test[1](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0.001 sec
+test[2](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[3](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[4](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[5](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0.001 sec
+test[6](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[7](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[8](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[9](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0.001 sec
+test[10](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[11](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+test[12](org.eclipse.epp.internal.logging.aeri.ide.processors.WiringErrorAnalyzerTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.filters.ActiveWorkbenchStatusFilterTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.014 sec - in org.eclipse.epp.internal.logging.aeri.ide.filters.ActiveWorkbenchStatusFilterTest
+testWorkbenchRunningPredicateTrue(org.eclipse.epp.internal.logging.aeri.ide.filters.ActiveWorkbenchStatusFilterTest)  Time elapsed: 0.01 sec
+testWorkbenchRunningPredicateFalse(org.eclipse.epp.internal.logging.aeri.ide.filters.ActiveWorkbenchStatusFilterTest)  Time elapsed: 0.003 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 1, Time elapsed: 0.03 sec - in org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest
+testSerializationRoundTrip(org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest)  Time elapsed: 0.029 sec
+testSerializationRoundTrip_ViaInputStream(org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest)  Time elapsed: 0 sec
+testSerializationPrettyRoundTrip_ViaInputStream(org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest)  Time elapsed: 0 sec
+testEmptyFileDeserialization(org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest) skipped
+testPrettyPrint(org.eclipse.epp.internal.logging.aeri.ide.utils.JsonTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.notifications.SetupNewServersNotificationTest
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.003 sec - in org.eclipse.epp.internal.logging.aeri.ide.notifications.SetupNewServersNotificationTest
+testTitleTwoServer(org.eclipse.epp.internal.logging.aeri.ide.notifications.SetupNewServersNotificationTest)  Time elapsed: 0.001 sec
+testTitleManyServer(org.eclipse.epp.internal.logging.aeri.ide.notifications.SetupNewServersNotificationTest)  Time elapsed: 0 sec
+testTitleOneServer(org.eclipse.epp.internal.logging.aeri.ide.notifications.SetupNewServersNotificationTest)  Time elapsed: 0 sec
+Running org.eclipse.epp.internal.logging.aeri.ide.PreferencesAndSettingsTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 2, Time elapsed: 0.504 sec - in org.eclipse.epp.internal.logging.aeri.ide.PreferencesAndSettingsTest
+testSettingsUpdateStore(org.eclipse.epp.internal.logging.aeri.ide.PreferencesAndSettingsTest) skipped
+test24hReset(org.eclipse.epp.internal.logging.aeri.ide.PreferencesAndSettingsTest)  Time elapsed: 0.503 sec
+testDefaultActions(org.eclipse.epp.internal.logging.aeri.ide.PreferencesAndSettingsTest)  Time elapsed: 0 sec
+testStoreUpdateSettings(org.eclipse.epp.internal.logging.aeri.ide.PreferencesAndSettingsTest) skipped
+Running org.eclipse.epp.logging.aeri.ide.processors.CachingStringProcessorTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.045 sec - in org.eclipse.epp.logging.aeri.ide.processors.CachingStringProcessorTest
+testProcess(org.eclipse.epp.logging.aeri.ide.processors.CachingStringProcessorTest)  Time elapsed: 0.038 sec
+testAnalyzeOnce(org.eclipse.epp.logging.aeri.ide.processors.CachingStringProcessorTest)  Time elapsed: 0.006 sec
+
+Results :
+
+Tests run: 67, Failures: 0, Errors: 0, Skipped: 4
+
+[INFO] All tests passed!
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- maven-checkstyle-plugin:2.17:check (check-coding-conventions) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT-sources.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT-sources.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/tests/org.eclipse.epp.logging.aeri.ide.tests/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.aeri.ide.tests/2.0.7-SNAPSHOT/org.eclipse.epp.logging.aeri.ide.tests-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.aeri.ide.tests ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building org.eclipse.epp.logging.sdk.feature 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier-aggregator (default-build-qualifier-aggregator) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-feature-properties) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-feature (default-package-feature) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/target/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:feature-p2-metadata (default-feature-p2-metadata) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- tycho-source-feature-plugin:1.0.0:source-feature (generate-source-feature) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- eclipse-jarsigner-plugin:1.1.4:sign (sign) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] Signing jar: /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/target/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata (attach-p2-metadata) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/target/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.sdk.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.sdk.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.sdk.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/features/org.eclipse.epp.logging.sdk.feature/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/org.eclipse.epp.logging.sdk.feature/2.0.7-SNAPSHOT/org.eclipse.epp.logging.sdk.feature-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ org.eclipse.epp.logging.sdk.feature ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building examples 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ examples ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ examples ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ examples ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ examples ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/examples/2.0.7-SNAPSHOT/examples-2.0.7-SNAPSHOT.pom
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building aeri.ide 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ aeri.ide ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ aeri.ide ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ aeri.ide ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ aeri.ide ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ aeri.ide ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ aeri.ide ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ aeri.ide ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 1 source file to /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ aeri.ide ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/src/test/resources
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ aeri.ide ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ aeri.ide ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/target/aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ aeri.ide ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ aeri.ide ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ aeri.ide ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/target/aeri.ide-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.ide/2.0.7-SNAPSHOT/aeri.ide-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.ide/2.0.7-SNAPSHOT/aeri.ide-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.ide/2.0.7-SNAPSHOT/aeri.ide-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.ide/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.ide/2.0.7-SNAPSHOT/aeri.ide-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ aeri.ide ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building aeri.rcp 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ aeri.rcp ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ aeri.rcp ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ aeri.rcp ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ aeri.rcp ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ aeri.rcp ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ aeri.rcp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ aeri.rcp ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 11 source files to /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ aeri.rcp ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/src/test/resources
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ aeri.rcp ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ aeri.rcp ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/target/aeri.rcp-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ aeri.rcp ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ aeri.rcp ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ aeri.rcp ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/target/aeri.rcp-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp/2.0.7-SNAPSHOT/aeri.rcp-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp/2.0.7-SNAPSHOT/aeri.rcp-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp/2.0.7-SNAPSHOT/aeri.rcp-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp/2.0.7-SNAPSHOT/aeri.rcp-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ aeri.rcp ---
+[INFO] 
+[INFO] ------------------------------------------------------------------------
+[INFO] Building aeri.rcp.silent 2.0.7-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.6.1:clean (default-clean) @ aeri.rcp.silent ---
+[INFO] Deleting /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/target
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:build-qualifier (default-build-qualifier) @ aeri.rcp.silent ---
+[INFO] The project's OSGi version is 2.0.7.v20170906-1327
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-id (default-validate-id) @ aeri.rcp.silent ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:validate-version (default-validate-version) @ aeri.rcp.silent ---
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (require-plugin-versions) @ aeri.rcp.silent ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:resources (default-resources) @ aeri.rcp.silent ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/resources
+[INFO] 
+[INFO] --- tycho-compiler-plugin:1.0.0:compile (default-compile) @ aeri.rcp.silent ---
+[WARNING] Parameter 'useProjectSettings' is set to true, but preferences file '/jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/.settings/org.eclipse.jdt.core.prefs' could not be found!
+[INFO] Compiling 6 source files to /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/target/classes
+[INFO] 
+[INFO] --- maven-resources-plugin:2.7:testResources (default-testResources) @ aeri.rcp.silent ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/src/test/resources
+[INFO] 
+[INFO] --- target-platform-configuration:1.0.0:target-platform (default-target-platform) @ aeri.rcp.silent ---
+[INFO] 
+[INFO] --- tycho-packaging-plugin:1.0.0:package-plugin (default-package-plugin) @ aeri.rcp.silent ---
+[INFO] Building jar: /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/target/aeri.rcp.silent-2.0.7-SNAPSHOT.jar
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:p2-metadata-default (default-p2-metadata-default) @ aeri.rcp.silent ---
+[INFO] 
+[INFO] --- tidy-maven-plugin:1.0.0:check (check-pom) @ aeri.rcp.silent ---
+[INFO] 
+[INFO] --- maven-install-plugin:2.5.2:install (default-install) @ aeri.rcp.silent ---
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/target/aeri.rcp.silent-2.0.7-SNAPSHOT.jar to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp.silent/2.0.7-SNAPSHOT/aeri.rcp.silent-2.0.7-SNAPSHOT.jar
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/pom.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp.silent/2.0.7-SNAPSHOT/aeri.rcp.silent-2.0.7-SNAPSHOT.pom
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/target/p2content.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp.silent/2.0.7-SNAPSHOT/aeri.rcp.silent-2.0.7-SNAPSHOT-p2metadata.xml
+[INFO] Installing /jobs/genie.packaging/epp-logging.head/workspace/examples/aeri.rcp.silent/target/p2artifacts.xml to /opt/public/hipp/homes/genie.packaging/.m2/repository/org/eclipse/epp/logging/aeri.rcp.silent/2.0.7-SNAPSHOT/aeri.rcp.silent-2.0.7-SNAPSHOT-p2artifacts.xml
+[INFO] 
+[INFO] --- tycho-p2-plugin:1.0.0:update-local-index (default-update-local-index) @ aeri.rcp.silent ---
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] org.eclipse.epp.logging ............................ SUCCESS [  2.847 s]
+[INFO] releng ............................................. SUCCESS [  0.109 s]
+[INFO] coding-conventions ................................. SUCCESS [  2.570 s]
+[INFO] licenses ........................................... SUCCESS [  0.165 s]
+[INFO] targets ............................................ SUCCESS [  0.220 s]
+[INFO] Target Definition for Eclipse Neon (4.6) ........... SUCCESS [  2.951 s]
+[INFO] Target Definition for Eclipse Oxygen (4.7) ......... SUCCESS [  0.098 s]
+[INFO] repositories ....................................... SUCCESS [  0.651 s]
+[INFO] bundles ............................................ SUCCESS [  5.311 s]
+[INFO] org.eclipse.epp.logging.aeri.core .................. SUCCESS [ 50.649 s]
+[INFO] org.eclipse.epp.logging.aeri.ide ................... SUCCESS [ 13.391 s]
+[INFO] features ........................................... SUCCESS [  0.087 s]
+[INFO] org.eclipse.epp.logging.aeri.feature ............... SUCCESS [  2.708 s]
+[INFO] org.eclipse.epp.logging.3rd.feature ................ SUCCESS [  3.375 s]
+[INFO] tests .............................................. SUCCESS [  1.829 s]
+[INFO] org.eclipse.epp.logging.aeri.tests ................. SUCCESS [  1.581 s]
+[INFO] org.eclipse.epp.logging.aeri.ide.manual ............ SUCCESS [  3.303 s]
+[INFO] org.eclipse.epp.logging.aeri.tests.feature ......... SUCCESS [  0.849 s]
+[INFO] EPP Logging Head Update Site ....................... SUCCESS [ 12.632 s]
+[INFO] EPP Logging Milestones Update Site ................. SUCCESS [ 20.965 s]
+[INFO] EPP Logging Stable Update Site ..................... SUCCESS [ 13.691 s]
+[INFO] org.eclipse.epp.logging.aeri.core.tests ............ SUCCESS [  6.518 s]
+[INFO] org.eclipse.epp.logging.aeri.ide.tests ............. SUCCESS [ 10.283 s]
+[INFO] org.eclipse.epp.logging.sdk.feature ................ SUCCESS [  1.262 s]
+[INFO] examples ........................................... SUCCESS [  0.084 s]
+[INFO] aeri.ide ........................................... SUCCESS [  0.713 s]
+[INFO] aeri.rcp ........................................... SUCCESS [  0.461 s]
+[INFO] aeri.rcp.silent .................................... SUCCESS [  0.441 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 03:26 min
+[INFO] Finished at: 2018-01-24T00:04:46-05:00
+[INFO] Final Memory: 165M/495M
+[INFO] ------------------------------------------------------------------------
+[DEBUG] Closing connection to remote
+[DEBUG] Waiting for process to finish
+[DEBUG] Result: 0
+Terminating xvnc.
+Archiving artifacts
+Recording test results
+Finished: SUCCESS

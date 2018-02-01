@@ -47,6 +47,7 @@ public class XslTransformer {
     private static final String GENERAL_CONFIG_XSL = "config.main.xsl";
     private static final String JOB_CONFIG_XSL = "config.job.xsl";
     private static final String BUILD_XSL = "build.xsl";
+    private static final String KNOWN_ROOTNAME_THAT_WILL_NOT_BE_CONVERTED = "known";
 
     public static final String XSL_DIR = "xsl";
 
@@ -142,8 +143,11 @@ public class XslTransformer {
         if (xslFileName == null) {
             System.err.println(inputFile + " cannot be converted.");
             return false;
-            // Skip general config files
+        } else if (KNOWN_ROOTNAME_THAT_WILL_NOT_BE_CONVERTED.equalsIgnoreCase(xslFileName)) {
+            System.out.println("Skipping...");
+            return false;
         } else if (GENERAL_CONFIG_XSL.equalsIgnoreCase(xslFileName)) {
+            // Skip general config files
             System.out.println("Skipping main config file!");
             return false;
         }
@@ -163,10 +167,21 @@ public class XslTransformer {
         String xslFileName = "";
         if ("build".equalsIgnoreCase(rootNodeName)) {
             xslFileName = BUILD_XSL;
-        } else if ("project".equalsIgnoreCase(rootNodeName) || "maven2-moduleset".equalsIgnoreCase(rootNodeName) || "matrix-project".equalsIgnoreCase(rootNodeName)) {
+        } else if ("project".equalsIgnoreCase(rootNodeName) ||
+                   "maven2-moduleset".equalsIgnoreCase(rootNodeName) ||
+                   "matrix-project".equalsIgnoreCase(rootNodeName) ||
+                   "hudson.plugins.promoted__builds.PromotionProcess".equalsIgnoreCase(rootNodeName)) {
             xslFileName = JOB_CONFIG_XSL;
         } else if ("hudson".equalsIgnoreCase(rootNodeName)) {
             xslFileName = GENERAL_CONFIG_XSL;
+        } else if ("hudson.maven.MavenBuild".equalsIgnoreCase(rootNodeName) ||
+                   "hudson.maven.MavenModuleSetBuild".equalsIgnoreCase(rootNodeName) ||
+                   "matrix-build".equalsIgnoreCase(rootNodeName) ||
+                   "matrix-run".equalsIgnoreCase(rootNodeName) ||
+                   "matrix-config".equalsIgnoreCase(rootNodeName) ||
+                   "hudson.plugins.promoted__builds.Promotion".equalsIgnoreCase(rootNodeName)) {
+            System.out.println("Known rootNodeName: " + rootNodeName + ", but will not be converted!");
+            xslFileName = KNOWN_ROOTNAME_THAT_WILL_NOT_BE_CONVERTED;
         } else {
             System.err.println("Unknown rootNodeName: " + rootNodeName);
             return null;

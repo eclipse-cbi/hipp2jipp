@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<build>
+  <actions>
+    <hudson.model.CauseAction>
+      <causes>
+        <hudson.triggers.SCMTrigger_-SCMTriggerCause/>
+      </causes>
+    </hudson.model.CauseAction>
+    <hudson.triggers.SCMTrigger_-BuildAction>
+      <build class="build" reference="../../.."/>
+    </hudson.triggers.SCMTrigger_-BuildAction>
+    <hudson.plugins.git.util.BuildData>
+      <buildsByBranchName>
+        <entry>
+          <string>origin/master</string>
+          <hudson.plugins.git.util.Build>
+            <revision>
+              <sha1>535c67017021be65206b76435bd8778f3b08bf60</sha1>
+              <branches class="list">
+                <hudson.plugins.git.Branch>
+                  <sha1 reference="../../../sha1"/>
+                  <name>origin/master</name>
+                </hudson.plugins.git.Branch>
+              </branches>
+            </revision>
+            <hudsonBuildNumber>1303</hudsonBuildNumber>
+          </hudson.plugins.git.util.Build>
+        </entry>
+      </buildsByBranchName>
+      <lastBuild reference="../buildsByBranchName/entry/hudson.plugins.git.util.Build"/>
+    </hudson.plugins.git.util.BuildData>
+    <hudson.scm.SCMRevisionState_-None/>
+    <hudson.plugins.promoted__builds.PromotedBuildAction>
+      <owner class="build" reference="../../.."/>
+      <statuses>
+        <hudson.plugins.promoted__builds.Status>
+          <name>head</name>
+          <badges>
+            <hudson.plugins.promoted__builds.conditions.SelfPromotionBadge/>
+          </badges>
+          <timestamp>
+            <time>1516770421806</time>
+            <timezone>America/Toronto</timezone>
+          </timestamp>
+          <promotion>1123</promotion>
+          <promotionAttempts>
+            <int>1123</int>
+          </promotionAttempts>
+        </hudson.plugins.promoted__builds.Status>
+      </statuses>
+    </hudson.plugins.promoted__builds.PromotedBuildAction>
+    <maven-build-record>
+      <id>d44f58c6-11bb-4ff4-83ff-aa8797f00644</id>
+      <build class="build" reference="../../.."/>
+      <state>
+        <outer-class reference="../.."/>
+      </state>
+    </maven-build-record>
+    <maven-build-action>
+      <build class="build" reference="../../.."/>
+    </maven-build-action>
+    <hudson.tasks.junit.TestResultAction>
+      <owner class="build" reference="../../.."/>
+      <descriptions class="java.util.concurrent.ConcurrentHashMap"/>
+      <failCount>0</failCount>
+      <skipCount>6</skipCount>
+      <totalCount>184</totalCount>
+      <testData/>
+    </hudson.tasks.junit.TestResultAction>
+    <hudson.plugins.disk__usage.BuildDiskUsageAction>
+      <diskUsage>
+        <buildUsage>94190131</buildUsage>
+        <wsUsage>211132367</wsUsage>
+      </diskUsage>
+      <build class="build" reference="../../.."/>
+    </hudson.plugins.disk__usage.BuildDiskUsageAction>
+  </actions>
+  <number>1303</number>
+  <result>SUCCESS</result>
+  <duration>133879</duration>
+  <charset>UTF-8</charset>
+  <keepLog>false</keepLog>
+  <builtOn></builtOn>
+  <workspace>/home/hudson/genie.packaging/.hudson/jobs/epp-logging.head/workspace</workspace>
+  <hudsonVersion>3.0.1-b2</hudsonVersion>
+  <scm class="hudson.plugins.git.GitChangeLogParser">
+    <authorOrCommitter>false</authorOrCommitter>
+  </scm>
+  <culprits/>
+</build>

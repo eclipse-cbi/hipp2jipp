@@ -54,8 +54,7 @@ public class HudsonConfigConverter {
             return !name.startsWith("workspace") &&
                     !"users".equalsIgnoreCase(name) &&
                     !"archive".equalsIgnoreCase(name) &&
-                    !"config-history".equalsIgnoreCase(name) &&
-                    !"promotions".equalsIgnoreCase(name);
+                    !"config-history".equalsIgnoreCase(name);
         }
     };
 
@@ -104,7 +103,11 @@ public class HudsonConfigConverter {
                 outputFile = getTransformedFileName(inputFile);
             }
 
-            xslTransformer.transform(inputFile, outputFile);
+            boolean successful = xslTransformer.transform(inputFile, outputFile);
+            if (!successful) {
+                System.err.println("Error(s) during transformation.");
+                return;
+            }
 
             String rootNodeName = XslTransformer.getXmlRootNodeName(inputFile);
             if ("build".equalsIgnoreCase(rootNodeName)) {

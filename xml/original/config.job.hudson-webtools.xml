@@ -1,0 +1,271 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description>[WTP 3.9.x Maintenance Build **Oxygen.3**]
+[Build version: 3.9.3]
+[git branch: R3_9_maintenance]
+&lt;p&gt;Results here: &lt;a href=http://build.eclipse.org/webtools/committers/wtp-R3.9.3-M/&gt;http://build.eclipse.org/webtools/committers/wtp-R3.9.3-M/&lt;/a&gt;&lt;/p&gt;
+&lt;b style=red&gt;NOTE: This job does not collect JUnit test results yet. &lt;/b&gt;
+
+&lt;p&gt;Requires: Maven 3.2.5 and Ant 1.8.4</description>
+  <project-properties class="java.util.concurrent.ConcurrentHashMap">
+    <entry>
+      <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+      <base-property>
+        <originalValue class="hudson.plugins.disk_usage.DiskUsageProperty"/>
+        <propertyOverridden>false</propertyOverridden>
+      </base-property>
+    </entry>
+    <entry>
+      <string>logRotator</string>
+      <log-rotator-property>
+        <originalValue class="hudson.tasks.LogRotator">
+          <daysToKeep>7</daysToKeep>
+          <numToKeep>7</numToKeep>
+          <artifactDaysToKeep>-1</artifactDaysToKeep>
+          <artifactNumToKeep>-1</artifactNumToKeep>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </log-rotator-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-xvnc-Xvnc</string>
+      <external-property>
+        <originalValue class="hudson.plugins.xvnc.Xvnc">
+          <takeScreenshot>false</takeScreenshot>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-Mailer</string>
+      <external-property>
+        <originalValue class="hudson.tasks.Mailer">
+          <recipients>wtp-releng@eclipse.org</recipients>
+          <dontNotifyEveryUnstableBuild>false</dontNotifyEveryUnstableBuild>
+          <sendToIndividuals>true</sendToIndividuals>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>cleanWorkspaceRequired</string>
+      <boolean-property>
+        <originalValue class="boolean">true</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </boolean-property>
+    </entry>
+    <entry>
+      <string>hudson-plugins-build_timeout-BuildTimeoutWrapper</string>
+      <external-property>
+        <originalValue class="hudson.plugins.build_timeout.BuildTimeoutWrapper">
+          <timeoutMinutes>410</timeoutMinutes>
+          <failBuild>false</failBuild>
+          <writingDescription>false</writingDescription>
+          <timeoutPercentage>150</timeoutPercentage>
+          <timeoutType>absolute</timeoutType>
+          <timeoutMinutesElasticDefault>60</timeoutMinutesElasticDefault>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>builders</string>
+      <describable-list-property>
+        <originalValue class="hudson.util.DescribableList">
+          <hudson.tasks.Shell>
+            <command>#!/bin/bash
+./scripts/git-clean.sh
+./scripts/submodule-checkout.sh
+./scripts/build-preparation.sh
+
+# apply patches / hacks / unmerged gerrit requests here 
+# https://git.eclipse.org/r/#/c/112219/
+#pushd webtools.webservices
+#  git fetch https://git.eclipse.org/r/webservices/webtools.webservices refs/changes/19/112219/1 &amp;&amp; git cherry-pick FETCH_HEAD
+#popd</command>
+          </hudson.tasks.Shell>
+          <maven-builder>
+            <config>
+              <installationId>Maven 3.2.5</installationId>
+              <goals>clean install -V</goals>
+              <privateRepository>true</privateRepository>
+              <privateTmpdir>true</privateTmpdir>
+              <pomFile>pom.xml</pomFile>
+              <properties>
+                <entries>
+                  <entry name="maven.test.skip" value="true"/>
+                  <entry name="maven.test.error.ignore" value="true"/>
+                  <entry name="maven.test.failure.ignore" value="true"/>
+                  <entry name="tycho-extras.version" value="0.21.0"/>
+                  <entry name="surefire.timeout" value="1800"/>
+                  <entry name="skipWithIssues" value="false"/>
+                  <entry name="tycho.version" value="0.21.0"/>
+                </entries>
+              </properties>
+              <errors>false</errors>
+              <verbosity>NORMAL</verbosity>
+              <offline>false</offline>
+              <snapshotUpdateMode>NORMAL</snapshotUpdateMode>
+              <profiles>
+                <string>bree-libs</string>
+                <string>eclipse-sign</string>
+              </profiles>
+              <recursive>true</recursive>
+              <checksumMode>NORMAL</checksumMode>
+              <failMode>FAST</failMode>
+              <makeMode>NONE</makeMode>
+              <settingsId>e23a0b6a-ab36-4ea3-8d97-c6ce7ba3db90</settingsId>
+              <globalSettingsId>NONE</globalSettingsId>
+              <toolChainsId>f1492191-c1d9-4caa-a6bf-44160486454d</toolChainsId>
+            </config>
+          </maven-builder>
+          <hudson.tasks.Ant>
+            <targets>-lib ./libs/</targets>
+            <antName>apache-ant-1.8.4</antName>
+            <buildFile>wtp-parent/postBuild.xml</buildFile>
+            <properties>build.type=M
+publish=true
+wtp.version=3.9.3</properties>
+          </hudson.tasks.Ant>
+          <hudson.tasks.Shell>
+            <command></command>
+          </hudson.tasks.Shell>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </describable-list-property>
+    </entry>
+    <entry>
+      <string>jdk</string>
+      <string-property>
+        <originalValue class="string">JDK 1.8.0 Latest</originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </string-property>
+    </entry>
+    <entry>
+      <string>hudson-tasks-ArtifactArchiver</string>
+      <external-property>
+        <originalValue class="hudson.tasks.ArtifactArchiver">
+          <artifacts>webtools.repositories/*/target/*.zip</artifacts>
+          <compressionType>GZIP</compressionType>
+          <latestOnly>false</latestOnly>
+          <autoValidateFileMask>false</autoValidateFileMask>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+        <modified>true</modified>
+      </external-property>
+    </entry>
+    <entry>
+      <string>scm</string>
+      <scm-property>
+        <originalValue class="hudson.plugins.git.GitSCM">
+          <configVersion>1</configVersion>
+          <remoteRepositories>
+            <RemoteConfig>
+              <name>origin</name>
+              <uris>
+                <org.eclipse.jgit.transport.URIish>
+                  <scheme>git</scheme>
+                  <path>/gitroot/webtools/webtools.releng.aggregator.git</path>
+                  <rawPath>/gitroot/webtools/webtools.releng.aggregator.git</rawPath>
+                  <port>-1</port>
+                  <host>git.eclipse.org</host>
+                </org.eclipse.jgit.transport.URIish>
+              </uris>
+              <pushURIs/>
+              <fetch>
+                <org.eclipse.jgit.transport.RefSpec>
+                  <force>true</force>
+                  <wildcard>true</wildcard>
+                  <srcName>refs/heads/*</srcName>
+                  <dstName>refs/remotes/origin/*</dstName>
+                </org.eclipse.jgit.transport.RefSpec>
+              </fetch>
+              <push/>
+              <uploadpack>git-upload-pack</uploadpack>
+              <receivepack>git-receive-pack</receivepack>
+              <tagopt>AUTO_FOLLOW</tagopt>
+              <mirror>false</mirror>
+              <timeout>0</timeout>
+              <relativeTargetDir></relativeTargetDir>
+            </RemoteConfig>
+          </remoteRepositories>
+          <branches>
+            <hudson.plugins.git.BranchSpec>
+              <name>R3_9_maintenance</name>
+            </hudson.plugins.git.BranchSpec>
+          </branches>
+          <mergeOptions/>
+          <recursiveSubmodules>true</recursiveSubmodules>
+          <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+          <authorOrCommitter>false</authorOrCommitter>
+          <clean>false</clean>
+          <wipeOutWorkspace>true</wipeOutWorkspace>
+          <pruneBranches>false</pruneBranches>
+          <remotePoll>false</remotePoll>
+          <ignoreNotifyCommit>false</ignoreNotifyCommit>
+          <buildChooser class="hudson.plugins.git.util.DefaultBuildChooser"/>
+          <gitTool>Default</gitTool>
+          <submoduleCfg class="list"/>
+          <includedRegions></includedRegions>
+          <excludedRegions></excludedRegions>
+          <excludedUsers></excludedUsers>
+          <excludedCommits/>
+          <gitConfigName></gitConfigName>
+          <gitConfigEmail></gitConfigEmail>
+          <skipTag>false</skipTag>
+          <useCgitClone>false</useCgitClone>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </scm-property>
+    </entry>
+    <entry>
+      <string>hudson-triggers-TimerTrigger</string>
+      <trigger-property>
+        <originalValue class="hudson.triggers.TimerTrigger">
+          <spec>@daily</spec>
+        </originalValue>
+        <propertyOverridden>false</propertyOverridden>
+      </trigger-property>
+    </entry>
+  </project-properties>
+  <keepDependencies>false</keepDependencies>
+  <createdBy>someone@somewhere.com</createdBy>
+  <creationTime>1498500888307</creationTime>
+  <properties>
+    <hudson.security.AuthorizationMatrixProperty>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Configure:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.ExtendedRead:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Build:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Read:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Update:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Item.Workspace:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+      <permission>hudson.model.Run.Delete:someone@somewhere.com</permission>
+    </hudson.security.AuthorizationMatrixProperty>
+  </properties>
+  <cascadingChildrenNames class="java.util.concurrent.CopyOnWriteArraySet"/>
+  <cascading-job-properties class="java.util.concurrent.CopyOnWriteArraySet">
+    <string>hudson-plugins-disk_usage-DiskUsageProperty</string>
+  </cascading-job-properties>
+  <scm class="hudson.scm.NullSCM"/>
+  <canRoam>false</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <concurrentBuild>false</concurrentBuild>
+  <cleanWorkspaceRequired>false</cleanWorkspaceRequired>
+</project>

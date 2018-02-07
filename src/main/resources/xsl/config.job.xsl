@@ -553,6 +553,15 @@
         <xsl:if test="wipeOutWorkspace [text() = 'true']">
           <hudson.plugins.git.extensions.impl.WipeWorkspace/>
         </xsl:if>
+        <xsl:if test="recursiveSubmodules [text() = 'true']">
+          <hudson.plugins.git.extensions.impl.SubmoduleOption>
+            <disableSubmodules>false</disableSubmodules>
+            <recursiveSubmodules>true</recursiveSubmodules>
+            <trackingSubmodules>false</trackingSubmodules>
+            <reference></reference>
+            <parentCredentials>false</parentCredentials>
+          </hudson.plugins.git.extensions.impl.SubmoduleOption>
+        </xsl:if>
         <xsl:if test="pruneBrances [text() = 'true']">
           <hudson.plugins.git.extensions.impl.PruneStaleBranch/>
         </xsl:if>

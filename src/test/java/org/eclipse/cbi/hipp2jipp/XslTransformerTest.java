@@ -375,6 +375,14 @@ public class XslTransformerTest {
         transformAndCompareFreestyleJob("modisco");
     }
 
+    /**
+     * Tests that Git sub-module checkout config is transformed correctly 
+     */
+    @Test
+    public void configJobTest_webtools() {
+        transformAndCompareFreestyleJob("webtools");
+    }
+
     @Test
     public void copyViewsTest_positive() {
         testCopyViews("config.main.jenkins-cbi.xml", "config.main.hudson-cbi.xml");

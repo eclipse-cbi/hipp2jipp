@@ -1,8 +1,12 @@
 pipeline {
   agent any
+  options {
+      buildDiscarder(logRotator(numToKeepStr:'10'))
+  }
   stages {
     stage('Checkout') {
       steps {
+        cleanWs()
         git(url: 'https://github.com/eclipse/hipp2jipp', changelog: true)
       }
     }

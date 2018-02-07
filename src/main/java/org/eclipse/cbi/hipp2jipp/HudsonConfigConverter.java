@@ -47,7 +47,7 @@ public class HudsonConfigConverter {
 
     private static XslTransformer xslTransformer;
 
-    public static FilenameFilter excludedDirFilter = new FilenameFilter() {
+    public static final FilenameFilter excludedDirFilter = new FilenameFilter() {
 
         @Override
         public boolean accept(File dir, String name) {

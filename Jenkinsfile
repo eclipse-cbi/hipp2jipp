@@ -3,6 +3,11 @@ pipeline {
   options {
       buildDiscarder(logRotator(numToKeepStr:'10'))
   }
+
+  tools {
+    jdk 'oracle-jdk8-latest'
+  }
+
   stages {
     stage('Checkout') {
       steps {
@@ -15,7 +20,7 @@ pipeline {
         withMaven(maven: 'apache-maven-latest') {
           sh 'mvn clean verify'
         }
-        
+
       }
     }
     stage('Archive') {
